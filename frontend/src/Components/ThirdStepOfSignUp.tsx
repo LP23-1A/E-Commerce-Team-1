@@ -58,6 +58,7 @@ export default function ThirdStepOfSignUp() {
                     </ul>
                 </div>
             </div>
+            
             {/* information about store */}
             <div className="flex justify-center">
                 <div className="w-[452px] h-[296px] mt-[100px]">
