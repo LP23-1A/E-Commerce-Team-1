@@ -58,12 +58,12 @@ export default function ThirdStepOfSignUp() {
                     </ul>
                 </div>
             </div>
-            
+
             {/* information about store */}
             <div className="flex justify-center">
                 <div className="w-[452px] h-[296px] mt-[100px]">
                     <h3 className="font-bold text-3xl text-black">Knowing to each other a bit</h3>
-                    <h5 className="font-normal text-base" style={{color:"#121316"}}>This information will be used to support store configuration</h5>
+                    <h5 className="font-normal text-base" style={{ color: "#121316" }}>This information will be used to support store configuration</h5>
                     {/* take Input */}
 
                     <div className="flex gap-4 flex-col">
