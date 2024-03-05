@@ -32,7 +32,6 @@ export default function ThirdStepOfSignUp() {
         }
     };
 
-
     return (
         <div>
             <div className="mt-[14px] ml-[44px]">
