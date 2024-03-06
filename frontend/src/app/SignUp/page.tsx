@@ -1,13 +1,16 @@
 'use client'
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import PineConeSVG from "@/Components/SVG/PineCone";
 import ButtonGoogle from "@/Components/ButtonGoogle";
 import ButtonMicrosoft from "@/Components/ButtonMicrosoft";
 import ButtonApple from "@/Components/ButtonApple";
 import axios from "axios";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const backEndOfSignUp = "http://localhost:8000/user/postUser";
+
+const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export default function SignUp() {
     const [name, setName] = useState('');
@@ -19,15 +22,25 @@ export default function SignUp() {
     const registerClient = async () => {
         try {
             if (name !== "" && email !== "") {
-                console.log(name, email, "test");
-
-                const newClient = await axios.post(backEndOfSignUp, {
+                if (!validateEmail(email)) {
+                    setError("Email must include symbols and numbers");
+                    setTimeout(() => {
+                        setError("");
+                    }, 4000);
+                    return;
+                }
+                
+                const response = await axios.post(backEndOfSignUp, {
                     userName: name,
                     email: email
                 });
-                route.push('/InfoAboutStore')
-                console.log(newClient, "this is new client");
 
+                const token = response.data.token;
+                Cookies.set('token', token);
+
+                route.push(`/?${token}/InfoAboutStore`);
+                // route.push(`/?token=${token}&page=InfoAboutStore`);
+                // console.log("Sign up successful");
             } else {
                 setError("Please fill in the given forms");
                 setTimeout(() => {
@@ -35,18 +48,23 @@ export default function SignUp() {
                 }, 2000);
             }
         } catch (error) {
-            console.log('cannot register client');
+            console.error('Cannot register client', error);
         }
     };
 
-    const handleColor = (valueEmai: any, valueName: any) => {
-        setEmail(valueEmai);
+
+    const handleColor = (valueEmail: string, valueName: string) => {
+        setEmail(valueEmail);
         setName(valueName);
 
-        valueEmai.trim() !== "" && valueName.trim() !== ""
+        valueEmail.trim() !== "" && valueName.trim() !== ""
             ? setButtonActive(true)
             : setButtonActive(false)
     };
+
+    function validateEmail(email: string) {
+        return USEREMAIL_REGEX.test(email)
+    }
 
     return (
         <div className="flex relative">
@@ -96,4 +114,3 @@ export default function SignUp() {
         </div>
     )
 };
-
