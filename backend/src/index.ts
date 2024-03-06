@@ -9,8 +9,8 @@ import { product } from "./router/Product";
 dotenv.config();
 
 connectDataBase()
-    .then(() => console.log("Database connected successfully."))
-    .catch((error) => console.error("Database connection failed:", error));
+  .then(() => console.log("Database connected successfully."))
+  .catch((error) => console.error("Database connection failed:", error));
 
 const app = express();
 
@@ -21,14 +21,13 @@ app.use(cors());
 app.use('/user', user)
 app.use("/product", product)
 
-app.get('/', (_, res) => {
-
-    res.status(200).send({
-        success: true,
-        message: "Successfully connected to the database."
-    });
+app.get("/", (_, res) => {
+  res.status(200).send({
+    success: true,
+    message: "Successfully connected to the database.",
+  });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

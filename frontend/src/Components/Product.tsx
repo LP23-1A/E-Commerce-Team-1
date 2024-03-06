@@ -1,19 +1,52 @@
+"use client";
 import Plus from "./Icon/Plus";
 import Search from "./Icon/Search";
 import texts from "./utils/Texts";
-import Info from "./utils/Informations";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+const api = "http://localhost:8000/product/get";
+
+interface Items {
+  productName: string;
+  description: string;
+  price: number;
+  quantity: string;
+}
 
 export default function Product() {
+  const [data, setData] = useState<Items[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get<Items[]>(api);
+        setData(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const router = useRouter();
+  const handler = () => {
+    router.push("/AddProduct");
+  };
+
   return (
     <div className="flex flex-col gap-6 bg-gray-100 w-full h-screen px-4">
       <div className="flex gap-4 pt-6 items-center">
         <h1>Бүтээгдэхүүн</h1>
         <h1>Ангилал</h1>
       </div>
-      <div className="bg-black w-[280px] h-[48px] text-white flex items-center p-4 justify-center gap-4 rounded-lg">
+      <button
+        className="bg-black w-[280px] h-[48px] text-white flex items-center p-4 justify-center gap-4 rounded-lg"
+        onClick={handler}
+      >
         <Plus />
         <h1>Бүтээгдэхүүн нэмэх</h1>
-      </div>
+      </button>
       <div className="flex justify-between w-full">
         <div className="flex gap-4">
           {texts.map((data, ind) => (
@@ -66,7 +99,7 @@ export default function Product() {
               </tr>
             </thead>
             <tbody>
-              {Info.map((data, index) => (
+              {data.map((dat, index) => (
                 <tr key={index}>
                   <td className="w-4 p-4">
                     <input type="checkbox" className="w-5 h-5" />
@@ -78,15 +111,17 @@ export default function Product() {
                       alt="Product Image"
                     />
                     <div className="ps-3 text-black">
-                      <h1 className="font-semibold">{data.name}</h1>
-                      <p className="font-normal text-gray-500">{data.date}</p>
+                      <h1 className="font-semibold">{dat.productName}</h1>
+                      <p className="font-normal text-gray-500">
+                        {dat.quantity}
+                      </p>
                     </div>
                   </td>
-                  <td className="px-6 py-4">{data.sort}</td>
-                  <td className="px-6 py-4">{data.price}</td>
-                  <td className="px-6 py-4">{data.rest}</td>
-                  <td className="px-6 py-4">{data.sold}</td>
-                  <td className="px-6 py-4">{data.date}</td>
+                  {/* <td className="px-6 py-4">{dat.sort}</td>
+                  <td className="px-6 py-4">{dat.price}</td>
+                  <td className="px-6 py-4">{dat.rest}</td>
+                  <td className="px-6 py-4">{dat.sold}</td>
+                  <td className="px-6 py-4">{dat.date}</td> */}
                 </tr>
               ))}
             </tbody>
