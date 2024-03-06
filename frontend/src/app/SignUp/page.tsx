@@ -1,9 +1,53 @@
-import Google from "@/Components/SVG/Google";
-import Microsoft from "@/Components/SVG/Microsoft";
-import Apple from "@/Components/SVG/Apple";
+'use client'
 import PineConeSVG from "@/Components/SVG/PineCone";
+import ButtonGoogle from "@/Components/ButtonGoogle";
+import ButtonMicrosoft from "@/Components/ButtonMicrosoft";
+import ButtonApple from "@/Components/ButtonApple";
+import axios from "axios";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+const backEndOfSignUp = "http://localhost:8000/user/postUser";
 
 export default function SignUp() {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [buttonActive, setButtonActive] = useState(false);
+    const [error, setError] = useState("");
+    const route = useRouter();
+
+    const registerClient = async () => {
+        try {
+            if (name !== "" && email !== "") {
+                console.log(name, email, "test");
+
+                const newClient = await axios.post(backEndOfSignUp, {
+                    userName: name,
+                    email: email
+                });
+                route.push('/InfoAboutStore')
+                console.log(newClient, "this is new client");
+
+            } else {
+                setError("Please fill in the given forms");
+                setTimeout(() => {
+                    setError("");
+                }, 2000);
+            }
+        } catch (error) {
+            console.log('cannot register client');
+        }
+    };
+
+    const handleColor = (valueEmai: any, valueName: any) => {
+        setEmail(valueEmai);
+        setName(valueName);
+
+        valueEmai.trim() !== "" && valueName.trim() !== ""
+            ? setButtonActive(true)
+            : setButtonActive(false)
+    };
+
     return (
         <div className="flex relative">
             <div className="mt-[44px] ml-[44px] absolute">
@@ -14,30 +58,33 @@ export default function SignUp() {
                     <p className="flex font-bold text-3xl justify-center w-[360px] h-[60px] pb-5 ">To Register</p>
                     <div className="w-[360xp] mt-10 h-[88px] flex flex-col gap-4">
                         <p className="font-normal text-base text-black">Your Email</p>
-                        <input className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="Email" type="text" />
+                        <input
+                            value={email}
+                            onChange={(e) => handleColor(e.target.value, name)}
+                            className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="Email" type="text" />
                     </div>
                     <div className="w-[360xp] h-[88px] flex flex-col gap-4 mt-2">
                         <p className="font-normal text-base text-black">Your Name</p>
-                        <input className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="Name" type="text" />
+                        <input
+                            value={name}
+                            onChange={(e) => handleColor(email, e.target.value)}
+                            className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="Name" type="text" />
                     </div>
-                    <button className="flex flex-row text-white bg-black w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
+                    <p className="text-red-400 semibold">{error}</p>
+                    <button
+                        style={{ background: buttonActive ? "black" : "#D6D8DB", color: buttonActive ? "white" : "gray" }}
+                        onClick={() => {
+                            registerClient()
+                        }}
+                        className="flex flex-row w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
                         <div></div>
                         Next
                         <div className="arrow w-[24px] text-lg h-[24px] justify-center items-center flex">&#8594;</div>
                     </button>
                     <div className="border border-solid border-grey-300 w-[360px] mt-6"></div>
-                    <button className="flex flex-row text-blacl bg-slate-100 justify-center gap-4 mt-7 w-[360px] items-center rounded-lg h-[56px] p-2 hover:rounded-full transition-transform transform active:scale-95 hover:scale-110 duration-300 ease-in-out ">
-                        <Google />
-                        Register by Google
-                    </button>
-                    <button className="flex flex-row text-blacl bg-slate-100 justify-center gap-4 mt-7 w-[360px] items-center rounded-lg h-[56px] p-2 hover:rounded-full transition-transform transform active:scale-95 duration-300 ease-in-out hover:scale-110">
-                        <Microsoft />
-                        Register by Microsoft
-                    </button>
-                    <button className="flex flex-row text-blacl bg-slate-100 justify-center gap-4 mt-7 w-[360px] items-center rounded-lg h-[56px] p-2 hover:rounded-full transition-transform transform active:scale-95 duration-300 ease-in-out hover:scale-110">
-                        <Apple />
-                        Register by Apple
-                    </button>
+                    <ButtonGoogle />
+                    <ButtonMicrosoft />
+                    <ButtonApple />
                     <div className="border border-solid border-grey-300 w-[360px] mt-10"></div>
                     <div className="flex flex-row text-blacl justify-center gap-4 mt-7 w-[360px] items-center rounded-lg h-[56px] p-2">
                         Already Signed Up ?
@@ -45,7 +92,7 @@ export default function SignUp() {
                     </div>
                     <p className="absolute mt-[100px] ml-[100px] text-slate-400">© 2023 Pinecone</p>
                 </div>
-            </div>            
+            </div>
         </div>
     )
 };
