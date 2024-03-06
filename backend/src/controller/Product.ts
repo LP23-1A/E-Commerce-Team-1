@@ -6,16 +6,30 @@ interface ProductData {
   description: string;
   price: number;
   quantity: number;
+  thumbnails: number;
+  createdAt: number;
+  coupon: string;
 }
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const { productName, description, price, quantity }: ProductData = req.body;
+    const {
+      productName,
+      description,
+      price,
+      quantity,
+      createdAt,
+      coupon,
+      thumbnails,
+    }: ProductData = req.body;
     const product = await ProductModel.create({
       productName,
       description,
       price,
       quantity,
+      createdAt,
+      thumbnails,
+      coupon,
     });
     res.status(200).send(product);
   } catch (error) {
@@ -37,7 +51,6 @@ export const deleteProduct = async (req: Request, res: Response) => {
     const ProductId = req.params.id;
     const deleteProduct = await ProductModel.findByIdAndDelete(ProductId);
     res.status(200).send({ success: true, deleteProduct });
-    // console.log("deleted", deleteProduct);
   } catch (error) {
     console.log(error);
   }

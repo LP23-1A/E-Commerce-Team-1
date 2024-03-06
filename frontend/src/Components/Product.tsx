@@ -1,18 +1,25 @@
 "use client";
+import { useEffect, useState } from "react";
 import Plus from "./Icon/Plus";
 import Search from "./Icon/Search";
+import Delete from "./Icon/Delete";
+import Edit from "./Icon/Edit";
 import texts from "./utils/Texts";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import axios from "axios";
 
 const api = "http://localhost:8000/product/get";
+const api2 = "http://localhost:8000/product";
 
 interface Items {
+  _id: string;
   productName: string;
   description: string;
   price: number;
   quantity: string;
+  createdAt: number;
+  coupon: string;
+  thumbnails: string;
 }
 
 export default function Product() {
@@ -28,6 +35,17 @@ export default function Product() {
     };
     fetchData();
   }, []);
+
+  const handleDelete = async (productId: string) => {
+    try {
+      await axios.delete(`${api2}/${productId}`);
+      const updatedData = data.filter((item) => item._id !== productId);
+      setData(updatedData);
+      console.log("deleted");
+    } catch (error) {
+      console.log("can't delete");
+    }
+  };
 
   const router = useRouter();
   const handler = () => {
@@ -71,12 +89,12 @@ export default function Product() {
           />
         </div>
       </div>
-      <div className="w-full h-[500px]">
-        <div className="relative overflow-x-auto shadow-md bg-white rounded-lg">
+      <div className="overflow-x-auto shadow-md rounded-lg">
+        <div className="w-full max-h-[480px] overflow-y-auto bg-white">
           <table className="w-full text-sm text-left">
             <thead>
               <tr>
-                <th scope="col" className="p-4"></th>
+                <th scope="col" className="px-6 py-3"></th>
                 <th scope="col" className="px-6 py-3">
                   Бүтээгдэхүүн
                 </th>
@@ -95,7 +113,7 @@ export default function Product() {
                 <th scope="col" className="px-6 py-3">
                   Нэмсэн огноо
                 </th>
-                <th scope="col" className="p-4"></th>
+                <th scope="col" className="px-6 py-3"></th>
               </tr>
             </thead>
             <tbody>
@@ -117,11 +135,29 @@ export default function Product() {
                       </p>
                     </div>
                   </td>
-                  {/* <td className="px-6 py-4">{dat.sort}</td>
-                  <td className="px-6 py-4">{dat.price}</td>
-                  <td className="px-6 py-4">{dat.rest}</td>
-                  <td className="px-6 py-4">{dat.sold}</td>
-                  <td className="px-6 py-4">{dat.date}</td> */}
+
+                  <td className="px-6 py-4">{dat.coupon}</td>
+                  <td className="px-6 py-4">
+                    {dat.price !== null ? dat.price.toLocaleString() + "₮" : ""}
+                  </td>
+                  <td className="px-6 py-4">{dat.thumbnails}</td>
+                  <td className="px-6 py-4">{dat.description}</td>
+                  <td className="px-6 py-4">
+                    {dat.createdAt
+                      ? new Date(dat.createdAt).toISOString().slice(0, 10)
+                      : ""}
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      className="px-2 py-1"
+                      onClick={() => handleDelete(dat._id)}
+                    >
+                      <Delete />
+                    </button>
+                    <button className="px-2 py-1">
+                      <Edit />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

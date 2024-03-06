@@ -1,9 +1,9 @@
 import Add from "../../Components/Icon/Add";
-export default function addPro() {
+export default function addPro({ handleSubmit }: any) {
   return (
     <div className="flex items-center flex-col gap-[26px] w-[600px]">
       <div className="bg-white w-[575px] h-[232px] p-4 m-8 rounded-lg">
-        <div className="flex flex-col h-full justify-center">
+        <div className="flex flex-col h-full justify-center gap-6">
           <div className="flex flex-col gap-2">
             <h1>Ерөнхий ангилал</h1>
             <input
@@ -53,7 +53,12 @@ export default function addPro() {
         <button className="border-[1px] border-gray-400 w-[130px] h-[50px] rounded-lg font-semibold">
           Ноорог
         </button>
-        <button className=" bg-black border-[1px] border-gray-200 w-[130px] h-[50px] rounded-lg font-semibold text-white">
+        <button
+          className=" bg-black border-[1px] border-gray-200 w-[130px] h-[50px] rounded-lg font-semibold text-white"
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
           Нийтлэх
         </button>
       </div>

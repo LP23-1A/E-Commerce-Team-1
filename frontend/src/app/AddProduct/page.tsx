@@ -6,10 +6,12 @@ import AddPro from "./AddPro";
 import Sidebar from "@/Components/Sidebar";
 import { useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const api = "http://localhost:8000/product/create";
 
 export default function AddProduct() {
+  const router = useRouter();
   const [productName, setproductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -32,12 +34,15 @@ export default function AddProduct() {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="flex flex-col bg-gray-100 w-full h-screen">
-        <button className="flex gap-10 pt-6 items-center bg-white p-4">
+      <div className="flex flex-col bg-gray-100 w-full h-full">
+        <button
+          className="flex gap-10 pt-6 items-center bg-white p-4"
+          onClick={() => router.push("/AddPro")}
+        >
           <Arrow />
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
-        <div className="flex">
+        <div className="flex justify-between">
           <div className="flex flex-col">
             <div className="bg-white w-[563px] h-[312px] p-4 m-8 rounded-lg">
               <div className="flex flex-col gap-2">
@@ -113,8 +118,7 @@ export default function AddProduct() {
               </div>
             </div>
           </div>
-          <button onClick={handleSubmit}>Submit</button>
-          <AddPro />
+          <AddPro handleSubmit={handleSubmit} />
         </div>
       </div>
     </div>
