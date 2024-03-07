@@ -6,30 +6,53 @@ import AddPro from "./AddPro";
 import Sidebar from "@/Components/Sidebar";
 import { useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const api = "http://localhost:8000/product/create";
+const api2 = "http://localhost:8000/product";
 
 export default function AddProduct() {
+  const search = useSearchParams();
+  const action = search.get("action");
+  const productId = search.get("productId");
+
   const router = useRouter();
   const [productName, setproductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
+
   const handleSubmit = async () => {
-    const formData = {
-      productName: productName,
-      price: price,
-      description: description,
-      quantity: quantity,
-    };
+    if (action == "add") {
+      const formData = {
+        productName: productName,
+        price: price,
+        description: description,
+        quantity: quantity,
+      };
+      try {
+        const res = await axios.post(api, formData);
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+      return;
+    }
     try {
-      const res = await axios.post(api, formData);
-      console.log(res);
+      const Data = {
+        productName: productName,
+        price: price,
+        description: description,
+        quantity: quantity,
+      };
+      await axios.put(`${api2}/${productId}`, Data);
+      console.log("updated");
     } catch (error) {
-      console.log(error);
+      console.log("can't update");
     }
   };
+
+  const handleUpdate = async (productId: string) => {};
 
   return (
     <div className="flex">
@@ -42,7 +65,7 @@ export default function AddProduct() {
           <Arrow />
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
-        <div className="flex justify-between">
+        <div className="flex">
           <div className="flex flex-col">
             <div className="bg-white w-[563px] h-[312px] p-4 m-8 rounded-lg">
               <div className="flex flex-col gap-2">
@@ -118,7 +141,7 @@ export default function AddProduct() {
               </div>
             </div>
           </div>
-          <AddPro handleSubmit={handleSubmit} />
+          <AddPro handleSubmit={handleSubmit} handleUpdate={handleUpdate} />
         </div>
       </div>
     </div>

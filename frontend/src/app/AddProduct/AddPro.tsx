@@ -1,5 +1,6 @@
 import Add from "../../Components/Icon/Add";
-export default function addPro({ handleSubmit }: any) {
+
+export default function addPro({ handleSubmit, handleUpdate }: any) {
   return (
     <div className="flex items-center flex-col gap-[26px] w-[600px]">
       <div className="bg-white w-[575px] h-[232px] p-4 m-8 rounded-lg">
@@ -57,6 +58,7 @@ export default function addPro({ handleSubmit }: any) {
           className=" bg-black border-[1px] border-gray-200 w-[130px] h-[50px] rounded-lg font-semibold text-white"
           onClick={() => {
             handleSubmit();
+            handleUpdate();
           }}
         >
           Нийтлэх

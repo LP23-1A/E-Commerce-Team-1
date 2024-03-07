@@ -49,7 +49,7 @@ export default function Product() {
 
   const router = useRouter();
   const handler = () => {
-    router.push("/AddProduct");
+    router.push("/AddProduct?action=add");
   };
 
   return (
@@ -154,7 +154,14 @@ export default function Product() {
                     >
                       <Delete />
                     </button>
-                    <button className="px-2 py-1">
+                    <button
+                      className="px-2 py-1"
+                      onClick={() =>
+                        router.push(
+                          `/AddProduct?action=edit&productId=${dat._id}`
+                        )
+                      }
+                    >
                       <Edit />
                     </button>
                   </td>

@@ -59,12 +59,14 @@ export const deleteProduct = async (req: Request, res: Response) => {
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     const ProductId = req.params.id;
-    const updateProduct = await ProductModel.findByIdAndUpdate(
+    const updatedProduct = await ProductModel.findByIdAndUpdate(
       ProductId,
-      req.body
+      req.body,
+      { new: true }
     );
-    res.status(200).send({ success: true, updateProduct });
+    res.status(200).send({ success: true, updatedProduct });
   } catch (error) {
     console.log(error);
+    res.status(500).send({ success: false, message: "Internal server error" });
   }
 };
