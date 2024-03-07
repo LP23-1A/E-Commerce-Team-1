@@ -6,7 +6,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bp from "body-parser";
-import { Income } from "./router/income";
+import { Income } from "./router/Income";
 
 dotenv.config();
 
