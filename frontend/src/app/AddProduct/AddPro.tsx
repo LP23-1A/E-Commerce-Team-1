@@ -1,6 +1,12 @@
+import { useRouter } from "next/navigation";
 import Add from "../../Components/Icon/Add";
 
 export default function addPro({ handleSubmit, handleUpdate }: any) {
+  const router = useRouter();
+  const items = [
+    { label: "Өнгө", icon: <Add /> },
+    { label: "Хэмжээ", icon: <Add /> },
+  ];
   return (
     <div className="flex items-center flex-col gap-[26px] w-[600px]">
       <div className="bg-white w-[575px] h-[232px] p-4 m-8 rounded-lg">
@@ -26,14 +32,12 @@ export default function addPro({ handleSubmit, handleUpdate }: any) {
       <div className="bg-white w-[575px] h-[240px] p-4 m-8 rounded-lg">
         <div className="flex flex-col gap-6">
           <h1 className="font-semibold text-lg">Төрөл</h1>
-          <div className="flex items-center gap-6">
-            <h1>Өнгө</h1>
-            <Add />
-          </div>
-          <div className="flex items-center gap-6">
-            <h1>Хэмжээ</h1>
-            <Add />
-          </div>
+          {items.map((item, index) => (
+            <div key={index} className="flex items-center gap-6">
+              <h1>{item.label}</h1>
+              <button>{item.icon}</button>
+            </div>
+          ))}
           <button className="border-[1px] border-gray-200 w-[130px] h-[36px] rounded-lg font-semibold">
             Төрөл нэмэх
           </button>
@@ -59,6 +63,7 @@ export default function addPro({ handleSubmit, handleUpdate }: any) {
           onClick={() => {
             handleSubmit();
             handleUpdate();
+            router.push("/Product");
           }}
         >
           Нийтлэх

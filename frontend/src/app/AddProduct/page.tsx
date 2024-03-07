@@ -16,6 +16,8 @@ export default function AddProduct() {
   const action = search.get("action");
   const productId = search.get("productId");
 
+  const imageArray = [1, 2, 3];
+
   const router = useRouter();
   const [productName, setproductName] = useState("");
   const [price, setPrice] = useState("");
@@ -40,10 +42,10 @@ export default function AddProduct() {
     }
     try {
       const Data = {
-        productName: productName,
-        price: price,
-        description: description,
-        quantity: quantity,
+        ...(productName && { productName }),
+        ...(price && { price }),
+        ...(description && { description }),
+        ...(quantity && { quantity }),
       };
       await axios.put(`${api2}/${productId}`, Data);
       console.log("updated");
@@ -58,13 +60,12 @@ export default function AddProduct() {
     <div className="flex">
       <Sidebar />
       <div className="flex flex-col bg-gray-100 w-full h-full">
-        <button
-          className="flex gap-10 pt-6 items-center bg-white p-4"
-          onClick={() => router.push("/AddPro")}
-        >
-          <Arrow />
+        <div className="flex gap-10 pt-6 items-center bg-white p-4">
+          <button onClick={() => router.push("/Product")}>
+            <Arrow />
+          </button>
           <h1>Бүтээгдэхүүн нэмэх</h1>
-        </button>
+        </div>
         <div className="flex">
           <div className="flex flex-col">
             <div className="bg-white w-[563px] h-[312px] p-4 m-8 rounded-lg">
@@ -85,7 +86,7 @@ export default function AddProduct() {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     name="area"
-                    className="bg-gray-100 resize-none w-full h-[72px] text-#8B8E95 p-2 rounded-lg flex items-center"
+                    className="bg-gray-100 resize-none w-full h-[72px] p-2 rounded-lg flex items-center"
                     placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
                   ></textarea>
                 </div>
@@ -103,18 +104,19 @@ export default function AddProduct() {
               <div className="flex flex-col gap-8">
                 <h1>Бүтээгдэхүүний зураг</h1>
                 <div className="flex justify-around">
-                  <div className="w-[125px] h-[125px] rounded-xl border-dashed border-#D6D8DB border-[1px] flex justify-center items-center">
-                    <Image />
+                  <div className="flex justify-center">
+                    {imageArray.map((index) => (
+                      <div
+                        key={index}
+                        className="w-[125px] h-[125px] rounded-xl border-dashed border-gray-300 border-2 flex justify-center items-center m-2"
+                      >
+                        <Image />
+                      </div>
+                    ))}
                   </div>
-                  <div className="w-[125px] h-[125px] rounded-xl border-dashed border-#D6D8DB border-[1px] flex justify-center items-center">
-                    <Image />
-                  </div>
-                  <div className="w-[125px] h-[125px] rounded-xl border-dashed border-#D6D8DB border-[1px] flex justify-center items-center">
-                    <Image />
-                  </div>
-                  <div className="flex justify-center items-center w-[125px] h-[125px]">
+                  <button className="flex justify-center items-center w-[125px] h-[125px]">
                     <Add />
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>

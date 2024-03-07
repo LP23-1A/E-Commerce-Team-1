@@ -2,15 +2,13 @@
 import SignUp from "./SignUp/page";
 import Navbar from "@/Components/Navbar";
 import Sidebar from "../Components/Sidebar";
-import Product from "@/Components/Product";
 // import AddProduct from "@/Components/AddProduct";
+import Product from "@/app/Product/page";
 
 export default function Home() {
   return (
-    <div className="flex gap-8">
-      <Sidebar />
+    <div>
       <Product />
-      {/* <AddProduct /> */}
     </div>
   );
 }
