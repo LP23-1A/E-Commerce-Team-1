@@ -3,6 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bp from "body-parser";
+import { Income } from "./router/Income";
 
 dotenv.config(); 
 
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 8000;
 
 app.use(bp.json());
 app.use(cors());
+app.use("/Income", Income);
 
 app.get('/', (_, res) => {
     res.status(200).send({
