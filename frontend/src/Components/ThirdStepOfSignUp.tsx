@@ -2,11 +2,19 @@
 import PineConeSVG from "@/Components/SVG/PineCone";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+
+const backEndOfSignUp = "http://localhost:8000/user/postUser";
 
 export default function ThirdStepOfSignUp({ prevStep }: any) {
     const [buttonActive, setButtonActive] = useState(false);
     const [error, setError] = useState("");
-    const [selectedOption, setSelectedOption] = useState(false)
+    const [selectedOption, setSelectedOption] = useState(false);
+    const { user } = useAuth0()
+    console.log(JSON.stringify(user));
+
+
     const router = useRouter()
 
     const handleOptionChange = () => {
@@ -14,13 +22,19 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
         setButtonActive(true)
     };
 
-    const checkEmptyInput = () => {
+    const checkEmptyInput = async () => {
         if (!selectedOption) {
             setError("Please choose the given options");
             setTimeout(() => {
                 setError("");
             }, 2000);
         } else {
+            const response = await axios.post(backEndOfSignUp, {
+                userName: user?.name,
+                email: user?.email
+            })
+            console.log(response, "this is response");
+
             navigateToDashBoard();
         }
     };

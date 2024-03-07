@@ -1,20 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import dotenv from "dotenv";
-import { Auth0Provider } from '@auth0/auth0-react';
 import React from 'react';
-
-dotenv.config()
-
-const domain = process.env.REACT_APP_AUTH0_DOMAIN;
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
+import AuthProvider from "@/Components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
-
-console.log('REACT_APP_AUTH0_DOMAIN:', process.env.REACT_APP_AUTH0_DOMAIN);
-console.log('REACT_APP_AUTH0_CLIENT_ID:', process.env.REACT_APP_AUTH0_CLIENT_ID);
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,15 +18,13 @@ export default function RootLayout({
 }>) {
   return (
 
-    // <Auth0Provider
-    //   domain={domain}
-    //   clientId={clientId}
-    //   redirectUri={window.location.origin}
-    // >
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </body>
     </html>
-    // </Auth0Provider>
 
   );
 }
