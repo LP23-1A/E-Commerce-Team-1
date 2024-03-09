@@ -1,5 +1,5 @@
 "use client"
-import PineConeSVG from "@/Components/SVG/PineCone";
+import PineConeSVG from "@/components/SVG/PineCone";
 import React, { useRef, useState } from "react";
 export default function SecondStepOfSignUp({ nextStep, prevStep }: any) {
     const [buttonActive, setButtonActive] = useState(false);

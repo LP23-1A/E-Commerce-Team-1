@@ -1,31 +1,30 @@
 'use client'
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import PineConeSVG from "@/Components/SVG/PineCone";
-import ButtonGoogle from "@/Components/ButtonGoogle";
-import ButtonMicrosoft from "@/Components/ButtonMicrosoft";
-import ButtonApple from "@/Components/ButtonApple";
+import toast, { Toaster } from "react-hot-toast";
+import PineConeSVG from "@/components/SVG/PineCone";
+import ButtonGoogle from "@/components/ButtonGoogle";
+import ButtonMicrosoft from "@/components/ButtonMicrosoft";
+import ButtonApple from "@/components/ButtonApple";
 import axios from "axios";
+import AlreSignedUp from "@/components/Alre-SignedUp";
 
-const backEndOfSignUp = "http://localhost:8000/user/postUser";
 
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-export default function SignUp() {
+export default function SignUp({ backEndOfSignUp }: any) {
+    console.log(backEndOfSignUp,"hi");
+    
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [buttonActive, setButtonActive] = useState(false);
-    const [error, setError] = useState("");
     const route = useRouter();
 
     const registerClient = async () => {
         try {
             if (name !== "" && email !== "") {
                 if (!validateEmail(email)) {
-                    setError("Email must include symbols and numbers");
-                    setTimeout(() => {
-                        setError("");
-                    }, 4000);
+                    toast.error("Email must include some symbols and numbers");
                     return;
                 }
 
@@ -34,21 +33,18 @@ export default function SignUp() {
                     email: email
                 });
 
+                controlToast()
                 console.log(response);
 
-                route.push(`/InfoAboutStore`);
+                // route.push(`/InfoAboutStore`);
 
             } else {
-                setError("Please fill in the given forms");
-                setTimeout(() => {
-                    setError("");
-                }, 2000);
+                toast.error("Come on man fill in the given forms")
             }
         } catch (error) {
             console.error('Cannot register client', error);
         }
     };
-
 
     const handleColor = (valueEmail: string, valueName: string) => {
         setEmail(valueEmail);
@@ -60,8 +56,11 @@ export default function SignUp() {
     };
 
     function validateEmail(email: string) {
-        return USEREMAIL_REGEX.test(email)
+        // console.log(email, "this is email");
+        return USEREMAIL_REGEX.test(email);
     };
+
+    const controlToast = () => toast.success("Successfully Signed up")
 
     return (
         <>
@@ -86,26 +85,26 @@ export default function SignUp() {
                                 onChange={(e) => handleColor(email, e.target.value)}
                                 className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="Name" type="text" />
                         </div>
-                        <p className="text-red-400 semibold">{error}</p>
                         <button
                             style={{ background: buttonActive ? "black" : "#D6D8DB", color: buttonActive ? "white" : "gray" }}
                             onClick={() => {
                                 registerClient()
+                                // controlToast()
                             }}
                             className="flex flex-row w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
                             <div></div>
                             Next
                             <div className="arrow w-[24px] text-lg h-[24px] justify-center items-center flex">&#8594;</div>
                         </button>
+                        <Toaster toastOptions={{
+
+                        }} position="top-center" />
                         <div className="border border-solid border-grey-300 w-[360px] mt-6"></div>
                         <ButtonGoogle />
                         <ButtonMicrosoft />
                         <ButtonApple />
                         <div className="border border-solid border-grey-300 w-[360px] mt-10"></div>
-                        <div className="flex flex-row text-blacl justify-center gap-4 mt-7 w-[360px] items-center rounded-lg h-[56px] p-2">
-                            Already Signed Up ?
-                            <button className="underline underline-offset-4 hover:text-blue-500">Sign In</button>
-                        </div>
+                        <AlreSignedUp />
                         <p className="absolute mt-[100px] ml-[100px] text-slate-400">© 2023 Pinecone</p>
                     </div>
                 </div>

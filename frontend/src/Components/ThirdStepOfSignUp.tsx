@@ -1,5 +1,5 @@
 "use client"
-import PineConeSVG from "@/Components/SVG/PineCone";
+import PineConeSVG from "@/components/SVG/PineCone";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -13,7 +13,6 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
     const [selectedOption, setSelectedOption] = useState(false);
     const { user } = useAuth0()
     console.log(JSON.stringify(user));
-
 
     const router = useRouter()
 

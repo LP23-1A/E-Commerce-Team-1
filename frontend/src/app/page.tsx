@@ -1,14 +1,10 @@
-'use client'
-import toast, { Toaster } from "react-hot-toast";
-import Sidebar from "../Components/Sidebar";
-
-const notify = () => toast('nice job')
+"use client"
+import Sidebar from "../components/Sidebar";
 
 export default function Home() {
   return (
-    <div>
-      <button onClick={notify}>Click me</button>
-      {/* <Sidebar />    */}
+    <div>      
+      <Sidebar />   
     </div>
   )
 }

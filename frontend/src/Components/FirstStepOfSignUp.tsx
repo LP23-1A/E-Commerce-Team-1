@@ -1,5 +1,5 @@
 "use client"
-import PineConeSVG from "@/Components/SVG/PineCone";
+import PineConeSVG from "@/components/SVG/PineCone";
 import React, { useState } from "react";
 
 const inputStyle = {
