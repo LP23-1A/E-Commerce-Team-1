@@ -1,50 +1,27 @@
 'use client'
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import toast, { Toaster } from "react-hot-toast";
 import PineConeSVG from "@/components/SVG/PineCone";
 import ButtonGoogle from "@/components/ButtonGoogle";
 import ButtonMicrosoft from "@/components/ButtonMicrosoft";
 import ButtonApple from "@/components/ButtonApple";
-import axios from "axios";
 import AlreSignedUp from "@/components/Alre-SignedUp";
+import axios from "axios";
+import useSWR from "swr";
 
-
+const backEndOfSignUp = "http://localhost:8000/user/postUser";
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-export default function SignUp({ backEndOfSignUp }: any) {
-    console.log(backEndOfSignUp,"hi");
-    
+
+export default function SignUp() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [buttonActive, setButtonActive] = useState(false);
-    const route = useRouter();
-
-    const registerClient = async () => {
-        try {
-            if (name !== "" && email !== "") {
-                if (!validateEmail(email)) {
-                    toast.error("Email must include some symbols and numbers");
-                    return;
-                }
-
-                const response = await axios.post(backEndOfSignUp, {
-                    userName: name,
-                    email: email
-                });
-
-                controlToast()
-                console.log(response);
-
-                // route.push(`/InfoAboutStore`);
-
-            } else {
-                toast.error("Come on man fill in the given forms")
-            }
-        } catch (error) {
-            console.error('Cannot register client', error);
-        }
-    };
+    const fetcher = (url: string) => fetch(url).then((el) => el.json())
+    const { data, error, isLoading } = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
+    const router = useRouter();
+    // console.log(data);
 
     const handleColor = (valueEmail: string, valueName: string) => {
         setEmail(valueEmail);
@@ -60,7 +37,53 @@ export default function SignUp({ backEndOfSignUp }: any) {
         return USEREMAIL_REGEX.test(email);
     };
 
-    const controlToast = () => toast.success("Successfully Signed up")
+    const verifyingExistingUser = async () => {
+        if (!data) return;
+        if (isLoading) {
+            toast.loading("Waiting...")
+            return;
+        }
+
+        const allUsers = data.allUsers;
+        const existingClient = allUsers.some((el: any) => el.userName === name);
+        console.log(existingClient, "this is existing client");
+
+        if (existingClient) {
+            toast.error("Sorry, the name already exists.");
+            return false;
+        }
+        return true;
+    };
+
+    const registerClient = async () => {
+        if (name === "" || email === "") {
+            toast.error("Come on, fill in the given forms.");
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            toast.error("Email must include some symbols and numbers.");
+            return;
+        }
+
+        const isUniqueUser = await verifyingExistingUser();
+        if (!isUniqueUser) return;
+
+        try {
+            const response = await axios.post(backEndOfSignUp, {
+                userName: name,
+                email: email,
+                createdAt: new Date
+            });
+            console.log(response);
+
+            toast.success("Successfully Signed up");
+            router.push(`/${response.data.createdUser._id}/InfoAboutStore`);
+        } catch (error) {
+            console.error('Cannot register client', error);
+            toast.error("An error occurred during registration.");
+        }
+    };
 
     return (
         <>
@@ -88,8 +111,7 @@ export default function SignUp({ backEndOfSignUp }: any) {
                         <button
                             style={{ background: buttonActive ? "black" : "#D6D8DB", color: buttonActive ? "white" : "gray" }}
                             onClick={() => {
-                                registerClient()
-                                // controlToast()
+                                registerClient()                                
                             }}
                             className="flex flex-row w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
                             <div></div>
