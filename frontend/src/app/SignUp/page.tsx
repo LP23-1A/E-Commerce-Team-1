@@ -57,7 +57,7 @@ export default function SignUp() {
 
     const registerClient = async () => {
         if (name === "" || email === "") {
-            toast.error("Come on, fill in the given forms.");
+            toast.error("Come on man, fill in the given forms.");
             return;
         }
 
@@ -111,7 +111,7 @@ export default function SignUp() {
                         <button
                             style={{ background: buttonActive ? "black" : "#D6D8DB", color: buttonActive ? "white" : "gray" }}
                             onClick={() => {
-                                registerClient()                                
+                                registerClient()
                             }}
                             className="flex flex-row w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
                             <div></div>

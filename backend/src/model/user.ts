@@ -16,11 +16,12 @@ const UserSchema = new mongose.Schema({
         enum: ['Admin', 'User'],
         default: 'User'
     },
+    nameOfStore: String,
     phoneNumber: Number,
-    password: String,
-    address: String,
-    zipCode: String,
-    cartId: String,
+    district: String,
+    khoroo: String,
+    skillInSales: Boolean,
+    typeOfProduct: String,
     createdAt: Date,
     updatedAt: Date
 });

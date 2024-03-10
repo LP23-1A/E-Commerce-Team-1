@@ -1,6 +1,6 @@
 'use client'
-
 import { Auth0Provider } from "@auth0/auth0-react"
+import UserContextProvider from "./UserContext";
 
 const AuthProvider = ({ children }: any) => {
     return (
@@ -11,9 +11,12 @@ const AuthProvider = ({ children }: any) => {
                 redirect_uri: window.location.origin + '/InfoAboutStore'
             }}
         >
-            {children}
+            <UserContextProvider>
+                {children}
+            </UserContextProvider>
+
         </Auth0Provider>
     )
-}
+};
 
 export default AuthProvider
