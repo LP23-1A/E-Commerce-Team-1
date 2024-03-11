@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import Plus from "../../Components/Icon/Plus";
 import Delete from "../../Components/Icon/Delete";
 import Edit from "../../Components/Icon/Edit";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 import headers from "../../Components/utils/Table";
 import Filter from "../../Components/Filter";
 import Sidebar from "@/Components/Sidebar";
+import Approve from "@/Components/Icon/Approve";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
@@ -18,19 +19,27 @@ interface Items {
   description: string;
   price: number;
   quantity: string;
-  createdAt: number;
   coupon: string;
   thumbnails: string;
+  createdAt: number;
+  updatedAt: number;
 }
-
 export default function Product() {
   const router = useRouter();
   const [data, setData] = useState<Items[]>([]);
+  const [Modal, setModal] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get<Items[]>(api);
         setData(res.data);
+        // if (action == "add") {
+        setModal(true);
+        setTimeout(() => {
+          setModal(false);
+        }, 2000);
+        // }
       } catch (error) {
         console.log(error);
       }
@@ -135,6 +144,14 @@ export default function Product() {
           </div>
         </div>
       </div>
+      {Modal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="flex flex-col justify-center items-center bg-white w-[275px] h-[184px] rounded-lg shadow-lg font-semibold text-center">
+            <Approve />
+            <p>Бүтээгдэхүүн амжилттай нэмэгдлээ.</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

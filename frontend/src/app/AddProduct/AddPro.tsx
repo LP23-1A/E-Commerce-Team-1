@@ -1,7 +1,10 @@
+"use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Add from "../../Components/Icon/Add";
 
 export default function addPro({ handleSubmit, handleUpdate }: any) {
+  const [coupon, setCoupon] = useState("");
   const router = useRouter();
   const items = [
     { label: "Өнгө", icon: <Add /> },
@@ -13,19 +16,23 @@ export default function addPro({ handleSubmit, handleUpdate }: any) {
         <div className="flex flex-col h-full justify-center gap-6">
           <div className="flex flex-col gap-2">
             <h1>Ерөнхий ангилал</h1>
-            <input
-              type="text"
-              placeholder="Сонгох"
-              className="p-2 w-full h-[44px] bg-gray-100 rounded-lg"
-            />
+            <select
+              className="p-2 w-full h-[44px] bg-gray-100 rounded-lg text-gray-500"
+              value={coupon}
+              onChange={(e) => setCoupon(e.target.value)}
+            >
+              <option selected>Сонгох</option>
+              <option value="˝Эрэгтэй">Эрэгтэй </option>
+              <option value="Эмэгтэй">Эмэгтэй</option>
+            </select>
           </div>
           <div className="flex flex-col gap-2">
             <h1>Дэд ангилал</h1>
-            <input
-              type="text"
-              placeholder="Сонгох"
-              className="p-2 w-full h-[44px] bg-gray-100 rounded-lg"
-            />
+            <select className="p-2 w-full h-[44px] bg-gray-100 rounded-lg text-gray-500">
+              <option selected>Сонгох</option>
+              <option value="˝Эрэгтэй">Цамц</option>
+              <option value="Эмэгтэй">Өмд</option>
+            </select>
           </div>
         </div>
       </div>
