@@ -1,17 +1,18 @@
 'use client'
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from "react-hot-toast";
+import { UserContext } from "@/components/UserContext";
 import PineConeSVG from "@/components/SvG/PineCone";
 import ButtonGoogle from "@/components/ButtonGoogle";
 import ButtonMicrosoft from "@/components/ButtonMicrosoft";
 import ButtonApple from "@/components/ButtonApple";
 import AlreSignedUp from "@/components/Alre-SignedUp";
 import useSWR from "swr";
-import { UserContext } from "@/components/UserContext";
 import RightArrow from "@/components/SvG/RightArrow";
 
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const USERNAME_REGEX = /^[A-Z].{2,}$/;
 
 export default function SignUp() {
     const [name, setName] = useState('');
@@ -42,6 +43,10 @@ export default function SignUp() {
         return USEREMAIL_REGEX.test(email);
     };
 
+    function validateName(name: string) {
+        return USERNAME_REGEX.test(name)
+    }
+
     const verifyingExistingUser = async () => {
         if (!data) return;
         if (isLoading) {
@@ -60,31 +65,38 @@ export default function SignUp() {
         return true;
     };
 
-    const registerClient = async () => {
+    const NavigateToNext = async () => {
         if (name === "" || email === "") {
-            toast.error("Come on man, fill in the given forms.");
+            toast("🤧 Come on man, fill in the given forms.");
             return;
         }
 
         if (!validateEmail(email)) {
             toast.error("Email must include some symbols and numbers.");
             return;
+
+        } else if (!validateName(name)) {
+            toast("😱 The name must be at least 3 characters long and the first letter must be capitalized");
+            return;
         }
 
         const isUniqueUser = await verifyingExistingUser();
         if (!isUniqueUser) return;
 
-        try {
-            toast.success("Successfully Signed up");
-            setTimeout(() => {
-                router.push('/InfoAboutStore');
-            }, 2000)
-
-        } catch (error) {
-            console.error('Cannot register client', error);
-            toast.error("An error occurred during registration.");
-        }
+        router.push('/InfoAboutStore');
     };
+
+    useEffect(() => {
+        const handleClick = (event: any) => {
+            if (event.key === 'Enter') {
+                NavigateToNext()
+            }
+        }
+        document.addEventListener('keydown', handleClick)
+        return () => {
+            document.removeEventListener('keydown', handleClick)
+        }
+    }, [NavigateToNext])
 
     return (
         <>
@@ -111,9 +123,8 @@ export default function SignUp() {
                         </div>
                         <button
                             style={{ background: buttonActive ? "black" : "#D6D8DB", color: buttonActive ? "white" : "gray" }}
-                            onClick={() => {
-                                registerClient()
-                            }}
+                            onClick={NavigateToNext}
+                            disabled={!buttonActive}
                             className="flex flex-row w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
                             <div></div>
                             Next
@@ -121,9 +132,7 @@ export default function SignUp() {
                                 <RightArrow />
                             </div>
                         </button>
-                        <Toaster toastOptions={{
-
-                        }} position="top-center" />
+                        <Toaster position="top-center" />
                         <div className="border border-solid border-grey-300 w-[360px] mt-6"></div>
                         <ButtonGoogle />
                         <ButtonMicrosoft />

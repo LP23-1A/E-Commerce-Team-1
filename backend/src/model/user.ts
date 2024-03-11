@@ -20,7 +20,7 @@ const UserSchema = new mongose.Schema({
     phoneNumber: Number,
     district: String,
     khoroo: String,
-    skillInSales: Boolean,
+    skillInSales: String,
     typeOfProduct: String,
     createdAt: Date,
     updatedAt: Date
