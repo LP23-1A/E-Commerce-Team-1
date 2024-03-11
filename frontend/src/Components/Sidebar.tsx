@@ -1,6 +1,6 @@
 'use client'
 import AppRouter from "next/dist/client/components/app-router";
-import IncomeIcon from "./Icon//IncomeIcon";
+import IncomeIcon from "./Icon/IncomeIcon";
 import MainIcon from "./Icon/MainIcon";
 import OrderIcon from "./Icon/OrderIcon";
 import ProductIcon from "./Icon/ProductIcon";

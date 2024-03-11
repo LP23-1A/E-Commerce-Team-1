@@ -1,8 +1,9 @@
+'use client'
 import React, { useState, createContext } from "react";
 
 export const UserContext = createContext({});
 
-const UserContextProvider = ({ children }: any) => {
+export const UserContextProvider = ({ children }: any) => {
     const [userData, setUserData] = useState({
         userName: "",
         email: "",
@@ -14,6 +15,9 @@ const UserContextProvider = ({ children }: any) => {
         typeOfProduct: ""
     });
 
+    // console.log(userData, "from context");
+    
+
     return (
         <UserContext.Provider value={{ userData, setUserData }}>
             {children}
@@ -21,5 +25,5 @@ const UserContextProvider = ({ children }: any) => {
     )
 };
 
-export default UserContextProvider
+
 

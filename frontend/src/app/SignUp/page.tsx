@@ -1,27 +1,26 @@
 'use client'
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from "react-hot-toast";
-import PineConeSVG from "@/components/SVG/PineCone";
+import PineConeSVG from "@/components/SvG/PineCone";
 import ButtonGoogle from "@/components/ButtonGoogle";
 import ButtonMicrosoft from "@/components/ButtonMicrosoft";
 import ButtonApple from "@/components/ButtonApple";
 import AlreSignedUp from "@/components/Alre-SignedUp";
-import axios from "axios";
 import useSWR from "swr";
+import { UserContext } from "@/components/UserContext";
+import RightArrow from "@/components/SvG/RightArrow";
 
-const backEndOfSignUp = "http://localhost:8000/user/postUser";
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
 
 export default function SignUp() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [buttonActive, setButtonActive] = useState(false);
     const fetcher = (url: string) => fetch(url).then((el) => el.json())
-    const { data, error, isLoading } = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
+    const { data, isLoading } = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
     const router = useRouter();
-    // console.log(data);
+    const { setUserData }: any = useContext(UserContext)
 
     const handleColor = (valueEmail: string, valueName: string) => {
         setEmail(valueEmail);
@@ -30,6 +29,12 @@ export default function SignUp() {
         valueEmail.trim() !== "" && valueName.trim() !== ""
             ? setButtonActive(true)
             : setButtonActive(false)
+
+        setUserData((preValue: any) => ({
+            ...preValue,
+            userName: valueName,
+            email: valueEmail
+        }));
     };
 
     function validateEmail(email: string) {
@@ -42,7 +47,7 @@ export default function SignUp() {
         if (isLoading) {
             toast.loading("Waiting...")
             return;
-        }
+        };
 
         const allUsers = data.allUsers;
         const existingClient = allUsers.some((el: any) => el.userName === name);
@@ -70,15 +75,11 @@ export default function SignUp() {
         if (!isUniqueUser) return;
 
         try {
-            const response = await axios.post(backEndOfSignUp, {
-                userName: name,
-                email: email,
-                createdAt: new Date
-            });
-            console.log(response);
-
             toast.success("Successfully Signed up");
-            router.push(`/${response.data.createdUser._id}/InfoAboutStore`);
+            setTimeout(() => {
+                router.push('/InfoAboutStore');
+            }, 2000)
+
         } catch (error) {
             console.error('Cannot register client', error);
             toast.error("An error occurred during registration.");
@@ -116,7 +117,9 @@ export default function SignUp() {
                             className="flex flex-row w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
                             <div></div>
                             Next
-                            <div className="arrow w-[24px] text-lg h-[24px] justify-center items-center flex">&#8594;</div>
+                            <div className="arrow w-[16px] text-lg h-[24px] justify-center items-center flex">
+                                <RightArrow />
+                            </div>
                         </button>
                         <Toaster toastOptions={{
 

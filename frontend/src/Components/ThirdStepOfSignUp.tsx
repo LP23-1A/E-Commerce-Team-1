@@ -1,46 +1,65 @@
 "use client"
-import PineConeSVG from "@/components/SVG/PineCone";
-import React, { useState } from "react";
+import PineConeSVG from "@/components/SvG/PineCone";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import { UserContext } from "./UserContext";
 
 const backEndOfSignUp = "http://localhost:8000/user/postUser";
 
 export default function ThirdStepOfSignUp({ prevStep }: any) {
     const [buttonActive, setButtonActive] = useState(false);
     const [error, setError] = useState("");
-    const [selectedOption, setSelectedOption] = useState(false);
-    const { user } = useAuth0()
-    console.log(JSON.stringify(user));
+    const { user } = useAuth0();
+    // console.log(JSON.stringify(user));
+    const { userData, setUserData }: any = useContext(UserContext);
+    const [haveSkill, setHaveSkill] = useState('');
+    const [productType, setProductType] = useState('');
+    // console.log(userData, 'from 3');
+
 
     const router = useRouter()
 
-    const handleOptionChange = () => {
-        setSelectedOption(true)
-        setButtonActive(true)
+    const manageSkill = (event: any) => {
+        const valueSkill = event.target.value
+        setHaveSkill(valueSkill)
+        console.log(valueSkill, "skill");
+        
     };
 
-    const checkEmptyInput = async () => {
-        if (!selectedOption) {
+    const manageProductType = (event: any) => {
+        const valueProductType = event.target.value
+        setProductType(valueProductType)
+        console.log(valueProductType, "type");
+        
+    }
+
+    const registerClient = async () => {
+        if (!haveSkill || !productType) {
             setError("Please choose the given options");
             setTimeout(() => {
                 setError("");
             }, 2000);
         } else {
             const response = await axios.post(backEndOfSignUp, {
-                userName: user?.name,
-                email: user?.email
+                userName: user?.name ?? userData?.userName,
+                email: user?.email ?? userData?.email,
+                khoroo: userData.khoroo,
+                district: userData.district,
+                phoneNumber: userData.phoneNumber,
+                nameOfStore: userData.nameOfStore,
+                typeOfProduct: productType,
+                skillsInSales: haveSkill,
+                createdAt: new Date,
+                updatedAt: new Date
             })
             console.log(response, "this is response");
 
-            navigateToDashBoard();
+            router.push(`/DashBoard/${response.data.createdUser._id}`)
         }
     };
 
-    const navigateToDashBoard = () => {
-        router.push('/DashBoard')
-    }
     return (
         <div>
             <div className="mt-[14px] ml-[44px]">
@@ -78,18 +97,18 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
                     <div className="flex gap-4 flex-col">
                         <div>
                             <p className="font-semibold text-base text-black mt-[30px]">Have you ever been in sales ?</p>
-                            <select onChange={handleOptionChange} className="border mt-[10px] w-full border-solid border-gray-300 bg-slate-100 p-2 rounded-lg">
-                                <option value="">Choose</option>
-                                <option value="someOption">Some option</option>
-                                <option value="otherOption">Other option</option>
+                            <select value={haveSkill} onChange={manageSkill} className="border mt-[10px] w-full border-solid border-gray-300 bg-slate-100 p-2 rounded-lg">
+                                <option >Choose</option>
+                                <option >True</option>
+                                <option >False</option>
                             </select>
                         </div>
                         <div>
                             <p className="font-semibold text-base text-black mt-[20px]">What kind of products do you want to sell ?</p>
-                            <select onChange={handleOptionChange} className="border mt-[10px] w-full border-solid border-gray-300 bg-slate-100 p-2 rounded-lg">
+                            <select value={productType} onChange={manageProductType} className="border mt-[10px] w-full border-solid border-gray-300 bg-slate-100 p-2 rounded-lg">
                                 <option value="">Choose</option>
-                                <option value="someOption">Some option</option>
-                                <option value="otherOption">Other option</option>
+                                <option >Some option</option>
+                                <option >Other option</option>
                             </select>
                         </div>
                         <p className="text-red-400 font-semibold">{error}</p>
@@ -99,11 +118,11 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
                         <button onClick={prevStep} className="w-[48px] flex h-[48px] justify-center items-center text-black bg-slate-100 rounded-full text-2xl transition-transform transform active:scale-95 duration-300 hover:scale-110 hover:bg-black hover:text-white">&#8592;</button>
                         <button
                             onClick={() => {
-                                checkEmptyInput();
+                                registerClient();
                             }}
                             style={{ background: buttonActive ? "black" : "#D6D8DB", color: buttonActive ? "white" : "#1C2024" }} className="flex justify-end gap-8 flex-row w-[127px] h-[48px] items-center rounded-lg mt-2 p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
                             Next
-                            <button className="arrow w-[24px] text-lg h-[24px] justify-center items-center flex">&#8594;</button>
+                            <p className="arrow w-[24px] text-lg h-[24px] justify-center items-center flex">&#8594;</p>
                         </button>
                     </div>
                 </div>
