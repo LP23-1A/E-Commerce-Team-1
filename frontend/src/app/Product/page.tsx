@@ -7,7 +7,7 @@ import headers from "../../Components/utils/Table";
 import Filter from "../../Components/Filter";
 import Sidebar from "@/Components/Sidebar";
 import Approve from "@/Components/Icon/Approve";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 
 const api = "http://localhost:8000/product/get";
@@ -21,6 +21,7 @@ interface Items {
   quantity: string;
   coupon: string;
   thumbnails: string;
+  salePercent: number;
   createdAt: number;
   updatedAt: number;
 }
@@ -100,9 +101,7 @@ export default function Product() {
                       />
                       <div className="ps-3 text-black">
                         <h1 className="font-semibold">{dat.productName}</h1>
-                        <p className="font-normal text-gray-500">
-                          {dat.quantity}
-                        </p>
+                        <p className="font-normal text-gray-500"></p>
                       </div>
                     </td>
 
@@ -112,8 +111,8 @@ export default function Product() {
                         ? dat.price.toLocaleString() + "₮"
                         : ""}
                     </td>
-                    <td className="px-6 py-4">{dat.thumbnails}</td>
-                    <td className="px-6 py-4">{dat.description}</td>
+                    <td className="px-6 py-4">{dat.quantity}</td>
+                    <td className="px-6 py-4">0</td>
                     <td className="px-6 py-4">
                       {dat.createdAt
                         ? new Date(dat.createdAt).toISOString().slice(0, 10)

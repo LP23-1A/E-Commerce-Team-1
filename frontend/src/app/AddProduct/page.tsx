@@ -23,6 +23,7 @@ export default function AddProduct() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
+  const [coupon, setCoupon] = useState("");
 
   const handleSubmit = async () => {
     if (action == "add") {
@@ -31,6 +32,7 @@ export default function AddProduct() {
         price: price,
         description: description,
         quantity: quantity,
+        coupon: coupon,
       };
       try {
         const res = await axios.post(api, formData);
@@ -46,6 +48,7 @@ export default function AddProduct() {
         ...(price && { price }),
         ...(description && { description }),
         ...(quantity && { quantity }),
+        ...(coupon && { coupon }),
       };
       await axios.put(`${api2}/${productId}`, Data);
       console.log("updated");
@@ -143,7 +146,12 @@ export default function AddProduct() {
               </div>
             </div>
           </div>
-          <AddPro handleSubmit={handleSubmit} handleUpdate={handleUpdate} />
+          <AddPro
+            handleSubmit={handleSubmit}
+            handleUpdate={handleUpdate}
+            coupon={coupon}
+            setCoupon={setCoupon}
+          />
         </div>
       </div>
     </div>

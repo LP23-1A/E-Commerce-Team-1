@@ -1,10 +1,12 @@
 "use client";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Add from "../../Components/Icon/Add";
-
-export default function addPro({ handleSubmit, handleUpdate }: any) {
-  const [coupon, setCoupon] = useState("");
+export default function addPro({
+  handleSubmit,
+  handleUpdate,
+  coupon,
+  setCoupon,
+}: any) {
   const router = useRouter();
   const items = [
     { label: "Өнгө", icon: <Add /> },
@@ -22,7 +24,7 @@ export default function addPro({ handleSubmit, handleUpdate }: any) {
               onChange={(e) => setCoupon(e.target.value)}
             >
               <option selected>Сонгох</option>
-              <option value="˝Эрэгтэй">Эрэгтэй </option>
+              <option value="Эрэгтэй">Эрэгтэй </option>
               <option value="Эмэгтэй">Эмэгтэй</option>
             </select>
           </div>
@@ -30,8 +32,8 @@ export default function addPro({ handleSubmit, handleUpdate }: any) {
             <h1>Дэд ангилал</h1>
             <select className="p-2 w-full h-[44px] bg-gray-100 rounded-lg text-gray-500">
               <option selected>Сонгох</option>
-              <option value="˝Эрэгтэй">Цамц</option>
-              <option value="Эмэгтэй">Өмд</option>
+              <option value="Цамц">Цамц</option>
+              <option value="Өмд">Өмд</option>
             </select>
           </div>
         </div>
