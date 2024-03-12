@@ -3,7 +3,8 @@ import Navbar from "@/Components/Navbar";
 import Sidebar from "@/Components/Sidebar";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";
+import Status from "@/Components/Status";
 
 export default function Order() {
     interface Order {
@@ -11,6 +12,7 @@ export default function Order() {
       }
   const api = "http://localhost:8000/order/get";
   const [order, setOrder] = useState<Order[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,24 +26,7 @@ export default function Order() {
 
     fetchData();
   }, []);
-  
-  
-  const handleStatusChange = async (orderId: number, newStatus: string) => {
-    try {
-      await axios.put(`http://localhost:8000/order/${orderId}`, {
-        status: newStatus
-      });
-      // Update the order status in the state
-      setOrder(prevOrder => prevOrder.map(o => {
-        if (o._id === orderId) {
-          return { ...o, status: newStatus };
-        }
-        return o;
-      }));
-    } catch (error) {
-      console.error("Error updating status:", error);
-    }
-  };
+
 
 
   return (
@@ -94,46 +79,6 @@ export default function Order() {
 
             const number = el.amountToBePaid;
             const formattedNumber = number.toLocaleString('en-US') + '₮';
-
-            console.log()
-
-            const status = () => {
-                if (el.status === "Бэлтгэгдэж байна"){
-                    return (
-                        <select className="text-[#3F4145] bg-[#ECEDF0] px-[10px] py-[6px] rounded-[20px]" name="" id="">
-                            <option value="">{el.status}</option>
-                            <option onChange={(e:any) => handleStatusChange(el._id, e.target.value)} value="">Хүргэгдсэн</option>
-                            <option onChange={(e:any) => handleStatusChange(el._id, e.target.value)} value="">Хүргэлтэнд гарсан</option>
-                            <option onChange={(e:any) => handleStatusChange(el._id, e.target.value)} value="">Шинэ захиалга</option>
-                        </select>
-                    )
-                }
-                if (el.status === "Шинэ захиалга"){
-                    return (
-                        <select className="text-[#3F4145] bg-white px-[10px] py-[6px] rounded-[20px] border-[1px]" name="" id="">
-                            <option value="">{el.status}</option>
-                            <option value="">Хүргэгдсэн</option>
-                            <option value="">Хүргэлтэнд гарсан</option>
-                            <option value="">Шинэ захиалга</option>
-                        </select>
-                    )
-                }
-                if (el.status === "Хүргэлтэнд гарсан"){
-                    return (
-                        <select className="text-[#1890FF] bg-[#B7DDFF] px-[10px] py-[6px] rounded-[20px]" name="" id="">
-                            <option value="">{el.status}</option>
-                            <option value="">Хүргэгдсэн</option>
-                            <option value="">Хүргэлтэнд гарсан</option>
-                            <option value="">Шинэ захиалга</option>
-                        </select>
-                    )
-                }
-                else if (el.status === "Хүргэгдсэн"){
-                    return (
-                        <p className="bg-[#C1E6CF] color-[#0A4E22] px-[10px] py-[6px] rounded-[20px] text-[#0A4E22]">Хүргэгдсэн</p>
-                    )
-                }
-            }
             
             return (
               <div key={el._id} className="flex">
@@ -143,9 +88,9 @@ export default function Order() {
                 <p className="flex items-center py-[26px] px-[24px] w-[81px] box-content">{formattedTime}</p>
                 <p className="flex items-center py-[26px] px-[24px] w-[89px] box-content">{formattedNumber}</p>
                 <p className="pl-[28px] py-[24px] flex items-center w-[188px] box-content">
-                    {status()}
+                    <Status status={el.status} id={el._id}/>
                 </p>
-                <button className="flex items-center py-[30px] px-[57px] w-[] box-content">{">"}</button>
+                <button onClick={() => router.push("/AdminDashboard/Order/orderdetails")} className="flex items-center py-[30px] px-[57px] w-[] box-content">{">"}</button>
               </div>
             );
           })}
