@@ -1,11 +1,11 @@
-import { connectDataBase } from "../src/utils/Database";
+import { connectDataBase } from "./utils/Database";
 import { order } from "./router/order";
+import { product } from "./router/Product";
+import { user } from "../src/router/user";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bp from "body-parser";
-import { user } from "../src/router/user";
-import { product } from "./router/Product";
 
 dotenv.config();
 

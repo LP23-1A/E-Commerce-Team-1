@@ -14,6 +14,7 @@ export default function InfoAboutStore() {
     const prevStep = () => {
         setCurrentStep(currentStep - 1);
     };
+    
     const renderStep = () => {
 
         switch (currentStep) {

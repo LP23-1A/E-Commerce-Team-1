@@ -1,4 +1,4 @@
-import Microsoft from "@/components/SVG/Microsoft";
+import Microsoft from "@/components/SvG/Microsoft";
 import { useAuth0 } from "@auth0/auth0-react";
 export default function ButtonMicrosoft() {
     const { loginWithRedirect } = useAuth0()

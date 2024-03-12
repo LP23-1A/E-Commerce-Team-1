@@ -1,15 +1,15 @@
 "use client";
-import Navbar from "@/Components/Navbar";
-import Sidebar from "@/Components/Sidebar";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Status from "@/Components/Status";
+import Status from "@/components/Status";
 
 export default function Order() {
-    interface Order {
-        _id: any; status: string; orderNumber: string; amountPaid: Number; amountToBePaid: number; createdAt: string;
-      }
+  interface Order {
+    _id: any; status: string; orderNumber: string; amountPaid: Number; amountToBePaid: number; createdAt: string;
+  }
   const api = "http://localhost:8000/order/get";
   const [order, setOrder] = useState<Order[]>([]);
   const router = useRouter();
@@ -64,7 +64,7 @@ export default function Order() {
           {order.map((el) => {
             const dateString = el.createdAt;
             const date = new Date(dateString);
-            
+
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
@@ -79,7 +79,7 @@ export default function Order() {
 
             const number = el.amountToBePaid;
             const formattedNumber = number.toLocaleString('en-US') + '₮';
-            
+
             return (
               <div key={el._id} className="flex">
                 <p className="flex items-center py-[28px] px-[24px] w-[143px] box-content">{el.orderNumber}</p>
@@ -88,7 +88,7 @@ export default function Order() {
                 <p className="flex items-center py-[26px] px-[24px] w-[81px] box-content">{formattedTime}</p>
                 <p className="flex items-center py-[26px] px-[24px] w-[89px] box-content">{formattedNumber}</p>
                 <p className="pl-[28px] py-[24px] flex items-center w-[188px] box-content">
-                    <Status status={el.status} id={el._id}/>
+                  <Status status={el.status} id={el._id} />
                 </p>
                 <button onClick={() => router.push("/AdminDashboard/Order/orderdetails")} className="flex items-center py-[30px] px-[57px] w-[] box-content">{">"}</button>
               </div>

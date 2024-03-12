@@ -8,7 +8,6 @@ import ButtonGoogle from "@/components/ButtonGoogle";
 import ButtonMicrosoft from "@/components/ButtonMicrosoft";
 import ButtonApple from "@/components/ButtonApple";
 import AlreSignedUp from "@/components/Alre-SignedUp";
-import useSWR from "swr";
 import RightArrow from "@/components/SvG/RightArrow";
 import GoogleSignIn from "@/components/GoogleSignIn";
 
@@ -19,10 +18,8 @@ export default function SignUp() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [buttonActive, setButtonActive] = useState(false);
-    const fetcher = (url: string) => fetch(url).then((el) => el.json())
-    const { data, isLoading } = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
     const router = useRouter();
-    const { setUserData }: any = useContext(UserContext)
+    const { setUserData }: any = useContext(UserContext);
 
     const handleColor = (valueEmail: string, valueName: string) => {
         setEmail(valueEmail);
@@ -46,28 +43,6 @@ export default function SignUp() {
 
     function validateName(name: string) {
         return USERNAME_REGEX.test(name)
-    }
-
-    const verifyingExistingUser = async () => {
-        if (!data) return;
-        if (isLoading) {
-            toast.loading("Waiting...")
-            return;
-        };
-
-        const allUsers = data.allUsers;
-        // const existingClient = allUsers ? allUsers.some((el: any) => el.userName === name) : undefined
-        const test = allUsers ? allUsers.map((el:any) => el.includes(name)) : console.log("failed to map ");
-        
-        // console.log(existingClient, "this is existing client");
-        console.log(test);
-        
-
-        if (test) {
-            toast.error("Sorry, the name already exists.");
-            return false;
-        }
-        return true;
     };
 
     const NavigateToNext = async () => {
@@ -85,10 +60,10 @@ export default function SignUp() {
             return;
         }
 
-        const isUniqueUser = await verifyingExistingUser();
-        if (!isUniqueUser) return;
-
-        router.push('/InfoAboutStore');
+        toast('🚀 To The Next section')
+        setTimeout(() => {
+            router.push('/InfoAboutStore');
+        }, 2000)
     };
 
     useEffect(() => {

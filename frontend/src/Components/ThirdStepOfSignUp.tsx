@@ -44,8 +44,8 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
                 toast.error("Please choose the given options")
             } else {
                 const response = await axios.post(backEndOfSignUp, {
-                    userName: user?.name ?? userData?.userName,
-                    email: user?.email ?? userData?.email,
+                    userName: user ? userData.userName : user?.name,
+                    email: user ? userData.email : user?.email,
                     khoroo: userData.khoroo,
                     district: userData.district,
                     phoneNumber: userData.phoneNumber,
@@ -88,7 +88,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
     return (
         <>
             <PineConeSVG />
-            <ThirdLine />            
+            <ThirdLine />
             <div className="flex mt-[100px] justify-center">
                 <div className="w-[452px] h-[296px] mt-[100px]">
                     <h3 className="font-bold text-3xl text-black">Knowing to each other a bit</h3>
