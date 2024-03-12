@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from "react-hot-toast";
-import { UserContext } from "@/components/UserContext";
+import { UserContext } from "@/Components/UserContext";
 import PineConeSVG from "@/components/SvG/PineCone";
 import ButtonGoogle from "@/components/ButtonGoogle";
 import ButtonMicrosoft from "@/components/ButtonMicrosoft";

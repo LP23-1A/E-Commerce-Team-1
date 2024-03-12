@@ -1,11 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import AddPro from "./AddPro";
-import Image from "../../components/Icon/Image";
-import Add from "@/components/Icon/Add";
-import Sidebar from "@/components/Sidebar";
-import Arrow from "../../components/Icon/Arrow";
+import Sidebar from "@/Components/Sidebar";
+import Arrow from "../../Components/Icon/Add";
+import Image from "../../Components/Icon/Image";
+import Add from "../../Components/Icon/Add";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 
 const api = "http://localhost:8000/product/create";
