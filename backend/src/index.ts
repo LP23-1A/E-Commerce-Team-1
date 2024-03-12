@@ -1,8 +1,9 @@
-import { connectDataBase } from "../src/utils/Database";
+import { connectDataBase } from "./utils/Database";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bp from "body-parser";
+import { user } from "../src/router/user";
 
 dotenv.config(); 
 
@@ -16,8 +17,10 @@ const PORT = process.env.PORT || 8000;
 
 app.use(bp.json());
 app.use(cors());
+app.use('/user', user)
 
 app.get('/', (_, res) => {
+
     res.status(200).send({
         success: true,
         message: "Successfully connected to the database."

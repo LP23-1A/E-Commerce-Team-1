@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 export const connectDataBase = async () => {
     try {
-        const MONGODB_URL = `mongodb+srv://Isvhbaatar5:94849622@cluster0.z3m8yz0.mongodb.net/e-commerce-Team-1`
+        const MONGODB_URL: any = process.env.MONGODB_URI
         await mongoose.connect(MONGODB_URL);
         console.log("DataBase connect successfully");
     } catch (error: unknown) {
