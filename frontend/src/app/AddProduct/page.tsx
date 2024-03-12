@@ -2,7 +2,7 @@
 import { useState } from "react";
 import AddPro from "./AddPro";
 import Sidebar from "@/Components/Sidebar";
-import Arrow from "../../Components/Icon/Arrow";
+import Arrow from "../../Components/Icon/Add";
 import Image from "../../Components/Icon/Image";
 import Add from "../../Components/Icon/Add";
 import { useRouter, useSearchParams } from "next/navigation";
