@@ -59,6 +59,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     const ProductId = req.params.id;
+    req.body.updatedAt = new Date();
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       ProductId,
       req.body,

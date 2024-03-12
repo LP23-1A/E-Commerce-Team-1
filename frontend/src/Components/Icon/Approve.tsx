@@ -16,7 +16,7 @@ export default function Approve() {
         transform="rotate(15 15.0293 0.605957)"
         fill="#16A94A"
       />
-      <g filter="url(#filter0_b_8_53222)">
+      <g filter="url(#filter0_b_8_54521)">
         <rect
           y="14"
           width="48"
@@ -41,7 +41,7 @@ export default function Approve() {
       </g>
       <defs>
         <filter
-          id="filter0_b_8_53222"
+          id="filter0_b_8_54521"
           x="-24"
           y="-10"
           width="96"
@@ -54,12 +54,12 @@ export default function Approve() {
           <feComposite
             in2="SourceAlpha"
             operator="in"
-            result="effect1_backgroundBlur_8_53222"
+            result="effect1_backgroundBlur_8_54521"
           />
           <feBlend
             mode="normal"
             in="SourceGraphic"
-            in2="effect1_backgroundBlur_8_53222"
+            in2="effect1_backgroundBlur_8_54521"
             result="shape"
           />
         </filter>

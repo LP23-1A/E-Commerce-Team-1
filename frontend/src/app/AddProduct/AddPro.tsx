@@ -4,6 +4,8 @@ import Add from "../../Components/Icon/Add";
 export default function addPro({
   handleSubmit,
   handleUpdate,
+  description,
+  setDescription,
   coupon,
   setCoupon,
 }: any) {
@@ -12,6 +14,7 @@ export default function addPro({
     { label: "Өнгө", icon: <Add /> },
     { label: "Хэмжээ", icon: <Add /> },
   ];
+
   return (
     <div className="flex items-center flex-col gap-[26px] w-[600px]">
       <div className="bg-white w-[575px] h-[232px] p-4 m-8 rounded-lg">
@@ -26,11 +29,16 @@ export default function addPro({
               <option selected>Сонгох</option>
               <option value="Эрэгтэй">Эрэгтэй </option>
               <option value="Эмэгтэй">Эмэгтэй</option>
+              <option value="Хүүхэд">Хүүхэд</option>
             </select>
           </div>
           <div className="flex flex-col gap-2">
             <h1>Дэд ангилал</h1>
-            <select className="p-2 w-full h-[44px] bg-gray-100 rounded-lg text-gray-500">
+            <select
+              className="p-2 w-full h-[44px] bg-gray-100 rounded-lg text-gray-500"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            >
               <option selected>Сонгох</option>
               <option value="Цамц">Цамц</option>
               <option value="Өмд">Өмд</option>

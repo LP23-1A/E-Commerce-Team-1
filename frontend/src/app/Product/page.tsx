@@ -18,14 +18,14 @@ interface Items {
   productName: string;
   description: string;
   price: number;
-  quantity: string;
+  quantity: number;
   coupon: string;
-  thumbnails: string;
-  salePercent: number;
   createdAt: number;
   updatedAt: number;
 }
 export default function Product() {
+  const search = useSearchParams();
+  const action = search.get("action");
   const router = useRouter();
   const [data, setData] = useState<Items[]>([]);
   const [Modal, setModal] = useState(false);
@@ -39,7 +39,7 @@ export default function Product() {
         setModal(true);
         setTimeout(() => {
           setModal(false);
-        }, 2000);
+        }, 1000);
         // }
       } catch (error) {
         console.log(error);
@@ -101,11 +101,16 @@ export default function Product() {
                       />
                       <div className="ps-3 text-black">
                         <h1 className="font-semibold">{dat.productName}</h1>
-                        <p className="font-normal text-gray-500"></p>
+                        <p className="font-normal text-gray-500">
+                          {dat.quantity}
+                        </p>
                       </div>
                     </td>
-
-                    <td className="px-6 py-4">{dat.coupon}</td>
+                    <td className="px-6 py-4">
+                      {dat.coupon && dat.description
+                        ? `${dat.coupon}, ${dat.description}`
+                        : dat.coupon || dat.description}
+                    </td>
                     <td className="px-6 py-4">
                       {dat.price !== null
                         ? dat.price.toLocaleString() + "₮"
@@ -116,17 +121,19 @@ export default function Product() {
                     <td className="px-6 py-4">
                       {dat.createdAt
                         ? new Date(dat.createdAt).toISOString().slice(0, 10)
+                        : dat.updatedAt
+                        ? new Date(dat.updatedAt).toISOString().slice(0, 10)
                         : ""}
                     </td>
                     <td className="px-6 py-4">
                       <button
-                        className="px-2 py-1"
+                        className="px-2 py-1 transition duration-300 transform hover:scale-125"
                         onClick={() => handleDelete(dat._id)}
                       >
                         <Delete />
                       </button>
                       <button
-                        className="px-2 py-1"
+                        className="px-2 py-1 transition duration-300 transform hover:scale-125"
                         onClick={() =>
                           router.push(
                             `/AddProduct?action=edit&productId=${dat._id}`

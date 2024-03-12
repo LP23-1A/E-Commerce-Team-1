@@ -19,7 +19,7 @@ const ProductSchema = new mongoose.Schema({
   },
   updatedAt: {
     type: Date,
-    default: () => Date.now(),
+    default: () => new Date(),
   },
 });
 const ProductModel = mongoose.model("Product", ProductSchema);

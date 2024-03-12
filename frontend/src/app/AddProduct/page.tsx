@@ -1,12 +1,12 @@
 "use client";
+import { useState } from "react";
+import AddPro from "./AddPro";
+import Sidebar from "@/Components/Sidebar";
 import Arrow from "../../Components/Icon/Arrow";
 import Image from "../../Components/Icon/Image";
 import Add from "../../Components/Icon/Add";
-import AddPro from "./AddPro";
-import Sidebar from "@/Components/Sidebar";
-import { useState } from "react";
-import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
 
 const api = "http://localhost:8000/product/create";
 const api2 = "http://localhost:8000/product";
@@ -86,8 +86,6 @@ export default function AddProduct() {
                 <div className="flex flex-col gap-2">
                   <h1>Нэмэлт мэдээлэл</h1>
                   <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
                     name="area"
                     className="bg-gray-100 resize-none w-full h-[72px] p-2 rounded-lg flex items-center"
                     placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
@@ -149,6 +147,8 @@ export default function AddProduct() {
           <AddPro
             handleSubmit={handleSubmit}
             handleUpdate={handleUpdate}
+            description={description}
+            setDescription={setDescription}
             coupon={coupon}
             setCoupon={setCoupon}
           />
