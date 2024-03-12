@@ -35,12 +35,12 @@ export default function Product() {
       try {
         const res = await axios.get<Items[]>(api);
         setData(res.data);
-        // if (action == "add") {
-        setModal(true);
-        setTimeout(() => {
-          setModal(false);
-        }, 1000);
-        // }
+        if (action == "add") {
+          setModal(true);
+          setTimeout(() => {
+            setModal(false);
+          }, 1000);
+        }
       } catch (error) {
         console.log(error);
       }
