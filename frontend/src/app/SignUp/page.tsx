@@ -10,6 +10,7 @@ import ButtonApple from "@/components/ButtonApple";
 import AlreSignedUp from "@/components/Alre-SignedUp";
 import useSWR from "swr";
 import RightArrow from "@/components/SvG/RightArrow";
+import GoogleSignIn from "@/components/GoogleSignIn";
 
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const USERNAME_REGEX = /^[A-Z].{2,}$/;
@@ -55,10 +56,14 @@ export default function SignUp() {
         };
 
         const allUsers = data.allUsers;
-        const existingClient = allUsers.some((el: any) => el.userName === name);
-        console.log(existingClient, "this is existing client");
+        // const existingClient = allUsers ? allUsers.some((el: any) => el.userName === name) : undefined
+        const test = allUsers ? allUsers.map((el:any) => el.includes(name)) : console.log("failed to map ");
+        
+        // console.log(existingClient, "this is existing client");
+        console.log(test);
+        
 
-        if (existingClient) {
+        if (test) {
             toast.error("Sorry, the name already exists.");
             return false;
         }
@@ -66,7 +71,7 @@ export default function SignUp() {
     };
 
     const NavigateToNext = async () => {
-        if (name === "" || email === "") {
+        if (name === "" && email === "") {
             toast("🤧 Come on man, fill in the given forms.");
             return;
         }
@@ -100,11 +105,9 @@ export default function SignUp() {
 
     return (
         <>
-            <div className="flex relative">
-                <div className="mt-[44px] ml-[44px] absolute">
-                    <PineConeSVG />
-                </div>
-                <div className="flex justify-center w-full">
+            <div className="flex w-full flex-row justify-between">
+                <PineConeSVG />
+                <div className="flex justify-center w-full items-center pr-[250px]">
                     <div className="w-[440px] rounded-xl mt-[160px] p-[40px] h-[fit-content] border border-solid border-gray-300 border-1">
                         <p className="flex font-bold text-3xl justify-center w-[360px] h-[60px] pb-5 ">To Register</p>
                         <div className="w-[360xp] mt-10 h-[88px] flex flex-col gap-4">
@@ -124,7 +127,6 @@ export default function SignUp() {
                         <button
                             style={{ background: buttonActive ? "black" : "#D6D8DB", color: buttonActive ? "white" : "gray" }}
                             onClick={NavigateToNext}
-                            disabled={!buttonActive}
                             className="flex flex-row w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
                             <div></div>
                             Next
@@ -142,6 +144,7 @@ export default function SignUp() {
                         <p className="absolute mt-[100px] ml-[100px] text-slate-400">© 2023 Pinecone</p>
                     </div>
                 </div>
+                <GoogleSignIn />
             </div>
         </>
     )

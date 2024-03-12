@@ -9,6 +9,7 @@ import axios from "axios";
 import ThirdLine from "./ThirdLine";
 
 const backEndOfSignUp = "http://localhost:8000/user/postUser";
+
 const experience = ['i was selling on instagram', 'i was selling on facebook', 'i was selling on youtube', 'i was selling on other platforms', '🔥 Others'];
 const commodity = ['👚 women clothes', '👗 dress', '👢 women boot', '🥾 Hiking Boot', '🔥 Others'];
 
@@ -55,7 +56,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
                     updatedAt: new Date
                 })
                 console.log(response, "this is response");
-                toast.success("Successly registered")
+                toast.success("Successfully registered")
                 setTimeout(() => {
                     router.push(`/DashBoard/${response.data.createdUser._id}`)
                 }, 2000)
@@ -87,9 +88,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
     return (
         <>
             <PineConeSVG />
-            <ThirdLine />
-
-            {/* information about store */}
+            <ThirdLine />            
             <div className="flex mt-[100px] justify-center">
                 <div className="w-[452px] h-[296px] mt-[100px]">
                     <h3 className="font-bold text-3xl text-black">Knowing to each other a bit</h3>

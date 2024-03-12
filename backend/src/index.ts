@@ -1,4 +1,4 @@
-import { connectDataBase } from "../src/utils/Database";
+import { connectDataBase } from "./utils/Database";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
