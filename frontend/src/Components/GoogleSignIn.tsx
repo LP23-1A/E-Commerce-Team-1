@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import React, { Toaster, toast } from "react-hot-toast";
-import GoogleSVG from "./SvG/Google";
-import RemoveX from "./SvG/RemoveX";
+import GoogleSVG from "./SVG/Google";
+import RemoveX from "./SVG/RemoveX";
 import useSWR from "swr";
 
 export default function GoogleSignIn() {
