@@ -1,4 +1,5 @@
-import { connectDataBase } from "./utils/Database";
+import { connectDataBase } from "../src/utils/Database";
+import { order } from "./router/order";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -20,6 +21,7 @@ app.use(bp.json());
 app.use(cors());
 app.use('/user', user)
 app.use("/product", product)
+app.use('/order',order);
 
 app.get("/", (_, res) => {
   res.status(200).send({

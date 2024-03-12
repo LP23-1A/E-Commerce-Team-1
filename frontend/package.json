@@ -24,7 +24,8 @@
     "swr": "^2.2.5",
     "ts-dotenv": "^0.9.1",
     "ts-node": "^10.9.2",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
