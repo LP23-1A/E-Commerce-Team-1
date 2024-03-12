@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import Google from "@/components/SVG/Google";
+import Google from "@/components/SvG/Google";
 export default function ButtonGoogle() {
     const { loginWithRedirect } = useAuth0();
     return (

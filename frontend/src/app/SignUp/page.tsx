@@ -10,13 +10,7 @@ import ButtonApple from "@/components/ButtonApple";
 import AlreSignedUp from "@/components/Alre-SignedUp";
 import RightArrow from "@/components/SvG/RightArrow";
 import GoogleSignIn from "@/components/GoogleSignIn";
-import ButtonGoogle from "@/Components/ButtonGoogle";
-import ButtonMicrosoft from "@/Components/ButtonMicrosoft";
-import ButtonApple from "@/Components/ButtonApple";
-import AlreSignedUp from "@/Components/Alre-SignedUp";
 import useSWR from "swr";
-import RightArrow from "@/Components/SvG/RightArrow";
-import GoogleSignIn from "@/Components/GoogleSignIn";
 
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const USERNAME_REGEX = /^[A-Z].{2,}$/;
@@ -42,31 +36,12 @@ export default function SignUp() {
             email: valueEmail
         }));
     };
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [buttonActive, setButtonActive] = useState(false);
+
   const fetcher = (url: string) => fetch(url).then((el) => el.json());
   const { data, isLoading } = useSWR(
     "http://localhost:8000/user/getAllUsers",
     fetcher
   );
-  const router = useRouter();
-  const { setUserData }: any = useContext(UserContext);
-
-  const handleColor = (valueEmail: string, valueName: string) => {
-    setEmail(valueEmail);
-    setName(valueName);
-
-    valueEmail.trim() !== "" && valueName.trim() !== ""
-      ? setButtonActive(true)
-      : setButtonActive(false);
-
-    setUserData((preValue: any) => ({
-      ...preValue,
-      userName: valueName,
-      email: valueEmail,
-    }));
-  };
 
   function validateEmail(email: string) {
     // console.log(email, "this is email");
@@ -134,6 +109,10 @@ export default function SignUp() {
       if (event.key === "Enter") {
         NavigateToNext();
       }
+        toast('🚀 To The Next section')
+        setTimeout(() => {
+            router.push('/InfoAboutStore');
+        }, 2000)
     };
     document.addEventListener("keydown", handleClick);
     return () => {

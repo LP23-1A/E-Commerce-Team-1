@@ -1,9 +1,9 @@
 "use client"
-import PineConeSVG from "@/components/SVG/PineCone";
+import PineConeSVG from "@/components/SvG/PineCone";
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
-import RightArrow from "./SVG/RightArrow";
-import LeftArrow from "./SVG/LeftArrow";
+import RightArrow from "./SvG/RightArrow";
+import LeftArrow from "./SvG/LeftArrow";
 
 export default function FirstStepOfSignUp({ nextStep }: any) {
     const [buttonActive, setButtonActive] = useState(false);

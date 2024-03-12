@@ -44,8 +44,8 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
                 toast.error("Please choose the given options")
             } else {
                 const response = await axios.post(backEndOfSignUp, {
-                    userName: user?.name ?? userData?.userName,
-                    email: user?.email ?? userData?.email,
+                    userName: user ? userData.userName : user?.name,
+                    email: user ? userData.email : user?.email,
                     khoroo: userData.khoroo,
                     district: userData.district,
                     phoneNumber: userData.phoneNumber,

@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import Apple from "@/components/SVG/Apple";
+import Apple from "@/components/SvG/Apple";
 export default function ButtonApple() {
     const { loginWithRedirect } = useAuth0()
     return (
