@@ -1,11 +1,10 @@
 'use client'
-import AppRouter from "next/dist/client/components/app-router";
+import { useRouter } from "next/navigation";
 import IncomeIcon from "./Icon/IncomeIcon";
 import MainIcon from "./Icon/MainIcon";
 import OrderIcon from "./Icon/OrderIcon";
 import ProductIcon from "./Icon/ProductIcon";
 import SettingsIcon from "./Icon/SettingsIcon";
-import { useRouter } from "next/navigation";
 
 export default function Sidebar() {
     const router = useRouter();

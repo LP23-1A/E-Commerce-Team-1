@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
-import AddPro from "./AddPro";
-import Sidebar from "@/Components/Sidebar";
-import Arrow from "../../Components/Icon/Arrow";
-import Image from "../../Components/Icon/Image";
-import Add from "../../Components/Icon/Add";
 import { useRouter, useSearchParams } from "next/navigation";
+import AddPro from "./AddPro";
+import Sidebar from "../../components/Sidebar";
+import Image from "../../components/Icon/Image";
+import Add from "@/components/Icon/Add";
 import axios from "axios";
+import Arrow from "@/components/Icon/Arrow";
 
 const api = "http://localhost:8000/product/create";
 const api2 = "http://localhost:8000/product";
@@ -57,7 +57,7 @@ export default function AddProduct() {
     }
   };
 
-  const handleUpdate = async (productId: string) => {};
+  const handleUpdate = async (productId: string) => { };
 
   return (
     <div className="flex">

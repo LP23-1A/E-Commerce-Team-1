@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Add from "../../Components/Icon/Add";
+import Add from "@/components/Icon/Add";
 export default function addPro({
   handleSubmit,
   handleUpdate,

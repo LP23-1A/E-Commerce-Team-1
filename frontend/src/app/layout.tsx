@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Navbar from "@/Components/Navbar";
+import Navbar from "@/components/Navbar";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import React from 'react';
@@ -21,10 +21,10 @@ export default function RootLayout({
 
     <html lang="en">
       <body className={inter.className}>
+        <Navbar />
         <AuthProvider>
           {children}
         </AuthProvider>
-        <Navbar />
       </body>
     </html>
 

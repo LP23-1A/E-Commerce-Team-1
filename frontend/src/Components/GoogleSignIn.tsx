@@ -1,6 +1,6 @@
 import { useState } from "react";
-import GoogleSVG from "./SvG/Google";
-import RemoveX from "./SvG/RemoveX";
+import GoogleSVG from "./SVG/Google";
+import RemoveX from "./SVG/RemoveX";
 import { useAuth0 } from "@auth0/auth0-react";
 import useSWR from "swr";
 
