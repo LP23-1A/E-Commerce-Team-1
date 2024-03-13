@@ -1,5 +1,4 @@
 'use client'
-import AppRouter from "next/dist/client/components/app-router";
 import IncomeIcon from "./Icon/IncomeIcon";
 import MainIcon from "./Icon/MainIcon";
 import OrderIcon from "./Icon/OrderIcon";
@@ -30,7 +29,7 @@ export default function Sidebar() {
                 </div>
                 <p className="text-[16px] text-black">Орлого</p>
             </div>
-            <div onClick={() => router.push("/product")} className="flex items-center">
+            <div onClick={() => router.push("/Product")} className="flex items-center">
                 <div className="py-[8px] px-[16px]">
                     <ProductIcon />
                 </div>
