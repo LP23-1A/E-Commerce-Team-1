@@ -19,9 +19,7 @@ export default function GoogleSignIn() {
 
     const closeDisplay = () => {
         setDisplay(false)
-    };
-
-    console.log(!display);
+    };    
     
     if (!display) return
 
