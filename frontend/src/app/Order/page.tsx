@@ -90,7 +90,7 @@ export default function Order() {
                 <p className="pl-[28px] py-[24px] flex items-center w-[188px] box-content">
                   <Status status={el.status} id={el._id} />
                 </p>
-                <button onClick={() => router.push("/AdminDashboard/Order/orderdetails")} className="flex items-center py-[30px] px-[57px] w-[] box-content">{">"}</button>
+                <button onClick={() => router.push("OrderDetails")} className="flex items-center py-[30px] px-[57px] w-[] box-content">{">"}</button>
               </div>
             );
           })}
