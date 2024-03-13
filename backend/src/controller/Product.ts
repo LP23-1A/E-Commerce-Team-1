@@ -1,9 +1,7 @@
-import AWS from "aws-sdk";
-import dotenv from "dotenv";
 import { Request, Response } from "express";
 import { ProductModel } from "../model/Product";
+import { UploadFile } from "../utils/s3";
 
-dotenv.config();
 interface ProductData {
   productName: string;
   description: string;
@@ -12,22 +10,8 @@ interface ProductData {
   thumbnails: number;
   createdAt: number;
   coupon: string;
+  images: string;
 }
-const region = "";
-const bucketName = "ecommerce-team-1";
-const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
-const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
-
-const s3 = new AWS.S3();
-export const generateUploadUrl = async (req: Request, res: Response) => {
-  const params = {
-    Bucket: bucketName,
-    Key: __filename,
-    Expires: 60,
-  };
-  const uploadURL = await s3.getSignedUrlPromise("putObject", params);
-  return uploadURL;
-};
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
@@ -39,7 +23,9 @@ export const createProduct = async (req: Request, res: Response) => {
       createdAt,
       coupon,
       thumbnails,
+      images,
     }: ProductData = req.body;
+    const ImageUrl = UploadFile;
     const product = await ProductModel.create({
       productName,
       description,
@@ -48,6 +34,7 @@ export const createProduct = async (req: Request, res: Response) => {
       createdAt,
       thumbnails,
       coupon,
+      images,
     });
     res.status(200).send(product);
   } catch (error) {
