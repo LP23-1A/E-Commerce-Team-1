@@ -35,7 +35,7 @@ export default function Sidebar() {
                 </div>
                 <p className="text-[16px] text-black">Бүтээгдэхүүн</p>
             </div>
-            <div onClick={() => router.push("/settings")} className="flex items-center">
+            <div onClick={() => router.push("/Settings")} className="flex items-center">
                 <div className="py-[8px] px-[16px]">
                     <SettingsIcon />
                 </div>

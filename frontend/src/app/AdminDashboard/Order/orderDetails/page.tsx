@@ -1,6 +1,6 @@
-import Arrow from "@/Components/Icon/arrow";
-import Navbar from "@/Components/Navbar";
-import Sidebar from "@/Components/Sidebar";
+import Sidebar from "@/components/Sidebar";
+import Arrow from "@/components/Icon/Arrow";
+import Navbar from "@/components/Navbar";
 
 export default function OrderDetails(){
     return (

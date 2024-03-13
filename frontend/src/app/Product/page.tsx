@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import Plus from "../../Components/Icon/Plus";
-import Delete from "../../Components/Icon/Delete";
-import Edit from "../../Components/Icon/Edit";
-import headers from "../../Components/utils/Table";
-import Filter from "../../Components/Filter";
-import Sidebar from "@/Components/Sidebar";
-import Approve from "@/Components/Icon/Approve";
+import Plus from "../../components/Icon/Plus";
+import Delete from "../../components/Icon/Delete";
+import Edit from "../../components/Icon/Edit";
+import headers from "../../components/utils/Table";
+import Filter from "../../components/Filter";
+import Sidebar from "@/components/Sidebar";
+import Approve from "@/components/Icon/Approve";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 

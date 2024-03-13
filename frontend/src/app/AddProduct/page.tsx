@@ -1,5 +1,9 @@
 "use client";
 import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import AddPro from "./AddPro";
+import Image from "../../components/Icon/Image";
+import Add from "@/components/Icon/Add";
 import AddPro from "./AddPro";
 import Sidebar from "@/Components/Sidebar";
 import Arrow from "../../Components/Icon/Arrow";
@@ -7,6 +11,8 @@ import Image from "../../Components/Icon/Image";
 import Add from "../../Components/Icon/Add";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Arrow from "@/components/Icon/Arrow";
+import Sidebar from "@/components/Sidebar";
 
 const api = "http://localhost:8000/product/create";
 
@@ -40,9 +46,11 @@ export default function AddProduct() {
     }
   };
 
+  const handleUpdate = async (productId: string) => { };
+
   return (
     <div className="flex">
-      <Sidebar />
+      <Sidebar/>
       <div className="flex flex-col bg-gray-100 w-full h-full">
         <div className="flex gap-10 pt-6 items-center bg-white p-4">
           <button onClick={() => router.push("/Product")}>

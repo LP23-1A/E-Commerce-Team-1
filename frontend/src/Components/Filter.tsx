@@ -1,5 +1,5 @@
-import texts from "./utils/Texts";
-import Search from "./Icon/Search";
+import Search from "@/components/Icon/Search";
+import texts from "@/components/utils/Texts";
 export default function filter() {
   return (
     <div className="flex justify-between w-full">
@@ -17,7 +17,7 @@ export default function filter() {
       </div>
       <div className="relative flex items-center">
         <div className="absolute pl-2">
-          <Search />
+          <Search/>
         </div>
         <input
           type="search"

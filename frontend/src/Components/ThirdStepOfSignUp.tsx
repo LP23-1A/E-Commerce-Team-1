@@ -17,7 +17,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
     const [buttonActive, setButtonActive] = useState(false);
     const { user } = useAuth0();
     // console.log(JSON.stringify(user));
-    const { userData, setUserData }: any = useContext(UserContext);
+    const { userData }: any = useContext(UserContext);
     const [haveSkill, setHaveSkill] = useState('');
     const [productType, setProductType] = useState('');
     // console.log(userData, 'from 3');
@@ -88,7 +88,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
     return (
         <>
             <PineConeSVG />
-            <ThirdLine />            
+            <ThirdLine />
             <div className="flex mt-[100px] justify-center">
                 <div className="w-[452px] h-[296px] mt-[100px]">
                     <h3 className="font-bold text-3xl text-black">Knowing to each other a bit</h3>
