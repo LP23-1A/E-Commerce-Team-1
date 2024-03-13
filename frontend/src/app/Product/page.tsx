@@ -40,6 +40,14 @@ export default function Product() {
     return;
   }
 
+  if (action === "AddProduct") {
+    setModal(true);
+    setTimeout(() => {
+      setModal(false);
+    }, 1000);
+    return;
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
