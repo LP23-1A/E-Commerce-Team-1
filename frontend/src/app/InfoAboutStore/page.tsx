@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import FirstStepOfSignUp from "@/Components/FirstStepOfSignUp";
-import SecondStepOfSignUp from "@/Components/SecondStepOfSignUp";
-import ThirdStepOfSignUp from "@/Components/ThirdStepOfSignUp";
+import FirstStepOfSignUp from "@/components/FirstStepOfSignUp";
+import SecondStepOfSignUp from "@/components/SecondStepOfSignUp";
+import ThirdStepOfSignUp from "@/components/ThirdStepOfSignUp";
 
 export default function InfoAboutStore() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -15,10 +15,6 @@ export default function InfoAboutStore() {
         setCurrentStep(currentStep - 1);
     };
     
-    const renderStep = () => {
-  const prevStep = () => {
-    setCurrentStep(currentStep - 1);
-  };
   const renderStep = () => {
     switch (currentStep) {
       case 1:

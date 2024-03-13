@@ -2,54 +2,22 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
-import { UserContext } from "@/Components/UserContext";
-import PineConeSVG from "@/components/SvG/PineCone";
+import { UserContext } from "@/components/UserContext";
+import PineConeSVG from "@/components/SvG/PineCone";;
 import ButtonGoogle from "@/components/ButtonGoogle";
 import ButtonMicrosoft from "@/components/ButtonMicrosoft";
 import ButtonApple from "@/components/ButtonApple";
 import AlreSignedUp from "@/components/Alre-SignedUp";
 import RightArrow from "@/components/SvG/RightArrow";
 import GoogleSignIn from "@/components/GoogleSignIn";
-import ButtonGoogle from "@/Components/ButtonGoogle";
-import ButtonMicrosoft from "@/Components/ButtonMicrosoft";
-import ButtonApple from "@/Components/ButtonApple";
-import AlreSignedUp from "@/Components/Alre-SignedUp";
-import useSWR from "swr";
-import RightArrow from "@/Components/SvG/RightArrow";
-import GoogleSignIn from "@/Components/GoogleSignIn";
 
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const USERNAME_REGEX = /^[A-Z].{2,}$/;
 
 export default function SignUp() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [buttonActive, setButtonActive] = useState(false);
-    const router = useRouter();
-    const { setUserData }: any = useContext(UserContext);
-
-    const handleColor = (valueEmail: string, valueName: string) => {
-        setEmail(valueEmail);
-        setName(valueName);
-
-        valueEmail.trim() !== "" && valueName.trim() !== ""
-            ? setButtonActive(true)
-            : setButtonActive(false)
-
-        setUserData((preValue: any) => ({
-            ...preValue,
-            userName: valueName,
-            email: valueEmail
-        }));
-    };
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [buttonActive, setButtonActive] = useState(false);
-  const fetcher = (url: string) => fetch(url).then((el) => el.json());
-  const { data, isLoading } = useSWR(
-    "http://localhost:8000/user/getAllUsers",
-    fetcher
-  );
   const router = useRouter();
   const { setUserData }: any = useContext(UserContext);
 
@@ -59,12 +27,12 @@ export default function SignUp() {
 
     valueEmail.trim() !== "" && valueName.trim() !== ""
       ? setButtonActive(true)
-      : setButtonActive(false);
+      : setButtonActive(false)
 
     setUserData((preValue: any) => ({
       ...preValue,
       userName: valueName,
-      email: valueEmail,
+      email: valueEmail
     }));
   };
 
@@ -76,32 +44,6 @@ export default function SignUp() {
   function validateName(name: string) {
     return USERNAME_REGEX.test(name);
   }
-
-  const verifyingExistingUser = async () => {
-    if (!data) return;
-    if (isLoading) {
-      toast.loading("Waiting...");
-      return;
-    }
-
-    const allUsers = data.allUsers;
-    // const existingClient = allUsers ? allUsers.some((el: any) => el.userName === name) : undefined
-    const test = allUsers
-      ? allUsers.map((el: any) => el.includes(name))
-      : console.log("failed to map ");
-
-    function validateName(name: string) {
-        return USERNAME_REGEX.test(name)
-    };
-    // console.log(existingClient, "this is existing client");
-    console.log(test);
-
-    if (test) {
-      toast.error("Sorry, the name already exists.");
-      return false;
-    }
-    return true;
-  };
 
   const NavigateToNext = async () => {
     if (name === "" && email === "") {
@@ -118,14 +60,10 @@ export default function SignUp() {
       );
       return;
     }
-
-    const isUniqueUser = await verifyingExistingUser();
-    if (!isUniqueUser) return;
-
-        toast('🚀 To The Next section')
-        setTimeout(() => {
-            router.push('/InfoAboutStore');
-        }, 1000)
+    toast('🚀 To The Next section')
+    setTimeout(() => {
+      router.push('/InfoAboutStore');
+    }, 1000)
     router.push("/InfoAboutStore");
   };
 
