@@ -1,6 +1,9 @@
+import AWS from "aws-sdk";
+import dotenv from "dotenv";
 import { Request, Response } from "express";
 import { ProductModel } from "../model/Product";
 
+dotenv.config();
 interface ProductData {
   productName: string;
   description: string;
@@ -10,6 +13,21 @@ interface ProductData {
   createdAt: number;
   coupon: string;
 }
+const region = "";
+const bucketName = "ecommerce-team-1";
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+
+const s3 = new AWS.S3();
+export const generateUploadUrl = async (req: Request, res: Response) => {
+  const params = {
+    Bucket: bucketName,
+    Key: __filename,
+    Expires: 60,
+  };
+  const uploadURL = await s3.getSignedUrlPromise("putObject", params);
+  return uploadURL;
+};
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
@@ -59,6 +77,8 @@ export const deleteProduct = async (req: Request, res: Response) => {
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     const ProductId = req.params.id;
+    console.log(ProductId);
+
     req.body.updatedAt = new Date();
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       ProductId,

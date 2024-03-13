@@ -24,23 +24,25 @@ interface Items {
   updatedAt: number;
 }
 export default function Product() {
-  const search = useSearchParams();
-  const action = search.get("action");
   const router = useRouter();
+  const search = useSearchParams();
+  const action = search.get("AddProduct");
   const [data, setData] = useState<Items[]>([]);
   const [Modal, setModal] = useState(false);
+
+  if (action === "AddProduct") {
+    setModal(true);
+    setTimeout(() => {
+      setModal(false);
+    }, 1000);
+    return;
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get<Items[]>(api);
         setData(res.data);
-        if (action == "add") {
-          setModal(true);
-          setTimeout(() => {
-            setModal(false);
-          }, 1000);
-        }
       } catch (error) {
         console.log(error);
       }
@@ -69,7 +71,7 @@ export default function Product() {
         </div>
         <button
           className="bg-black w-[280px] h-[48px] text-white flex items-center p-4 justify-center gap-4 rounded-lg"
-          onClick={() => router.push("/AddProduct?action=add")}
+          onClick={() => router.push(`/AddProduct`)}
         >
           <Plus />
           <h1>Бүтээгдэхүүн нэмэх</h1>
@@ -135,9 +137,7 @@ export default function Product() {
                       <button
                         className="px-2 py-1 transition duration-300 transform hover:scale-125"
                         onClick={() =>
-                          router.push(
-                            `/AddProduct?action=edit&productId=${dat._id}`
-                          )
+                          router.push(`/EditProduct?productId=${dat._id}`)
                         }
                       >
                         <Edit />
