@@ -23,7 +23,7 @@ export default function Approve() {
           height="48"
           rx="10"
           fill="white"
-          fill-opacity="0.04"
+          fillOpacity="0.04"
         />
         <rect
           x="0.5"
@@ -32,7 +32,7 @@ export default function Approve() {
           height="47"
           rx="9.5"
           stroke="white"
-          stroke-opacity="0.04"
+          strokeOpacity="0.04"
         />
         <path
           d="M20.7951 41.8749L16.6251 37.7049L15.2051 39.1149L20.7951 44.7049L32.7951 32.7049L31.3851 31.2949L20.7951 41.8749Z"
@@ -47,9 +47,9 @@ export default function Approve() {
           width="96"
           height="96"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feGaussianBlur in="BackgroundImageFix" stdDeviation="12" />
           <feComposite
             in2="SourceAlpha"

@@ -17,7 +17,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
     const [buttonActive, setButtonActive] = useState(false);
     const { user } = useAuth0();
     // console.log(JSON.stringify(user));
-    const { userData, setUserData }: any = useContext(UserContext);
+    const { userData }: any = useContext(UserContext);
     const [haveSkill, setHaveSkill] = useState('');
     const [productType, setProductType] = useState('');
     // console.log(userData, 'from 3');
@@ -44,8 +44,8 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
                 toast.error("Please choose the given options")
             } else {
                 const response = await axios.post(backEndOfSignUp, {
-                    userName: user ? userData.userName : user?.name,
-                    email: user ? userData.email : user?.email,
+                    userName: user?.name ?? userData?.userName,
+                    email: user?.email ?? userData?.email,
                     khoroo: userData.khoroo,
                     district: userData.district,
                     phoneNumber: userData.phoneNumber,

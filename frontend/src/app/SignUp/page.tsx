@@ -63,7 +63,7 @@ export default function SignUp() {
         toast('🚀 To The Next section')
         setTimeout(() => {
             router.push('/InfoAboutStore');
-        }, 2000)
+        }, 1000)
     };
 
     useEffect(() => {

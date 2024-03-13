@@ -1,10 +1,11 @@
 'use client'
-import { useRouter } from "next/navigation";
+import AppRouter from "next/dist/client/components/app-router";
 import IncomeIcon from "./Icon/IncomeIcon";
 import MainIcon from "./Icon/MainIcon";
 import OrderIcon from "./Icon/OrderIcon";
 import ProductIcon from "./Icon/ProductIcon";
 import SettingsIcon from "./Icon/SettingsIcon";
+import { useRouter } from "next/navigation";
 
 export default function Sidebar() {
     const router = useRouter();
@@ -35,7 +36,7 @@ export default function Sidebar() {
                 </div>
                 <p className="text-[16px] text-black">Бүтээгдэхүүн</p>
             </div>
-            <div onClick={() => router.push("/settings")} className="flex items-center">
+            <div onClick={() => router.push("/Settings")} className="flex items-center">
                 <div className="py-[8px] px-[16px]">
                     <SettingsIcon />
                 </div>
