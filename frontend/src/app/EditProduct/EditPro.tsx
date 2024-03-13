@@ -1,18 +1,16 @@
 "use client";
-import { useRouter } from "next/navigation";
-import Add from "@/components/Icon/Add";
+import { useRouter, useSearchParams } from "next/navigation";
 import items from "../../Components/utils/Items";
-export default function addPro({
-  handleSubmit,
-  productName,
-  price,
+export default function EditPro({
+  handleUpdate,
   description,
   setDescription,
   coupon,
   setCoupon,
 }: any) {
   const router = useRouter();
-
+  const search = useSearchParams();
+  const productId = search.get("productId");
   const selectData = [
     {
       title: "Ерөнхий ангилал",
@@ -36,11 +34,6 @@ export default function addPro({
       setValue: setDescription,
     },
   ];
-  const isFormFilled =
-    productName.trim() !== "" &&
-    price.trim() !== "" &&
-    coupon.trim() !== "" &&
-    description.trim() !== "";
 
   return (
     <div className="flex items-center flex-col gap-[26px] w-[600px]">
@@ -93,24 +86,15 @@ export default function addPro({
         <button className="border-[1px] border-gray-400 w-[130px] h-[50px] rounded-lg font-semibold">
           Ноорог
         </button>
-        {isFormFilled ? (
-          <button
-            className=" bg-black border-[1px] border-gray-200 w-[130px] h-[50px] rounded-lg font-semibold text-white"
-            onClick={() => {
-              handleSubmit();
-              router.push("/Product");
-            }}
-          >
-            Нийтлэх
-          </button>
-        ) : (
-          <button
-            disabled
-            className="bg-white border-[1px] border-gray-200 w-[130px] h-[50px] rounded-lg font-semibold text-gray-400"
-          >
-            Нийтлэх
-          </button>
-        )}
+        <button
+          className=" bg-black border-[1px] border-gray-200 w-[130px] h-[50px] rounded-lg font-semibold text-white"
+          onClick={() => {
+            handleUpdate(productId);
+            router.push("/Product");
+          }}
+        >
+          Нийтлэх
+        </button>
       </div>
     </div>
   );

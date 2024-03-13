@@ -1,26 +1,16 @@
 "use client";
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import AddPro from "./AddPro";
-import Image from "../../components/Icon/Image";
-import Add from "@/components/Icon/Add";
-import AddPro from "./AddPro";
+import EditPro from "../EditProduct/EditPro";
 import Sidebar from "@/Components/Sidebar";
 import Arrow from "../../Components/Icon/Arrow";
 import Image from "../../Components/Icon/Image";
 import Add from "../../Components/Icon/Add";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
-import Arrow from "@/components/Icon/Arrow";
-import Sidebar from "@/components/Sidebar";
 
-const api = "http://localhost:8000/product/create";
+const api2 = "http://localhost:8000/product";
 
-export default function AddProduct() {
-  const [show, setShow] = useState(false);
-  const click = () => {
-    setShow(!show);
-  };
+export default function EditProduct() {
   const imageArray = [1, 2, 3];
 
   const router = useRouter();
@@ -29,28 +19,28 @@ export default function AddProduct() {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
   const [coupon, setCoupon] = useState("");
+  const search = useSearchParams();
+  const productId = search.get("productId");
 
-  const handleSubmit = async () => {
-    const formData = {
-      productName: productName,
-      price: price,
-      description: description,
-      quantity: quantity,
-      coupon: coupon,
-    };
+  const handleUpdate = async () => {
     try {
-      const res = await axios.post(api, formData);
-      console.log(res);
+      const Data = {
+        ...(productName && { productName }),
+        ...(price && { price }),
+        ...(description && { description }),
+        ...(quantity && { quantity }),
+        ...(coupon && { coupon }),
+      };
+      console.log("updated", productId);
+      await axios.put(`${api2}/${productId}`, Data);
     } catch (error) {
-      console.log(error);
+      console.log("can't update");
     }
   };
 
-  const handleUpdate = async (productId: string) => { };
-
   return (
     <div className="flex">
-      <Sidebar/>
+      <Sidebar />
       <div className="flex flex-col bg-gray-100 w-full h-full">
         <div className="flex gap-10 pt-6 items-center bg-white p-4">
           <button onClick={() => router.push("/Product")}>
@@ -94,7 +84,7 @@ export default function AddProduct() {
               <div className="flex flex-col gap-8">
                 <h1>Бүтээгдэхүүний зураг</h1>
                 <div className="flex justify-around">
-                  <div className="flex justify-center" onClick={click}>
+                  <div className="flex justify-center">
                     {imageArray.map((index) => (
                       <div
                         key={index}
@@ -133,30 +123,17 @@ export default function AddProduct() {
               </div>
             </div>
           </div>
-          <AddPro
+          <EditPro
             {...{
-              handleSubmit,
-              setCoupon,
-              setDescription,
-              price,
-              coupon,
+              handleUpdate,
               description,
-              productName,
+              setDescription,
+              coupon,
+              setCoupon,
             }}
           />
         </div>
       </div>
-      {show && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="flex flex-col justify-center items-center bg-white w-[275px] h-[184px] rounded-lg shadow-lg font-semibold text-center">
-            <p onClick={click}>sdaf</p>
-            <input
-              type="file"
-              className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
