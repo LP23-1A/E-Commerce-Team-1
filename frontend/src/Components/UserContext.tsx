@@ -1,25 +1,39 @@
 'use client'
-import React, { useState, createContext } from "react";
+import React, { useRef, createContext } from "react";
+
+interface UserData {
+    userName: string;
+    email: string;
+    nameOfStore: string;
+    phoneNumber: number;
+    district: string;
+    khoroo: string;
+    skillInSales: string;
+    typeOfProduct: string;
+};
 
 export const UserContext = createContext({});
 
 export const UserContextProvider = ({ children }: any) => {
-    const [userData, setUserData] = useState({
+    const userDataRef = useRef<UserData>({
         userName: "",
         email: "",
         nameOfStore: "",
         phoneNumber: 0,
         district: "",
         khoroo: "",
-        skillInSales: false,
+        skillInSales: "",
         typeOfProduct: ""
     });
 
-    // console.log(userData, "from context");
-    
+    const setUserData = (newData: {}) => {
+        userDataRef.current = { ...userDataRef.current, ...newData }
+    };
+
+    console.log(userDataRef, "hi");
 
     return (
-        <UserContext.Provider value={{ userData, setUserData }}>
+        <UserContext.Provider value={{ userData: userDataRef.current, setUserData }}>
             {children}
         </UserContext.Provider>
     )

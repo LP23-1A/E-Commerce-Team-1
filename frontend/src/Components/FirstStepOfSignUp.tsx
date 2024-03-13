@@ -1,30 +1,32 @@
 "use client"
 import PineConeSVG from "@/components/SvG/PineCone";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "./UserContext";
 import RightArrow from "./SvG/RightArrow";
 import LeftArrow from "./SvG/LeftArrow";
+import FirstLine from "./FirstLine";
 
 export default function FirstStepOfSignUp({ nextStep }: any) {
     const [buttonActive, setButtonActive] = useState(false);
-    const [inputValue, setInputValue] = useState("");
+    const inputRef = useRef<HTMLInputElement>(null);
     const [error, setError] = useState("");
-    const { userData, setUserData }: any = useContext(UserContext)
+    const { setUserData }: any = useContext(UserContext);
 
     const handleInputValue = (event: any) => {
-        const value = event.target.value;
-        setInputValue(value);
+        if (inputRef.current) {
+            let inputValue = inputRef.current.value;            
 
-        value.trim() !== "" ? setButtonActive(true) : setButtonActive(false)
+            inputValue !== "" ? setButtonActive(true) : setButtonActive(false)
 
-        setUserData((preValue: any) => ({
-            ...preValue,
-            nameOfStore: value
-        }))
+            setUserData((preValue: any) => ({
+                ...preValue,
+                nameOfStore: inputValue
+            }))            
+        }
     };
 
     const validInput = () => {
-        if (inputValue !== "") {
+        if (inputRef.current?.value !== "") {
             nextStep()
         } else {
             setError('Please give your Input');
@@ -49,32 +51,18 @@ export default function FirstStepOfSignUp({ nextStep }: any) {
     return (
         <>
             <PineConeSVG />
-            <div className="flex mt-[50px] justify-center">
-                <div className="w-[792px] h-[76px] p-[0, 24px]">
-                    <div className="border border-solid border-grey-300 w-[692px] absolute mt-[16px] ml-[35px] z-[-1]"></div>
-                    <ul className="flex flex-row bg-slate-40 justify-between">
-                        <div className="flex justify-center flex-col items-center gap-[8px]">
-                            <p className="w-[36px] h-[36px] bg-black rounded-full text-white flex justify-center items-center">1</p>
-                            <li className="step step-primary">Name of Store</li>
-                        </div>
-                        <div className="flex justify-center flex-col items-center gap-[8px]">
-                            <p className="w-[36px] h-[36px] bg-gray-300 rounded-full text-black flex justify-center items-center">2</p>
-                            <li className="step step-primary">Own Region</li>
-                        </div>
-                        <div className="flex justify-center flex-col items-center gap-[8px]">
-                            <p className="w-[36px] h-[36px] bg-gray-300 rounded-full text-black flex justify-center items-center">3</p>
-                            <li className="step step-primary">Additional Information</li>
-                        </div>
-                    </ul>
-                </div>
-            </div>
-            {/* information about store */}
+            <FirstLine />
             <div className="flex justify-center">
                 <div className="w-[452px] h-[296px] mt-[220px] p-[20px] text-center">
                     <h3 className="font-bold text-3xl text-black">Information about store</h3>
                     <p className="font-semibold text-base text-black mt-2">what is the name of your store ?</p>
                     <div className="w-[360xp] mt-[20px] h-[88px] flex flex-col gap-4">
-                        <input value={inputValue} onChange={handleInputValue} className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="name of store" type="text" />
+                        <input
+                            ref={inputRef}
+                            onChange={handleInputValue}
+                            className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg"
+                            placeholder="name of store"
+                            type="text" />
                         <p className="text-red-400 semibold">{error}</p>
                     </div>
                     <div className="flex justify-between items-baseline">

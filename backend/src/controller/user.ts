@@ -6,8 +6,7 @@ export const SignUp = async (req: any, res: any) => {
     try {
         const { ...userData } = req.body;
 
-        const response = await userModal.create({ ...userData });
-        console.log(response, "this is response");
+        const response = await userModal.create({ ...userData });        
 
         const token = jwt.sign({ userId: response._id }, 'Test');
 
@@ -16,6 +15,7 @@ export const SignUp = async (req: any, res: any) => {
             createdUser: response,
             token
         });
+        console.log(response, "response");        
 
     } catch (error) {
         console.log("error at creating user", error);

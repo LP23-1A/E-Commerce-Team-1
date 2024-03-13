@@ -15,41 +15,32 @@ export default function SecondStepOfSignUp({ nextStep, prevStep }: any) {
     const { userData, setUserData }: any = useContext(UserContext);
     // console.log(userData, "this is userData");
 
-
-    const handlePhoneNumber = (event: any) => {
-        const valueNumber = parseInt(event.target.value)
-        setPhoneNumber(valueNumber);
-
-        setUserData((preValue: any) => ({
+    const handleFieldChange = (names: string) => (event: any) => {
+        const value = event.target.value
+        switch (names) {
+            case 'phoneNumber':
+                setPhoneNumber(parseInt(value))
+                break;
+            case 'district':
+                setDistrict(value)
+                break;
+            case 'khoroo':
+                setKhoroo(value)
+                break;
+            default:
+                break;
+        };        
+        
+        setUserData((preValue: {}) => ({
             ...preValue,
-            phoneNumber: valueNumber
-        }));
-    };
-
-    const handleDistrict = (event: any) => {
-        const valueDistrict = event.target.value
-        setDistrict(valueDistrict);
-
-        setUserData((preValue: any) => ({
-            ...preValue,
-            district: valueDistrict
-        }));
-    };
-
-    const handleKhoroo = (event: any) => {
-        const valueKhoroo = event.target.value
-        setKhoroo(valueKhoroo);
-
-        setUserData((prevValue: any) => ({
-            ...prevValue,
-            khoroo: valueKhoroo
-        }));
-    };
+            phoneNumber: phoneNumber,
+            district: district,
+            khoroo: khoroo
+        }))
+    }
 
     useEffect(() => {
         const isActive = district !== "" && khoroo !== "" && phoneNumber !== 0;
-        console.log(isActive);
-
         setButtonActive(isActive);
     }, [district, khoroo, phoneNumber])
 
@@ -85,28 +76,28 @@ export default function SecondStepOfSignUp({ nextStep, prevStep }: any) {
                     <h3 className="font-bold text-3xl text-black">Information of Local Region</h3>
 
                     <div className="flex gap-4 flex-col">
-                        {/* PhoneNumber */}
                         <div className="w-[360px]  flex flex-col">
                             <p className="font-semibold text-base text-black ">Phone-Number</p>
                             <input
                                 value={phoneNumber}
-                                onChange={handlePhoneNumber}
-                                className="border w-[454px] mt-[10px] border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="district/District" type="text" />
+                                onChange={handleFieldChange('phoneNumber')}
+                                className="border w-[454px] mt-[10px] border-solid border-gray-300 bg-slate-100 p-2 rounded-lg"
+                                placeholder="Phone Number"
+                                type="text"
+                            />
                         </div>
-                        {/* district/District */}
                         <div className="w-[360px]  flex flex-col">
                             <p className="font-semibold text-base text-black ">district/District</p>
                             <input
                                 value={district}
-                                onChange={handleDistrict}
+                                onChange={handleFieldChange('district')}
                                 className="border w-[454px] mt-[10px] border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="district/District" type="text" />
                         </div>
-                        {/* Khoroo */}
                         <div className="w-[360px]  flex flex-col">
                             <p className="font-semibold text-base text-black">khoroo</p>
                             <input
                                 value={khoroo}
-                                onChange={handleKhoroo}
+                                onChange={handleFieldChange('khoroo')}
                                 className="border w-[454px] mt-[10px] border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="khoroo" type="text" />
                         </div>
                         <p className="text-red-400 semibold">{error}</p>

@@ -15,27 +15,22 @@ const commodity = ['👚 women clothes', '👗 dress', '👢 women boot', '🥾 
 
 export default function ThirdStepOfSignUp({ prevStep }: any) {
     const [buttonActive, setButtonActive] = useState(false);
-    const { user } = useAuth0();
-    // console.log(JSON.stringify(user));
+    const { user } = useAuth0();    
     const { userData }: any = useContext(UserContext);
     const [haveSkill, setHaveSkill] = useState('');
     const [productType, setProductType] = useState('');
-    // console.log(userData, 'from 3');
-
+    console.log(userData);
+    
     const router = useRouter()
 
     const manageSkill = (event: any) => {
         const valueSkill = event.target.value
-        setHaveSkill(valueSkill)
-        console.log(valueSkill, "skill");
-
+        setHaveSkill(valueSkill);
     };
 
     const manageProductType = (event: any) => {
         const valueProductType = event.target.value
-        setProductType(valueProductType)
-        console.log(valueProductType, "type");
-
+        setProductType(valueProductType)        
     };
 
     const registerClient = async () => {
@@ -54,8 +49,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
                     skillInSales: haveSkill,
                     createdAt: new Date,
                     updatedAt: new Date
-                })
-                console.log(response, "this is response");
+                });                
                 toast.success("Successfully registered")
                 setTimeout(() => {
                     router.push(`/DashBoard/${response.data.createdUser._id}`)
