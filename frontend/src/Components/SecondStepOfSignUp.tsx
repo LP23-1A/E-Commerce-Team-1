@@ -1,9 +1,9 @@
 "use client"
-import PineConeSVG from "@/components/SvG/PineCone";
+import PineConeSVG from "@/Components/SVG/PineCone";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "./UserContext";
 import RightArrow from "./SvG/RightArrow";
-import LeftArrow from "./SvG/LeftArrow";
+import LeftArrow from "./SVG/LeftArrow";
 import SecondLine from "./SecondLine";
 
 export default function SecondStepOfSignUp({ nextStep, prevStep }: any) {

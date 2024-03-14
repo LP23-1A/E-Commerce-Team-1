@@ -11,7 +11,7 @@ export default function Status(status: any, id: any) {
     amountToBePaid: Number;
     createdAt: String;
   }
-  
+  console.log(status, id)
   const [order, setOrder] = useState<Order[]>([]);
   const api = "http://localhost:8000/order/get";
 
@@ -47,56 +47,33 @@ export default function Status(status: any, id: any) {
     }
   };
 
-  if (status.status === "Бэлтгэгдэж байна") {
-    return (
-      <select
-        onChange={(e: any) => handleStatusChange(status.id, e.target.value)}
-        className="text-[#3F4145] bg-[#ECEDF0] px-[10px] py-[6px] rounded-[20px]"
-        name=""
-        id=""
-      >
-        <option value="Бэлтгэгдэж байна">Бэлтгэгдэж байна</option>
-        <option value="Хүргэгдсэн">Хүргэгдсэн</option>
-        <option value="Хүргэлтэнд гарсан">Хүргэлтэнд гарсан</option>
-        <option value="Шинэ захиалга">Шинэ захиалга</option>
-      </select>
-    );
+  const statusOptions: any = {
+    "Бэлтгэгдэж байна": ["Бэлтгэгдэж байна", "Хүргэгдсэн", "Хүргэлтэнд гарсан", "Шинэ захиалга"],
+    "Шинэ захиалга": ["Шинэ захиалга", "Бэлтгэгдэж байна", "Хүргэгдсэн", "Хүргэлтэнд гарсан"],
+    "Хүргэлтэнд гарсан": ["Хүргэлтэнд гарсан", "Бэлтгэгдэж байна", "Хүргэгдсэн", "Шинэ захиалга"],
+  };
+
+  const statusStyles: any = {
+    "Бэлтгэгдэж байна": "text-[#3F4145] bg-[#ECEDF0]",
+    "Шинэ захиалга": "text-[#3F4145] bg-white border-[1px]",
+    "Хүргэлтэнд гарсан": "text-[#1890FF] bg-[#B7DDFF]",
+  };
+
+  if (status.status === "Хүргэгдсэн") {
+    return <p className="bg-[#C1E6CF] color-[#0A4E22] px-[10px] py-[6px] rounded-[20px] text-[#0A4E22]">Хүргэгдсэн</p>;
   }
-  else if (status.status === "Шинэ захиалга") {
-    return (
-      <select
-        onChange={(e: any) => handleStatusChange(status.id, e.target.value)}
-        className="text-[#3F4145] bg-white px-[10px] py-[6px] rounded-[20px] border-[1px]"
-        name=""
-        id=""
-      >
-        <option value="Шинэ захиалга">Шинэ захиалга</option>
-        <option value="Бэлтгэгдэж байна">Бэлтгэгдэж байна</option>
-        <option value="Хүргэгдсэн">Хүргэгдсэн</option>
-        <option value="Хүргэлтэнд гарсан">Хүргэлтэнд гарсан</option>
-      </select>
-    );
-  }
-  else if (status.status === "Хүргэлтэнд гарсан") {
-    return (
-      <select
-        onChange={(e: any) => handleStatusChange(status.id, e.target.value)}
-        className="text-[#1890FF] bg-[#B7DDFF] px-[10px] py-[6px] rounded-[20px]"
-        name=""
-        id=""
-      >
-        <option value="Хүргэлтэнд гарсан">Хүргэлтэнд гарсан</option>
-        <option value="Бэлтгэгдэж байна">Бэлтгэгдэж байна</option>
-        <option value="Хүргэгдсэн">Хүргэгдсэн</option>
-        <option value="Шинэ захиалга">Шинэ захиалга</option>
-      </select>
-    );
-  } 
-  else if (status.status === "Хүргэгдсэн") {
-    return (
-      <p className="bg-[#C1E6CF] color-[#0A4E22] px-[10px] py-[6px] rounded-[20px] text-[#0A4E22]">
-        Хүргэгдсэн
-      </p>
-    );
-  }
+
+  const options = statusOptions[status.status] || [];
+  const style = statusStyles[status.status] || "text-[#3F4145] bg-[#ECEDF0]";
+
+  return (
+    <select
+      onChange={(e) => handleStatusChange(status.id, e.target.value)}
+      className={`${style} px-[10px] py-[6px] rounded-[20px]`}
+    >
+      {options.map((option:any) => (
+        <option key={option} value={option}>{option}</option>
+      ))}
+    </select>
+  );
 }
