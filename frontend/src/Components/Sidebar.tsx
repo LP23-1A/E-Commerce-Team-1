@@ -1,10 +1,10 @@
 'use client'
-import IncomeIcon from "./Icon/IncomeIcon";
+import { useRouter } from "next/navigation";
 import MainIcon from "./Icon/MainIcon";
 import OrderIcon from "./Icon/OrderIcon";
+import IncomeIcon from "./Icon/IncomeIcon";
 import ProductIcon from "./Icon/ProductIcon";
 import SettingsIcon from "./Icon/SettingsIcon";
-import { useRouter } from "next/navigation";
 
 export default function Sidebar() {
     const router = useRouter();

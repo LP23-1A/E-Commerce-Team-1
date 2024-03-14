@@ -1,16 +1,16 @@
 'use client'
-import Sidebar from "@/components/Sidebar";
-import CicleSvG from "@/components/SvG/Circle";
-import SearchSvG from "@/components/SvG/SearchSvG";
+import Sidebar from "@/Components/Sidebar";
+import CicleSvG from "@/Components/SVG/Circle";
+import SearchSvG from "@/Components/SVG/SearchSvG";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import SuccessModalTypeOfStore from "@/components/SuccessModal";
-import ModalStoreSettings from "@/components/ModalStore";
-import DisAbledFirst from "@/components/DisAbledFirst";
-import DisAbledSecond from "@/components/DisAbledSecond";
-import ModalDeliverySettings from "@/components/DeliveryModal";
-import DisAbledThird from "@/components/DisabledThird";
+import SuccessModalTypeOfStore from "@/Components/SuccessModal";
+import ModalStoreSettings from "@/Components/ModalStore";
+import DisAbledFirst from "@/Components/DisAbledFirst";
+import DisAbledSecond from "@/Components/DisAbledSecond";
+import ModalDeliverySettings from "@/Components/DeliveryModal";
+import DisAbledThird from "@/Components/DisabledThird";
 
 export default function Settings() {
     const [modalStore, setModalStore] = useState(false);
@@ -95,8 +95,6 @@ export default function Settings() {
                             <button onClick={() => setModalDelivery(true)} className="p-[10px] broder-solid border rounded-xl font-semibold text-sm">Adjust Distribution</button>
                         </div>
                     }
-
-
 
                 </div>
                 <Toaster position="top-center" />

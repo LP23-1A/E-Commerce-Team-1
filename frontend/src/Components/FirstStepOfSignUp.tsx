@@ -1,9 +1,9 @@
 "use client"
-import PineConeSVG from "@/components/SvG/PineCone";
+import PineConeSVG from "@/Components/SVG/PineCone";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "./UserContext";
-import RightArrow from "./SvG/RightArrow";
-import LeftArrow from "./SvG/LeftArrow";
+import RightArrow from "./SVG/RightArrow";
+import LeftArrow from "./SVG/LeftArrow";
 import FirstLine from "./FirstLine";
 
 export default function FirstStepOfSignUp({ nextStep }: any) {
@@ -46,7 +46,7 @@ export default function FirstStepOfSignUp({ nextStep }: any) {
     return (
         <>
             <PineConeSVG />
-            <FirstLine />
+            <FirstLine/>
             <div className="flex justify-center">
                 <div className="w-[452px] h-[296px] mt-[220px] p-[20px] text-center">
                     <h3 className="font-bold text-3xl text-black">Information about store</h3>

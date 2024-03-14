@@ -4,16 +4,24 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Status from "@/Components/Status";
-import OrderFilter from "@/Components/OrderFilter";
 import Datefilter from "@/Components/DateFilter";
+import TitleOrders from "@/Components/TitlesOrder";
+import { statesOfOrder } from "@/Components/utils/StatesOfOrder";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function Order() {
-    interface Order {
-        _id: any; status: string; orderNumber: string; amountPaid: Number; amountToBePaid: number; createdAt: string;
-      }
+  interface Order {
+    _id: any; status: string; orderNumber: string; amountPaid: Number; amountToBePaid: number; createdAt: string;
+  }
   const api = "http://localhost:8000/order/get";
   const [order, setOrder] = useState<Order[]>([]);
   const router = useRouter();
+  const [selectedState, setSelectedState] = useState<string | null>("Бүгд");
+  const [filtereOrderData, setFiltereOrderData] = useState<Order[]>([]);
+
+  const handleButtonClick = (name: string) => {
+    setSelectedState(name);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +36,19 @@ export default function Order() {
     fetchData();
   }, []);
 
-
+  useEffect(() => {
+    if (selectedState) {
+      const filteredData = order.filter((el) => el.status === selectedState);
+      if (filteredData.length > 0) {
+        setFiltereOrderData(filteredData);
+      } else if (selectedState === "Бүгд") {
+        setFiltereOrderData(order);
+      } else {
+        setFiltereOrderData([]);
+        toast.error("There is no data for the selected status");
+      }
+    }
+  }, [selectedState, order]);
 
   return (
     <div>
@@ -36,39 +56,34 @@ export default function Order() {
         <Sidebar />
 
         <div className="bg-[#F7F7F8]">
-          <OrderFilter/>
-          <Datefilter/>
+          <div>
+            {statesOfOrder.map((element, i) => (
+              <button
+                key={i}
+                onClick={() => handleButtonClick(element)}
+                style={{
+                  borderStyle: selectedState === element ? "solid" : "",
+                  borderBottomWidth: selectedState === element ? "2px" : "",
+                  borderColor: selectedState === element ? "#121316" : "",
+                  fontWeight: selectedState === element ? "bold" : ""
+                }}
+                className="text-[14px] px-[16px] py-[20px] text-[#3F4145]"
+              >
+                {element}
+              </button>
+            ))}
+          </div>
+          <Datefilter />
           <div className="rounded-[8px] border-[1px] m-[24px] bg-white">
             <div className="pl-[24px] py-[20px]">
               <p className="text-[20px]">Захиалга</p>
             </div>
-            <div className="flex border-[1px] bg-[#F7F7F8]">
-              <p className="text-[12px] text-[#3F4145] pl-[24px] py-[14px] w-[191px]">
-                Захиалгын ID дугаар
-              </p>
-              <p className="text-[12px] text-[#3F4145] pl-[24px] py-[14px] w-[209px]">
-                Үйлчлүүлэгч
-              </p>
-              <p className="text-[12px] text-[#3F4145] pl-[24px] py-[14px] w-[168px]">
-                Огноо
-              </p>
-              <p className="text-[12px] text-[#3F4145] pl-[24px] py-[14px] w-[129px]">
-                Цаг
-              </p>
-              <p className="text-[12px] text-[#3F4145] pl-[24px] py-[14px] w-[137px]">
-                Төлбөр
-              </p>
-              <p className="text-[12px] text-[#3F4145] pl-[24px] py-[14px] w-[214px]">
-                Статус
-              </p>
-              <p className="text-[12px] text-[#3F4145] pl-[24px] py-[14px] w-[122px]">
-                Дэлгэрэнгүй
-              </p>
-            </div>
-            {order.map((el) => {
+            <TitleOrders />
+            {filtereOrderData.map((el: any) => {
+
               const dateString = el.createdAt;
               const date = new Date(dateString);
-              
+
               const year = date.getFullYear();
               const month = String(date.getMonth() + 1).padStart(2, '0');
               const day = String(date.getDate()).padStart(2, '0');
@@ -83,7 +98,7 @@ export default function Order() {
 
               const number = el.amountToBePaid;
               const formattedNumber = number.toLocaleString('en-US') + '₮';
-              
+
               return (
                 <div key={el._id} className="flex">
                   <p className="flex items-center py-[28px] px-[24px] w-[143px] box-content">{el.orderNumber}</p>
@@ -92,7 +107,7 @@ export default function Order() {
                   <p className="flex items-center py-[26px] px-[24px] w-[81px] box-content">{formattedTime}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[89px] box-content">{formattedNumber}</p>
                   <p className="pl-[28px] py-[24px] flex items-center w-[188px] box-content">
-                      <Status status={el.status} id={el._id}/>
+                    <Status status={el.status} id={el._id} />
                   </p>
                   <button onClick={() => router.push("OrderDetails")} className="flex items-center py-[30px] px-[57px] w-[] box-content">{">"}</button>
                 </div>
@@ -101,6 +116,7 @@ export default function Order() {
           </div>
         </div>
       </div>
+      <Toaster position="top-center" />
     </div>
   );
 }

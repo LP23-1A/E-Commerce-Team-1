@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/navigation";
 import React, { Toaster, toast } from "react-hot-toast";
-import GoogleSVG from "./SvG/Google";
-import RemoveX from "./SvG/RemoveX";
+import GoogleSVG from "./SVG/Google";
+import RemoveX from "./SVG/RemoveX";
 import useSWR from "swr";
 
 export default function GoogleSignIn() {
@@ -13,9 +13,6 @@ export default function GoogleSignIn() {
     const { data, isLoading }: any = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
     const router = useRouter();
     const arrayUser = [user]
-    // console.log(data, "this is data from backend");
-    // console.log(user, "this is user");
-    // console.log(user?.picture);
 
     const closeDisplay = () => {
         setDisplay(false)

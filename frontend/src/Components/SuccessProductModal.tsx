@@ -1,6 +1,6 @@
 import Approve from "./Icon/Approve";
-import RemoveX from "./SvG/RemoveX";
-import RightArrow from "./SvG/RightArrow";
+import RemoveX from "./SVG/RemoveX";
+import RightArrow from "./SVG/RightArrow";
 
 export default function SuccessModalProduct({ setIsSuccessProduct }: any) {
     return (

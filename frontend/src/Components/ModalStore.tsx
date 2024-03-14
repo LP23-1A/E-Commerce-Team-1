@@ -9,7 +9,7 @@ export default function ModalStoreSettings({ onchange, setModalStore, buttonActi
         } else {
             console.log('cannot store input in local storage');
         }
-    }
+    };
 
     return (
         <div className="w-full flex bg-green-400 absolute h-full justify-center items-center" style={{ backgroundColor: 'rgba(0, 0, 0, .5)' }}>

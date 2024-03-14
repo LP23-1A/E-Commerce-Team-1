@@ -1,4 +1,4 @@
-import CheckSvG from "./SvG/CheckSvG";
+import CheckSvG from "./SVG/CheckSvG";
 
 export default function DisAbledThird() {
     return (

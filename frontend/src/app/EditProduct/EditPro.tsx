@@ -1,6 +1,6 @@
 "use client";
 import { useRouter, useSearchParams } from "next/navigation";
-import items from "../../components/utils/Items";
+import items from "../../Components/utils/Items";
 export default function EditPro({
   handleUpdate,
   description,
