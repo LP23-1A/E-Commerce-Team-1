@@ -5,7 +5,6 @@ import Navbar from "@/Components/Navbar";
 export default function OrderDetails(){
     return (
         <div>
-            <Navbar/>
             <div className="flex">
                 <Sidebar/>
                 <div>
