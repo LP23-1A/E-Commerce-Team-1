@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IncomeModel } from "../model/Income";
+import { IncomeModel } from "../model/income";
 
 interface IncomeData {
   orderNumber: String;

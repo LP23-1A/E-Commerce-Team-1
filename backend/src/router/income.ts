@@ -2,7 +2,7 @@ import express from "express";
 import {
   createIncome,
   getAllIncome,
-} from "../controller/Income";
+} from "../controller/income";
 
 const Income = express.Router();
 Income.route("/create").post(createIncome);

@@ -20,9 +20,12 @@ export default function Home() {
   return (
     <div>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Order />
 =======
       <Navbar />
+=======
+>>>>>>> 1553e9a (test)
       <Sidebar />
 >>>>>>> 9917b5f (asdf)
     </div>
