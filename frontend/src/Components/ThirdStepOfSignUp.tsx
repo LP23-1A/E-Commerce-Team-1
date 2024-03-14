@@ -16,26 +16,21 @@ const commodity = ['👚 women clothes', '👗 dress', '👢 women boot', '🥾 
 export default function ThirdStepOfSignUp({ prevStep }: any) {
     const [buttonActive, setButtonActive] = useState(false);
     const { user } = useAuth0();
-    // console.log(JSON.stringify(user));
-    const { userData }: any = useContext(UserContext);
+    const { userDataRef }: any = useContext(UserContext);
     const [haveSkill, setHaveSkill] = useState('');
     const [productType, setProductType] = useState('');
-    // console.log(userData, 'from 3');
+    console.log(userDataRef.current.district, 'from third');
 
     const router = useRouter()
 
     const manageSkill = (event: any) => {
         const valueSkill = event.target.value
-        setHaveSkill(valueSkill)
-        console.log(valueSkill, "skill");
-
+        setHaveSkill(valueSkill);
     };
 
     const manageProductType = (event: any) => {
         const valueProductType = event.target.value
         setProductType(valueProductType)
-        console.log(valueProductType, "type");
-
     };
 
     const registerClient = async () => {
@@ -44,18 +39,17 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
                 toast.error("Please choose the given options")
             } else {
                 const response = await axios.post(backEndOfSignUp, {
-                    userName: user?.name ?? userData?.userName,
-                    email: user?.email ?? userData?.email,
-                    khoroo: userData.khoroo,
-                    district: userData.district,
-                    phoneNumber: userData.phoneNumber,
-                    nameOfStore: userData.nameOfStore,
+                    userName: user?.name ?? userDataRef?.current.userName,
+                    email: user?.email ?? userDataRef?.current.email,
+                    khoroo: userDataRef.current.khoroo,
+                    district: userDataRef.current.district,
+                    phoneNumber: userDataRef.current.phoneNumber,
+                    nameOfStore: userDataRef.current.nameOfStore,
                     typeOfProduct: productType,
                     skillInSales: haveSkill,
                     createdAt: new Date,
                     updatedAt: new Date
-                })
-                console.log(response, "this is response");
+                });
                 toast.success("Successfully registered")
                 setTimeout(() => {
                     router.push(`/DashBoard/${response.data.createdUser._id}`)

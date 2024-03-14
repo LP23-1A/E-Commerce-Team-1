@@ -9,9 +9,13 @@ export default function addPro({
   description,
   setDescription,
   coupon,
-  setCoupon,
+  setCoupon,  
 }: any) {
   const router = useRouter();
+
+  const manageProduct = () => {    
+    localStorage.setItem('productAdded', 'true');
+  };
 
   const selectData = [
     {
@@ -98,6 +102,7 @@ export default function addPro({
             className=" bg-black border-[1px] border-gray-200 w-[130px] h-[50px] rounded-lg font-semibold text-white"
             onClick={() => {
               handleSubmit();
+              manageProduct()
               router.push("/Product");
             }}
           >

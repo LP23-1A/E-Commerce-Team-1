@@ -1,4 +1,4 @@
-import { connectDataBase } from "./utils/Database";
+import { connectDataBase } from "./utils/database";
 import { order } from "./router/order";
 import { product } from "./router/Product";
 import { user } from "../src/router/user";

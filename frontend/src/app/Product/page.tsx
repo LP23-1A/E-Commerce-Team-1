@@ -9,6 +9,7 @@ import Sidebar from "@/components/Sidebar";
 import Approve from "@/components/Icon/Approve";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
+import SuccessModalProduct from "@/components/SuccessProductModal";
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
@@ -29,6 +30,7 @@ export default function Product() {
   const action = search.get("AddProduct");
   const [data, setData] = useState<Items[]>([]);
   const [Modal, setModal] = useState(false);
+  const [isSuccessProduct, setIsSuccessProduct] = useState(false);
 
   if (action === "AddProduct") {
     setModal(true);
@@ -60,6 +62,17 @@ export default function Product() {
       console.log("can't delete");
     }
   };
+
+  useEffect(() => {
+    const productAdded = localStorage.getItem('productAdded');
+    if (productAdded === 'true') {
+      setIsSuccessProduct(true);
+      localStorage.removeItem('productAdded');
+      setTimeout(() => {
+        setIsSuccessProduct(false);
+      }, 2000);
+    }
+  }, []);
 
   return (
     <div className="flex">
@@ -114,9 +127,9 @@ export default function Product() {
                         : dat.coupon || dat.description}
                     </td>
                     <td className="px-6 py-4">
-                      {dat.price !== null
+                      {/* {dat.price !== null
                         ? dat.price.toLocaleString() + "₮"
-                        : ""}
+                        : ""} */}
                     </td>
                     <td className="px-6 py-4">{dat.quantity}</td>
                     <td className="px-6 py-4">0</td>
@@ -124,8 +137,8 @@ export default function Product() {
                       {dat.createdAt
                         ? new Date(dat.createdAt).toISOString().slice(0, 10)
                         : dat.updatedAt
-                        ? new Date(dat.updatedAt).toISOString().slice(0, 10)
-                        : ""}
+                          ? new Date(dat.updatedAt).toISOString().slice(0, 10)
+                          : ""}
                     </td>
                     <td className="px-6 py-4">
                       <button
@@ -150,14 +163,11 @@ export default function Product() {
           </div>
         </div>
       </div>
-      {Modal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="flex flex-col justify-center items-center bg-white w-[275px] h-[184px] rounded-lg shadow-lg font-semibold text-center">
-            <Approve />
-            <p>Бүтээгдэхүүн амжилттай нэмэгдлээ.</p>
-          </div>
-        </div>
-      )}
+      {
+        isSuccessProduct && (
+          <SuccessModalProduct setIsSuccessProduct={setIsSuccessProduct} />
+        )
+      }
     </div>
   );
 }
