@@ -72,7 +72,7 @@ export default function FirstStepOfSignUp({ nextStep }: any) {
                             style={{ background: buttonActive ? "black" : "#D6D8DB", color: buttonActive ? "white" : "#1C2024" }} className="flex justify-end gap-8 flex-row w-[127px] h-[48px] items-center rounded-lg mt-2 p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110">
                             Next
                             <div className="arrow w-[16px] text-lg h-[24px] justify-center items-center flex">
-                                <RightArrow />
+                                {/* <RightArrow /> */}
                             </div>
                         </button>
                     </div>

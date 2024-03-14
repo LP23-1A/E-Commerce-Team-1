@@ -1,43 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import DollarIcon from "../../Components/Icon/Dollar";
 import OrderIcon from "../../Components/Icon/OrderIcon";
 import SaveIcon from "../../Components/Icon/Save";
 import UserIcon from "../../Components/Icon/User";
 import UserBlackIcon from "../../Components/Icon/UserBlackIcon";
+import axios from "axios";
 
-const data = [
-  {
-    orderId: "123",
-    subscriber: "test@gmail.com",
-    phone: "88888888",
-    price: "12000",
-    payment: "2",
-  },
-  {
-    orderId: "1234",
-    subscriber: "test@gmail.com",
-    phone: "88888888",
-    price: "95000",
-    payment: "3",
-  },
-  {
-    orderId: "1235",
-    subscriber: "test@gmail.com",
-    phone: "88888888",
-    price: "59000",
-    payment: "4",
-  },
-  {
-    orderId: "1236",
-    subscriber: "test@gmail.com",
-    phone: "88888888",
-    price: "354000",
-    payment: "5",
-  },
-];
+const API = "http://localhost:8000/order/get"
 
 export default function Inco() {
+    const [data,setdata] = useState([]);
+const handler = async () => {
+      
+    let res = await axios.get(API);
+    console.log(res.data);
+    
+        setdata(res.data);
+  };
+  
+  useEffect(() => {
+    handler();
+  }, []);
   return (
     <div className="bg-[#ECEDF0] pl-[121px] pr-[200px] w-[100vw] h-[100vh] pt-[1.5rem] gap-[8px] flex flex-col">
       <div className="grid grid-cols-1 divide-y border-[1px] border-[#F7F7F8] rounded-[12px] bg-[#FFFFFF]">
@@ -82,23 +67,23 @@ export default function Inco() {
               return (
                 <div className="px-[24px] py-[16px] text-[12px] flex justify-between items-center">
                   <p className="text-[14px] text-[#121316] font-normal py-[16px] px-[24px]">
-                    {e.orderId}
+                        {/* {e.orderNumber} */}
                   </p>
                   <div className=" flex items-center gap-[12px]">
                     <div>
                       <p className="text-[#121316] font-semibold text-[14px]">
-                        {e.subscriber}
+                       
                       </p>
                       <p className="text-[#3F4145] font-normal text-[14px]">
-                        {e.phone}
+                       {}
                       </p>
                     </div>
                   </div>
                   <p className="text-[14px] text-[#121316] font-normal">
-                    {e.payment}$
+                {/* {e.amountPaid} */}
                   </p>
                   <p className="text-[14px] text-[#121316] font-normal">
-                    {e.price}
+                  {/* {e.createdAt} */}
                   </p>
                 </div>
               );
