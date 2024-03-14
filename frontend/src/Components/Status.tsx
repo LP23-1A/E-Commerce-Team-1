@@ -11,7 +11,7 @@ export default function Status(status: any, id: any) {
     amountToBePaid: Number;
     createdAt: String;
   }
-  console.log(status, id)
+  
   const [order, setOrder] = useState<Order[]>([]);
   const api = "http://localhost:8000/order/get";
 
@@ -47,10 +47,10 @@ export default function Status(status: any, id: any) {
     }
   };
 
-  if (status === "Бэлтгэгдэж байна") {
+  if (status.status === "Бэлтгэгдэж байна") {
     return (
       <select
-        onChange={(e: any) => handleStatusChange(id, e.target.value)}
+        onChange={(e: any) => handleStatusChange(status.id, e.target.value)}
         className="text-[#3F4145] bg-[#ECEDF0] px-[10px] py-[6px] rounded-[20px]"
         name=""
         id=""
@@ -62,10 +62,10 @@ export default function Status(status: any, id: any) {
       </select>
     );
   }
-  else if (status === "Шинэ захиалга") {
+  else if (status.status === "Шинэ захиалга") {
     return (
       <select
-        onChange={(e: any) => handleStatusChange(id, e.target.value)}
+        onChange={(e: any) => handleStatusChange(status.id, e.target.value)}
         className="text-[#3F4145] bg-white px-[10px] py-[6px] rounded-[20px] border-[1px]"
         name=""
         id=""
@@ -77,10 +77,10 @@ export default function Status(status: any, id: any) {
       </select>
     );
   }
-  else if (status === "Хүргэлтэнд гарсан") {
+  else if (status.status === "Хүргэлтэнд гарсан") {
     return (
       <select
-        onChange={(e: any) => handleStatusChange(id, e.target.value)}
+        onChange={(e: any) => handleStatusChange(status.id, e.target.value)}
         className="text-[#1890FF] bg-[#B7DDFF] px-[10px] py-[6px] rounded-[20px]"
         name=""
         id=""
@@ -91,7 +91,8 @@ export default function Status(status: any, id: any) {
         <option value="Шинэ захиалга">Шинэ захиалга</option>
       </select>
     );
-  } else if (status === "Хүргэгдсэн") {
+  } 
+  else if (status.status === "Хүргэгдсэн") {
     return (
       <p className="bg-[#C1E6CF] color-[#0A4E22] px-[10px] py-[6px] rounded-[20px] text-[#0A4E22]">
         Хүргэгдсэн

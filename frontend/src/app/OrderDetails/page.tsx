@@ -1,11 +1,10 @@
-import Sidebar from "@/components/Sidebar";
-import Arrow from "@/components/Icon/Arrow";
-import Navbar from "@/components/Navbar";
+import Sidebar from "@/Components/Sidebar";
+import Arrow from "@/Components/Icon/Arrow";
+import Navbar from "@/Components/Navbar";
 
 export default function OrderDetails(){
     return (
         <div>
-            <Navbar/>
             <div className="flex">
                 <Sidebar/>
                 <div>
