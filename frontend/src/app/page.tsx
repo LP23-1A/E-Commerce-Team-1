@@ -1,5 +1,5 @@
 "use client"
-import Product from "@/app/Product/page";
+import Product from "@/Components/Aws";
 
 export default function Home() {
   return (

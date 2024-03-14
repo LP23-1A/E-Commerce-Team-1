@@ -13,6 +13,8 @@ const ProductSchema = new mongoose.Schema({
   salePercent: Number,
   description: String,
   viewsCount: Number,
+  category: String,
+  subCategory: String,
   createdAt: {
     type: Date,
     default: () => Date.now(),

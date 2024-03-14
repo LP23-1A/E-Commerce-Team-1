@@ -9,9 +9,25 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const api = "http://localhost:8000/product/create";
+type SignedUrls = {
+  uploadUrls: string[];
+  accessUrls: string[];
+};
+export async function UploadImage() {
+  const requestUrl = `http://localhost:8000/product/create`;
+  const response = await fetch(requestUrl, {
+    method: "GET",
+    cache: "no-cache",
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  const data = await response.json();
+  return data as SignedUrls;
+}
 
 export default function AddProduct() {
-  const [show, setShow] = useState(false);  
+  const [show, setShow] = useState(false);
   const click = () => {
     setShow(!show);
   };
@@ -22,7 +38,9 @@ export default function AddProduct() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [coupon, setCoupon] = useState("");
+  const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
+  const [images, setImages] = useState<File>();
 
   const handleSubmit = async () => {
     const formData = {
@@ -30,18 +48,31 @@ export default function AddProduct() {
       price: price,
       description: description,
       quantity: quantity,
-      coupon: coupon,
+      category: category,
+      subCategory: subCategory,
     };
     try {
       const res = await axios.post(api, formData);
-      localStorage.setItem('product', JSON.stringify([res]));
+      localStorage.setItem("product", JSON.stringify([res]));
       console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleUpdate = async (productId: string) => { };
+  const onUpload = async () => {
+    const { uploadUrls, accessUrls } = await UploadImage(images.length);
+    console.log(uploadUrls, accessUrls);
+    await Promise.all(
+      uploadUrls.map((url, index) => {
+        return axios.put(url, images[index], {
+          headers: {
+            "Content-Type": (images[index] as File).type,
+          },
+        });
+      })
+    );
+  };
 
   return (
     <div className="flex">
@@ -70,6 +101,8 @@ export default function AddProduct() {
                 <div className="flex flex-col gap-2">
                   <h1>Нэмэлт мэдээлэл</h1>
                   <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     name="area"
                     className="bg-gray-100 resize-none w-full h-[72px] p-2 rounded-lg flex items-center"
                     placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
@@ -111,7 +144,7 @@ export default function AddProduct() {
                 <input
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Үндсэн үнэ"
                   className="p-2 h-[56px] w-[249px]  bg-gray-100 rounded-lg"
                 />
@@ -121,7 +154,7 @@ export default function AddProduct() {
                 <input
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Үлдэгдэл тоо ширхэг"
                   className="p-2  h-[56px] w-[249px] bg-gray-100 rounded-lg"
                 />
@@ -131,12 +164,14 @@ export default function AddProduct() {
           <AddPro
             {...{
               handleSubmit,
-              setCoupon,
-              setDescription,
+              productName,
               price,
-              coupon,
               description,
-              productName,              
+              category,
+              quantity,
+              subCategory,
+              setCategory,
+              setSubCategory,
             }}
           />
         </div>

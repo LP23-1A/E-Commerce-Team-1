@@ -1,15 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import Plus from "../../components/Icon/Plus";
-import Delete from "../../components/Icon/Delete";
-import Edit from "../../components/Icon/Edit";
-import headers from "../../components/utils/Table";
-import Filter from "../../components/Filter";
-import Sidebar from "@/components/Sidebar";
-import Approve from "@/components/Icon/Approve";
-import { useRouter, useSearchParams } from "next/navigation";
+import Plus from "../../Components/Icon/Plus";
+import Delete from "../../Components/Icon/Delete";
+import Edit from "../../Components/Icon/Edit";
+import headers from "../../Components/utils/Table";
+import Filter from "../../Components/Filter";
+import Sidebar from "@/Components/Sidebar";
+import { useRouter } from "next/navigation";
 import axios from "axios";
-import SuccessModalProduct from "@/components/SuccessProductModal";
+import SuccessModalProduct from "@/Components/SuccessProductModal";
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
@@ -17,36 +16,17 @@ const api2 = "http://localhost:8000/product";
 interface Items {
   _id: string;
   productName: string;
-  description: string;
   price: number;
+  category: string;
+  subCategory: string;
   quantity: number;
-  coupon: string;
   createdAt: number;
   updatedAt: number;
 }
 export default function Product() {
   const router = useRouter();
-  const search = useSearchParams();
-  const action = search.get("AddProduct");
   const [data, setData] = useState<Items[]>([]);
-  const [Modal, setModal] = useState(false);
   const [isSuccessProduct, setIsSuccessProduct] = useState(false);
-
-  if (action === "AddProduct") {
-    setModal(true);
-    setTimeout(() => {
-      setModal(false);
-    }, 1000);
-    return;
-  }
-
-  if (action === "AddProduct") {
-    setModal(true);
-    setTimeout(() => {
-      setModal(false);
-    }, 1000);
-    return;
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,10 +52,10 @@ export default function Product() {
   };
 
   useEffect(() => {
-    const productAdded = localStorage.getItem('productAdded');
-    if (productAdded === 'true') {
+    const productAdded = localStorage.getItem("productAdded");
+    if (productAdded === "true") {
       setIsSuccessProduct(true);
-      localStorage.removeItem('productAdded');
+      localStorage.removeItem("productAdded");
       setTimeout(() => {
         setIsSuccessProduct(false);
       }, 2000);
@@ -130,14 +110,14 @@ export default function Product() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      {dat.coupon && dat.description
-                        ? `${dat.coupon}, ${dat.description}`
-                        : dat.coupon || dat.description}
+                      {dat.category && dat.subCategory
+                        ? `${dat.category}, ${dat.subCategory}`
+                        : dat.category || dat.subCategory}
                     </td>
                     <td className="px-6 py-4">
-                      {/* {dat.price !== null
+                      {dat.price !== null
                         ? dat.price.toLocaleString() + "₮"
-                        : ""} */}
+                        : ""}
                     </td>
                     <td className="px-6 py-4">{dat.quantity}</td>
                     <td className="px-6 py-4">0</td>
@@ -145,8 +125,8 @@ export default function Product() {
                       {dat.createdAt
                         ? new Date(dat.createdAt).toISOString().slice(0, 10)
                         : dat.updatedAt
-                          ? new Date(dat.updatedAt).toISOString().slice(0, 10)
-                          : ""}
+                        ? new Date(dat.updatedAt).toISOString().slice(0, 10)
+                        : ""}
                     </td>
                     <td className="px-6 py-4">
                       <button
@@ -171,11 +151,9 @@ export default function Product() {
           </div>
         </div>
       </div>
-      {
-        isSuccessProduct && (
-          <SuccessModalProduct setIsSuccessProduct={setIsSuccessProduct} />
-        )
-      }
+      {isSuccessProduct && (
+        <SuccessModalProduct setIsSuccessProduct={setIsSuccessProduct} />
+      )}
     </div>
   );
 }

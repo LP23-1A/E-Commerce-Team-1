@@ -1,20 +1,21 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Add from "@/components/Icon/Add";
-import items from "../../components/utils/Items";
+import items from "../../Components/utils/Items";
+
 export default function addPro({
   handleSubmit,
   productName,
-  price,
   description,
-  setDescription,
-  coupon,
-  setCoupon,  
+  price,
+  quantity,
+  category,
+  setCategory,
+  subCategory,
+  setSubCategory,
 }: any) {
   const router = useRouter();
-
-  const manageProduct = () => {    
-    localStorage.setItem('productAdded', 'true');
+  const manageProduct = () => {
+    localStorage.setItem("productAdded", "true");
   };
 
   const selectData = [
@@ -26,8 +27,8 @@ export default function addPro({
         { value: "Эмэгтэй", label: "Эмэгтэй" },
         { value: "Хүүхэд", label: "Хүүхэд" },
       ],
-      value: coupon,
-      setValue: setCoupon,
+      value: category,
+      setValue: setCategory,
     },
     {
       title: "Дэд ангилал",
@@ -36,15 +37,17 @@ export default function addPro({
         { value: "Цамц", label: "Цамц" },
         { value: "Өмд", label: "Өмд" },
       ],
-      value: description,
-      setValue: setDescription,
+      value: subCategory,
+      setValue: setSubCategory,
     },
   ];
   const isFormFilled =
     productName.trim() !== "" &&
     price.trim() !== "" &&
-    coupon.trim() !== "" &&
-    description.trim() !== "";
+    quantity.trim() !== "" &&
+    description.trim() !== "" &&
+    category.trim() !== "" &&
+    subCategory.trim() !== "";
 
   return (
     <div className="flex items-center flex-col gap-[26px] w-[600px]">
@@ -102,7 +105,7 @@ export default function addPro({
             className=" bg-black border-[1px] border-gray-200 w-[130px] h-[50px] rounded-lg font-semibold text-white"
             onClick={() => {
               handleSubmit();
-              manageProduct()
+              manageProduct();
               router.push("/Product");
             }}
           >

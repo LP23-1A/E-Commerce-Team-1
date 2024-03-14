@@ -1,15 +1,16 @@
 import { Request, Response } from "express";
 import { ProductModel } from "../model/Product";
-import { UploadFile } from "../utils/s3";
 
 interface ProductData {
   productName: string;
+  categoryId: string;
   description: string;
   price: number;
   quantity: number;
   thumbnails: number;
   createdAt: number;
-  coupon: string;
+  category: string;
+  subCategory: string;
   images: string[];
 }
 
@@ -17,28 +18,31 @@ export const createProduct = async (req: Request, res: Response) => {
   try {
     const {
       productName,
+      categoryId,
       description,
       price,
+      category,
+      subCategory,
       quantity,
       createdAt,
-      coupon,
       thumbnails,
       images,
     }: ProductData = req.body;
-    const imageUrl = UploadFile;
     const product = await ProductModel.create({
       productName,
+      categoryId,
       description,
       price,
       quantity,
       createdAt,
       thumbnails,
-      coupon,
+      category,
+      subCategory,
       images,
     });
     res.status(200).send(product);
   } catch (error) {
-    console.log(error);
+    res.status(500).send({ success: false, message: "Internal server error" });
   }
 };
 
@@ -47,7 +51,7 @@ export const getAllProduct = async (req: Request, res: Response) => {
     const getallProduct = await ProductModel.find();
     res.status(200).send(getallProduct);
   } catch (error) {
-    console.log(error);
+    res.status(500).send({ success: false, message: "Internal server error" });
   }
 };
 
@@ -57,15 +61,13 @@ export const deleteProduct = async (req: Request, res: Response) => {
     const deleteProduct = await ProductModel.findByIdAndDelete(ProductId);
     res.status(200).send({ success: true, deleteProduct });
   } catch (error) {
-    console.log(error);
+    res.status(500).send({ success: false, message: "Internal server error" });
   }
 };
 
 export const updateProduct = async (req: Request, res: Response) => {
   try {
     const ProductId = req.params.id;
-    console.log(ProductId);
-
     req.body.updatedAt = new Date();
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       ProductId,
@@ -74,7 +76,16 @@ export const updateProduct = async (req: Request, res: Response) => {
     );
     res.status(200).send({ success: true, updatedProduct });
   } catch (error) {
-    console.log(error);
+    res.status(500).send({ success: false, message: "Internal server error" });
+  }
+};
+
+export const getOne = async (req: Request, res: Response) => {
+  try {
+    const ProductId = req.params.id;
+    const getOne = await ProductModel.findById(ProductId);
+    res.status(200).send(getOne);
+  } catch (error) {
     res.status(500).send({ success: false, message: "Internal server error" });
   }
 };
