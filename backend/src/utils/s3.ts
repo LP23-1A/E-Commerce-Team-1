@@ -1,8 +1,9 @@
-import AWS from "aws-sdk";
+import AWS, { Credentials } from "aws-sdk";
 import dotenv from "dotenv";
 import fs from "fs";
 
 dotenv.config();
+
 AWS.config.correctClockSkew = true;
 const s3 = new AWS.S3();
 
@@ -24,5 +25,5 @@ const UploadFile = (fileName: string, bucketName: string): void => {
   });
 };
 
-UploadFile("Product-image.png", "ecommerce-team-1");
+UploadFile("Avatar.png", "ecommerce-team-1");
 export { UploadFile };

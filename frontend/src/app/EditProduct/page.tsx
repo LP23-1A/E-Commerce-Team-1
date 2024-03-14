@@ -31,8 +31,8 @@ export default function EditProduct() {
         ...(quantity && { quantity }),
         ...(coupon && { coupon }),
       };
-      console.log("updated", productId);
       await axios.put(`${api2}/${productId}`, Data);
+      console.log("updated", productId);
     } catch (error) {
       console.log("can't update");
     }

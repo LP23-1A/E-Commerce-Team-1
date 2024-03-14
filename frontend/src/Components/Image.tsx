@@ -1,83 +1,48 @@
-// import React, { ChangeEvent, useState } from "react";
 // import AWS from "aws-sdk";
+// import { v4 } from "uuid";
+// import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+// import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
-// // Initialize AWS SDK with correctClockSkew option
 // AWS.config.correctClockSkew = true;
+// const s3 = new S3Client({
+//   region: "ap-southeast-1",
+//   credentials: {
+//     accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
+//   },
+// });
 
-// // Load AWS credentials from the default profile in the AWS CLI configuration file
+// export async function GET(request: Request) {
+//   const url = new URL(request.url);
+//   const count = url.searchParams.get("count");
 
+//   if (!count) {
+//     return Response.json(
+//       { message: "Missing count parameter" },
+//       { status: 400 }
+//     );
+//   }
 
-// // Create an S3 instance
-// const s3 = new AWS.S3();
+//   const keys = Array.from({ length: Number(count) }, () => v4());
 
-// const S3ImageUploader: React.FC = () => {
-//   const [file, setFile] = useState<File | null>(null);
-//   const [uploading, setUploading] = useState<boolean>(false);
-//   const [uploadResult, setUploadResult] = useState<string | null>(null);
-//   const [error, setError] = useState<string | null>(null);
-
-//   // Handler for file input change
-//   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-//     if (event.target.files) {
-//       setFile(event.target.files[0]);
-//     }
-//   };
-
-//   // Handler for file upload
-//   const handleUpload = async () => {
-//     if (!file) {
-//       setError("Please select a file.");
-//       return;
-//     }
-
-//     setUploading(true);
-//     setError(null);
-
-//     try {
-//       // Define parameters for S3 upload
-//       const fileName = file.name;
-//       const fileContent = file;
-//       const params = {
-//         Bucket: "ecommerce-team-1", // Replace with your S3 bucket name
-//         Key: fileName,
-//         Body: fileContent,
-//       };
-
-//       // Upload file to S3 bucket
-//       const data = await s3.upload(params).promise();
-//       setUploadResult(data.Location); // Set upload result
-//     } catch (err) {
-//       setError(`Error uploading file: ${err.message}`); // Set error message
-//     } finally {
-//       setUploading(false); // Reset uploading state
-//     }
-//   };
-
-//   return (
-//     <div className="max-w-md mx-auto mt-8">
-//       {/* File input field */}
-//       <input type="file" onChange={handleChange} className="mb-4" />
-
-//       {/* Upload button */}
-//       <button
-//         onClick={handleUpload}
-//         disabled={uploading}
-//         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-//       >
-//         {uploading ? "Uploading..." : "Upload Image"}
-//       </button>
-
-//       {/* Error message */}
-//       {error && <p className="text-red-500 mt-2">{error}</p>}
-
-//       {/* Upload result */}
-//       {uploadResult && (
-//         <p className="text-green-500 mt-2">
-//           File uploaded successfully. URL: {uploadResult}
-//         </p>
-//       )}
-//     </div>
+//   const urls = await Promise.all(
+//     keys.map((key) =>
+//       getSignedUrl(
+//         s3,
+//         new PutObjectCommand({
+//           Bucket: "test",
+//           Key: key,
+//           ACL: "public-read",
+//         }),
+//         {
+//           expiresIn: 60 * 60,
+//         }
+//       )
+//     )
 //   );
-// };
 
-// export default S3ImageUploader;
+//   return Response.json({
+//     uploadUrls: urls,
+//     accessUrls: keys.map((key) => process.env.PUB_URL + key),
+//   });
+// }

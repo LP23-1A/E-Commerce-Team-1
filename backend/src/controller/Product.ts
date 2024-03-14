@@ -10,7 +10,7 @@ interface ProductData {
   thumbnails: number;
   createdAt: number;
   coupon: string;
-  images: string;
+  images: string[];
 }
 
 export const createProduct = async (req: Request, res: Response) => {
@@ -25,7 +25,7 @@ export const createProduct = async (req: Request, res: Response) => {
       thumbnails,
       images,
     }: ProductData = req.body;
-    const ImageUrl = UploadFile;
+    const imageUrl = UploadFile;
     const product = await ProductModel.create({
       productName,
       description,

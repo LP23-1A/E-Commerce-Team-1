@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@aws-sdk/client-s3": "^3.533.0",
+    "@aws-sdk/s3-request-presigner": "^3.533.0",
     "@emotion/react": "^11.11.4",
     "auth0": "^4.3.1",
-    "aws-sdk": "^2.1576.0",
+    "aws-sdk": "^2.1577.0",
     "axios": "^1.6.7",
     "dotenv": "^16.4.5",
     "i": "^0.3.7",
