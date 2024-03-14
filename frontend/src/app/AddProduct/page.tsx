@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import AddPro from "./AddPro";
 import Image from "../../components/Icon/Image";
@@ -11,7 +11,7 @@ import axios from "axios";
 const api = "http://localhost:8000/product/create";
 
 export default function AddProduct() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);  
   const click = () => {
     setShow(!show);
   };
@@ -34,6 +34,7 @@ export default function AddProduct() {
     };
     try {
       const res = await axios.post(api, formData);
+      localStorage.setItem('product', JSON.stringify([res]));
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -44,7 +45,7 @@ export default function AddProduct() {
 
   return (
     <div className="flex">
-      <Sidebar/>
+      <Sidebar />
       <div className="flex flex-col bg-gray-100 w-full h-full">
         <div className="flex gap-10 pt-6 items-center bg-white p-4">
           <button onClick={() => router.push("/Product")}>
@@ -135,7 +136,7 @@ export default function AddProduct() {
               price,
               coupon,
               description,
-              productName,
+              productName,              
             }}
           />
         </div>

@@ -19,7 +19,10 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [buttonActive, setButtonActive] = useState(false);
   const router = useRouter();
-  const { setUserData }: any = useContext(UserContext);
+  const { userDataRef }: any = useContext(UserContext);
+  const controlUserForm = (field: string, value: string | number) => {
+    userDataRef.current = { ...userDataRef.current, [field]: value };
+  };
 
   const handleColor = (valueEmail: string, valueName: string) => {
     setEmail(valueEmail);
@@ -28,16 +31,9 @@ export default function SignUp() {
     valueEmail.trim() !== "" && valueName.trim() !== ""
       ? setButtonActive(true)
       : setButtonActive(false)
-
-    setUserData((preValue: any) => ({
-      ...preValue,
-      userName: valueName,
-      email: valueEmail
-    }));
   };
 
   function validateEmail(email: string) {
-    // console.log(email, "this is email");
     return USEREMAIL_REGEX.test(email);
   };
 
@@ -89,14 +85,20 @@ export default function SignUp() {
               <p className="font-normal text-base text-black">Your Email</p>
               <input
                 value={email}
-                onChange={(e) => handleColor(e.target.value, name)}
+                onChange={(e) => {
+                  handleColor(e.target.value, name);
+                  controlUserForm('userName', e.target.value)
+                }}
                 className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="Email" type="text" />
             </div>
             <div className="w-[360xp] h-[88px] flex flex-col gap-4 mt-2">
               <p className="font-normal text-base text-black">Your Name</p>
               <input
                 value={name}
-                onChange={(e) => handleColor(email, e.target.value)}
+                onChange={(e) => {
+                  handleColor(email, e.target.value);
+                  controlUserForm('email', e.target.value);
+                }}
                 className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg" placeholder="Name" type="text" />
             </div>
             <button
