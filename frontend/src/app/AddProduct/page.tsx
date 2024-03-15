@@ -9,44 +9,23 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const api = "http://localhost:8000/product/create";
-type SignedUrls = {
-  uploadUrls: string[];
-  accessUrls: string[];
-};
-export async function UploadImage() {
-  const requestUrl = `http://localhost:8000/product/create`;
-  const response = await fetch(requestUrl, {
-    method: "GET",
-    cache: "no-cache",
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
-  const data = await response.json();
-  return data as SignedUrls;
-}
 
 export default function AddProduct() {
-  const [show, setShow] = useState(false);
-  const click = () => {
-    setShow(!show);
-  };
-  const imageArray = [1, 2, 3];
-
   const router = useRouter();
+  const imageArray = [1, 2, 3];
   const [productName, setproductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [productCode, setProductCode] = useState("");
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
-  const [images, setImages] = useState<File>();
-
   const handleSubmit = async () => {
     const formData = {
       productName: productName,
       price: price,
       description: description,
+      productCode: productCode,
       quantity: quantity,
       category: category,
       subCategory: subCategory,
@@ -58,20 +37,6 @@ export default function AddProduct() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const onUpload = async () => {
-    const { uploadUrls, accessUrls } = await UploadImage(images.length);
-    console.log(uploadUrls, accessUrls);
-    await Promise.all(
-      uploadUrls.map((url, index) => {
-        return axios.put(url, images[index], {
-          headers: {
-            "Content-Type": (images[index] as File).type,
-          },
-        });
-      })
-    );
   };
 
   return (
@@ -111,6 +76,8 @@ export default function AddProduct() {
                 <div className="flex flex-col gap-2">
                   <h1>Барааны код</h1>
                   <input
+                    value={productCode}
+                    onChange={(e) => setProductCode(e.target.value)}
                     type="text"
                     placeholder="#12345678"
                     className="p-2 w-full h-[44px] bg-gray-100 rounded-lg"
@@ -122,7 +89,7 @@ export default function AddProduct() {
               <div className="flex flex-col gap-8">
                 <h1>Бүтээгдэхүүний зураг</h1>
                 <div className="flex justify-around">
-                  <div className="flex justify-center" onClick={click}>
+                  <div className="flex justify-center">
                     {imageArray.map((index) => (
                       <div
                         key={index}
@@ -165,6 +132,7 @@ export default function AddProduct() {
             {...{
               handleSubmit,
               productName,
+              productCode,
               price,
               description,
               category,
@@ -176,17 +144,6 @@ export default function AddProduct() {
           />
         </div>
       </div>
-      {show && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="flex flex-col justify-center items-center bg-white w-[275px] h-[184px] rounded-lg shadow-lg font-semibold text-center">
-            <p onClick={click}>sdaf</p>
-            <input
-              type="file"
-              className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

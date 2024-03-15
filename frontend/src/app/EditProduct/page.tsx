@@ -12,17 +12,18 @@ const api = "http://localhost:8000/product/getOne";
 const api2 = "http://localhost:8000/product";
 
 export default function EditProduct() {
-  const imageArray = [1, 2, 3];
+  const search = useSearchParams();
+  const productId = search.get("productId");
 
   const router = useRouter();
+  const imageArray = [1, 2, 3];
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [productCode, setProductCode] = useState("");
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
-  const search = useSearchParams();
-  const productId = search.get("productId");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,12 +32,14 @@ export default function EditProduct() {
         const {
           productName,
           price,
+          productCode,
           description,
           quantity,
           category,
           subCategory,
         } = response.data;
         setProductName(productName);
+        setProductCode(productCode);
         setPrice(price);
         setDescription(description);
         setQuantity(quantity);
@@ -53,6 +56,7 @@ export default function EditProduct() {
     try {
       const data = {
         productName,
+        productCode,
         price,
         description,
         quantity,
@@ -103,8 +107,8 @@ export default function EditProduct() {
                 <div className="flex flex-col gap-2">
                   <h1>Барааны код</h1>
                   <input
-                    value={quantity}
-                    onChange={(e) => setQuantity(e.target.value)}
+                    value={productCode}
+                    onChange={(e) => setProductCode(e.target.value)}
                     type="text"
                     placeholder="#12345678"
                     className="p-2 w-full h-[44px] bg-gray-100 rounded-lg"
@@ -138,7 +142,7 @@ export default function EditProduct() {
                 <input
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Үндсэн үнэ"
                   className="p-2 h-[56px] w-[249px]  bg-gray-100 rounded-lg"
                 />
@@ -148,7 +152,7 @@ export default function EditProduct() {
                 <input
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Үлдэгдэл тоо ширхэг"
                   className="p-2  h-[56px] w-[249px] bg-gray-100 rounded-lg"
                 />

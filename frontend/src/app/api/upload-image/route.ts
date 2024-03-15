@@ -1,6 +1,7 @@
+"use client";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
 const s3 = new S3Client({
   region: "ap-southeast-1",
@@ -8,19 +9,20 @@ const s3 = new S3Client({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID || "AKIAZQ3DNMJITNXDWQNE",
     secretAccessKey:
       process.env.AWS_SECRET_ACCESS_KEY ||
-      "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",
+      "uVljmrqbDY/PMTFSqWvObSDXyiNDDH6Uj/GI1ASUF",
   },
 });
 
-export async function GET(request: Request) {
-  console.log(s3);
-
+async function getSignedUrlForUpload(): Promise<{
+  uploadUrl: string;
+  objectUrl: string;
+}> {
   try {
-    const key = v4();
-    const sign = await getSignedUrl(
+    const key = uuidv4();
+    const signedUrl = await getSignedUrl(
       s3,
       new PutObjectCommand({
-        Bucket: "team3-ecommerce",
+        Bucket: "ecommerce-team-1",
         Key: key,
         ACL: "public-read",
       }),
@@ -28,15 +30,14 @@ export async function GET(request: Request) {
         expiresIn: 60 * 60,
       }
     );
-
-    return Response.json({
-      uploadUrls: sign,
-      objectUrl: `https://ecommerce-team-1.s3.ap-southeast-1.amazonaws.com/${key}`,
-    });
+    const objectUrl = `https://ecommerce-team-1.s3.ap-southeast-1.amazonaws.com/${key}`;
+    return {
+      uploadUrl: signedUrl,
+      objectUrl: objectUrl,
+    };
   } catch (error) {
-    console.log(error);
-    return Response.json({
-      error,
-    });
+    console.error("Error getting signed URL:", error);
+    throw error;
   }
 }
+export default getSignedUrlForUpload;

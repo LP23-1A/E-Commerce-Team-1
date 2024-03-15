@@ -43,7 +43,6 @@ export default function SignUp() {
   };
 
   function validateEmail(email: string) {
-    // console.log(email, "this is email");
     return USEREMAIL_REGEX.test(email);
   }
 
@@ -59,12 +58,11 @@ export default function SignUp() {
     }
 
     const allUsers = data.allUsers;
-    // const existingClient = allUsers ? allUsers.some((el: any) => el.userName === name) : undefined
+
     const test = allUsers
       ? allUsers.map((el: any) => el.includes(name))
       : console.log("failed to map ");
 
-    // console.log(existingClient, "this is existing client");
     console.log(test);
 
     if (test) {

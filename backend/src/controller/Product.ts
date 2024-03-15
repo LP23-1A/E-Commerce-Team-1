@@ -5,6 +5,7 @@ interface ProductData {
   productName: string;
   categoryId: string;
   description: string;
+  productCode: string;
   price: number;
   quantity: number;
   thumbnails: number;
@@ -20,6 +21,7 @@ export const createProduct = async (req: Request, res: Response) => {
       productName,
       categoryId,
       description,
+      productCode,
       price,
       category,
       subCategory,
@@ -32,6 +34,7 @@ export const createProduct = async (req: Request, res: Response) => {
       productName,
       categoryId,
       description,
+      productCode,
       price,
       quantity,
       createdAt,

@@ -5,6 +5,7 @@ import items from "../../Components/utils/Items";
 export default function addPro({
   handleSubmit,
   productName,
+  productCode,
   description,
   price,
   quantity,
@@ -17,7 +18,6 @@ export default function addPro({
   const manageProduct = () => {
     localStorage.setItem("productAdded", "true");
   };
-
   const selectData = [
     {
       title: "Ерөнхий ангилал",
@@ -43,6 +43,7 @@ export default function addPro({
   ];
   const isFormFilled =
     productName.trim() !== "" &&
+    productCode.trim() !== "" &&
     price.trim() !== "" &&
     quantity.trim() !== "" &&
     description.trim() !== "" &&

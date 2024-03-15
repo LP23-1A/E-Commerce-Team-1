@@ -12,4 +12,5 @@ product.route("/create").post(createProduct);
 product.route("/:id").delete(deleteProduct).put(updateProduct);
 product.route("/get").get(getAllProduct);
 product.route("/getOne/:id").get(getOne);
+
 export { product };

@@ -1,4 +1,4 @@
-import CheckSvG from "./SvG/CheckSvG";
+import CheckSvG from "./SVG/CheckSvG";
 export default function DisAbledFirst() {
     const productData = localStorage.getItem('typeStore');    
     return (

@@ -1,10 +1,10 @@
-"use client"
-import Product from "@/Components/Aws";
+"use client";
+import SignUp from "./SignUp/page";
 
 export default function Home() {
   return (
     <div>
-      <Product />
+      <SignUp />
     </div>
   );
 }
