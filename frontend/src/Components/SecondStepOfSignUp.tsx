@@ -1,9 +1,9 @@
 "use client"
-import PineConeSVG from "@/components/SvG/PineCone";
+import PineConeSVG from "@/Components/SVG/PineCone";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "./UserContext";
-import RightArrow from "./SvG/RightArrow";
-import LeftArrow from "./SvG/LeftArrow";
+import RightArrow from "./SVG/RightArrow";
+import LeftArrow from "./SVG/LeftArrow";
 import SecondLine from "./SecondLine";
 
 export default function SecondStepOfSignUp({ nextStep, prevStep }: any) {
@@ -48,7 +48,7 @@ export default function SecondStepOfSignUp({ nextStep, prevStep }: any) {
     return (
         <>
             <PineConeSVG />
-            <SecondLine />
+            <SecondLine/>
             <div className="flex justify-center">
                 <div className="w-[452px] h-[296px] mt-[150px]">
                     <h3 className="font-bold text-3xl text-black">Information of Local Region</h3>

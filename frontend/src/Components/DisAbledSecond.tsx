@@ -1,4 +1,4 @@
-import CheckSvG from "./SvG/CheckSvG";
+import CheckSvG from "./SVG/CheckSvG";
 export default function DisAbledFirst() {    
     return (
         <div className="flex justify-between flex-row border-solid border items-center p-[10px] rounded-xl" style={{ borderColor: '#ECEDF0' }}>

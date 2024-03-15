@@ -2,14 +2,14 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import toast, { Toaster } from "react-hot-toast";
-import { UserContext } from "@/components/UserContext";
-import PineConeSVG from "@/components/SvG/PineCone";
-import ButtonGoogle from "@/components/ButtonGoogle";
-import ButtonMicrosoft from "@/components/ButtonMicrosoft";
-import ButtonApple from "@/components/ButtonApple";
-import AlreSignedUp from "@/components/Alre-SignedUp";
-import RightArrow from "@/components/SvG/RightArrow";
-import GoogleSignIn from "@/components/GoogleSignIn";
+import { UserContext } from "@/Components/UserContext";
+import PineConeSVG from "@/Components/SVG/PineCone";
+import ButtonGoogle from "@/Components/ButtonGoogle";
+import ButtonMicrosoft from "@/Components/ButtonMicrosoft";
+import ButtonApple from "@/Components/ButtonApple";
+import AlreSignedUp from "@/Components/Alre-SignedUp";
+import RightArrow from "@/Components/SVG/RightArrow";
+import GoogleSignIn from "@/Components/GoogleSignIn";
 
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const USERNAME_REGEX = /^[A-Z].{2,}$/;

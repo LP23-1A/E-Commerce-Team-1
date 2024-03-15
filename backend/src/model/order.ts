@@ -2,10 +2,10 @@ import mongoose, { Schema } from 'mongoose';
 
 const OrderSchema = new mongoose.Schema({
     orderNumber: String,
-    userId: [{
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }],
+      ref: 'users'
+    },
     status: String,
     amountPaid: Number,
     amountToBePaid: Number,

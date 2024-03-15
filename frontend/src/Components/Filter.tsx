@@ -1,5 +1,5 @@
-import Search from "@/components/Icon/Search";
-import texts from "@/components/utils/Texts";
+import Search from "@/Components/Icon/Search";
+import texts from "@/Components/utils/Texts";
 export default function filter() {
   return (
     <div className="flex justify-between w-full">

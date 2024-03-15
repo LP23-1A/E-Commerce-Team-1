@@ -1,5 +1,5 @@
 "use client"
-import PineConeSVG from "@/components/SvG/PineCone";
+import PineConeSVG from "@/Components/SVG/PineCone";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -82,7 +82,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
     return (
         <>
             <PineConeSVG />
-            <ThirdLine />
+            <ThirdLine/>
             <div className="flex mt-[100px] justify-center">
                 <div className="w-[452px] h-[296px] mt-[100px]">
                     <h3 className="font-bold text-3xl text-black">Knowing to each other a bit</h3>
