@@ -5,7 +5,7 @@ import {
   getAllProduct,
   getOne,
   updateProduct,
-} from "../controller/Product";
+} from "../controller/product";
 
 const product = express.Router();
 product.route("/create").post(createProduct);
