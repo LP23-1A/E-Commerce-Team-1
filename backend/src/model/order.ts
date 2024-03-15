@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
 const OrderSchema = new mongoose.Schema({
     orderNumber: String,
@@ -19,6 +19,7 @@ const OrderSchema = new mongoose.Schema({
   }
   );
 
-const OrderModel = mongoose.model('order', OrderSchema);
+
+const OrderModel = mongoose.model("order", OrderSchema);
 
 export { OrderModel };

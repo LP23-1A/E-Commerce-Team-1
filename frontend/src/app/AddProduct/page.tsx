@@ -1,47 +1,47 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import AddPro from "./AddPro";
-import Image from "../../Components/Icon/Image";
-import Add from "@/Components/Icon/Add";
+
 import Sidebar from "@/Components/Sidebar";
 import Arrow from "../../Components/Icon/Arrow";
+import Image from "../../Components/Icon/Image";
+import Add from "../../Components/Icon/Add";
+import { useRouter } from "next/navigation";
+
+
+
 import axios from "axios";
 
 const api = "http://localhost:8000/product/create";
 
 export default function AddProduct() {
-  const [show, setShow] = useState(false);  
-  const click = () => {
-    setShow(!show);
-  };
-  const imageArray = [1, 2, 3];
-
   const router = useRouter();
+  const imageArray = [1, 2, 3];
   const [productName, setproductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [productCode, setProductCode] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [coupon, setCoupon] = useState("");
-
+  const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
   const handleSubmit = async () => {
     const formData = {
       productName: productName,
       price: price,
       description: description,
+      productCode: productCode,
       quantity: quantity,
-      coupon: coupon,
+      category: category,
+      subCategory: subCategory,
     };
     try {
       const res = await axios.post(api, formData);
-      localStorage.setItem('product', JSON.stringify([res]));
+      localStorage.setItem("product", JSON.stringify([res]));
       console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
-
-  const handleUpdate = async (productId: string) => { };
 
   return (
     <div className="flex">
@@ -70,6 +70,8 @@ export default function AddProduct() {
                 <div className="flex flex-col gap-2">
                   <h1>Нэмэлт мэдээлэл</h1>
                   <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     name="area"
                     className="bg-gray-100 resize-none w-full h-[72px] p-2 rounded-lg flex items-center"
                     placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
@@ -78,6 +80,8 @@ export default function AddProduct() {
                 <div className="flex flex-col gap-2">
                   <h1>Барааны код</h1>
                   <input
+                    value={productCode}
+                    onChange={(e) => setProductCode(e.target.value)}
                     type="text"
                     placeholder="#12345678"
                     className="p-2 w-full h-[44px] bg-gray-100 rounded-lg"
@@ -89,7 +93,7 @@ export default function AddProduct() {
               <div className="flex flex-col gap-8">
                 <h1>Бүтээгдэхүүний зураг</h1>
                 <div className="flex justify-around">
-                  <div className="flex justify-center" onClick={click}>
+                  <div className="flex justify-center">
                     {imageArray.map((index) => (
                       <div
                         key={index}
@@ -111,7 +115,7 @@ export default function AddProduct() {
                 <input
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Үндсэн үнэ"
                   className="p-2 h-[56px] w-[249px]  bg-gray-100 rounded-lg"
                 />
@@ -121,7 +125,7 @@ export default function AddProduct() {
                 <input
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Үлдэгдэл тоо ширхэг"
                   className="p-2  h-[56px] w-[249px] bg-gray-100 rounded-lg"
                 />
@@ -131,27 +135,19 @@ export default function AddProduct() {
           <AddPro
             {...{
               handleSubmit,
-              setCoupon,
-              setDescription,
+              productName,
+              productCode,
               price,
-              coupon,
               description,
-              productName,              
+              category,
+              quantity,
+              subCategory,
+              setCategory,
+              setSubCategory,
             }}
           />
         </div>
       </div>
-      {show && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="flex flex-col justify-center items-center bg-white w-[275px] h-[184px] rounded-lg shadow-lg font-semibold text-center">
-            <p onClick={click}>sdaf</p>
-            <input
-              type="file"
-              className="file-input file-input-bordered file-input-primary w-full max-w-xs"
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -7,7 +7,7 @@ export default function filter() {
         {texts.map((data, ind) => (
           <div
             key={ind}
-            className="flex items-center justify-around bg-white w-[145px] h-[40px] rounded-lg"
+            className="flex items-center justify-around bg-white w-[145px] h-[40px] rounded-lg cursor-pointer"
           >
             {data.svg}
             {data.text}
@@ -17,7 +17,7 @@ export default function filter() {
       </div>
       <div className="relative flex items-center">
         <div className="absolute pl-2">
-          <Search/>
+          <Search />
         </div>
         <input
           type="search"

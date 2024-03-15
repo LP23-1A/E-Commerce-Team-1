@@ -1,4 +1,4 @@
-import { connectDataBase } from "./utils/database";
+import { connectDataBase } from "./utils/Database";
 import { order } from "./router/order";
 import { product } from "./router/Product";
 import { user } from "../src/router/user";
@@ -19,9 +19,9 @@ const PORT = process.env.PORT || 8000;
 
 app.use(bp.json());
 app.use(cors());
-app.use('/user', user)
-app.use("/product", product)
-app.use('/order',order);
+app.use("/user", user);
+app.use("/product", product);
+app.use("/order", order);
 
 app.get("/", (_, res) => {
   res.status(200).send({

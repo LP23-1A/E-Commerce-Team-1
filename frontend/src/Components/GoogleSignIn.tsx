@@ -7,6 +7,7 @@ import RemoveX from "./SVG/RemoveX";
 import useSWR from "swr";
 
 export default function GoogleSignIn() {
+
     const { user } = useAuth0();
     const [display, setDisplay] = useState(true);
     const fetcher = (url: string) => fetch(url).then((el) => el.json());
@@ -74,7 +75,3 @@ export default function GoogleSignIn() {
         </>
     )
 };
-
-
-
-

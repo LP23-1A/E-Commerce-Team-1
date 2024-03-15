@@ -3,10 +3,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import items from "../../Components/utils/Items";
 export default function EditPro({
   handleUpdate,
-  description,
-  setDescription,
-  coupon,
-  setCoupon,
+  category,
+  setCategory,
+  subCategory,
+  setSubCategory,
 }: any) {
   const router = useRouter();
   const search = useSearchParams();
@@ -20,8 +20,8 @@ export default function EditPro({
         { value: "Эмэгтэй", label: "Эмэгтэй" },
         { value: "Хүүхэд", label: "Хүүхэд" },
       ],
-      value: coupon,
-      setValue: setCoupon,
+      value: category,
+      setValue: setCategory,
     },
     {
       title: "Дэд ангилал",
@@ -30,8 +30,8 @@ export default function EditPro({
         { value: "Цамц", label: "Цамц" },
         { value: "Өмд", label: "Өмд" },
       ],
-      value: description,
-      setValue: setDescription,
+      value: subCategory,
+      setValue: setSubCategory,
     },
   ];
 

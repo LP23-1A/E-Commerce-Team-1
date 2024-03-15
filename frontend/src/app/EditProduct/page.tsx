@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EditPro from "../EditProduct/EditPro";
 import Sidebar from "@/Components/Sidebar";
 import Arrow from "../../Components/Icon/Arrow";
@@ -8,33 +8,65 @@ import Add from "../../Components/Icon/Add";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 
+const api = "http://localhost:8000/product/getOne";
 const api2 = "http://localhost:8000/product";
 
 export default function EditProduct() {
-  const imageArray = [1, 2, 3];
-
-  const router = useRouter();
-  const [productName, setproductName] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [coupon, setCoupon] = useState("");
   const search = useSearchParams();
   const productId = search.get("productId");
 
+  const router = useRouter();
+  const imageArray = [1, 2, 3];
+  const [productName, setProductName] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [productCode, setProductCode] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${api}/${productId}`);
+        const {
+          productName,
+          price,
+          productCode,
+          description,
+          quantity,
+          category,
+          subCategory,
+        } = response.data;
+        setProductName(productName);
+        setProductCode(productCode);
+        setPrice(price);
+        setDescription(description);
+        setQuantity(quantity);
+        setCategory(category);
+        setSubCategory(subCategory);
+      } catch (error) {
+        console.log("Error fetching product data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const handleUpdate = async () => {
     try {
-      const Data = {
-        ...(productName && { productName }),
-        ...(price && { price }),
-        ...(description && { description }),
-        ...(quantity && { quantity }),
-        ...(coupon && { coupon }),
+      const data = {
+        productName,
+        productCode,
+        price,
+        description,
+        quantity,
+        category,
+        subCategory,
       };
-      console.log("updated", productId);
-      await axios.put(`${api2}/${productId}`, Data);
+      await axios.put(`${api2}/${productId}`, data);
+      console.log("Updated product:", productId);
     } catch (error) {
-      console.log("can't update");
+      console.log("Unable to update product:", error);
     }
   };
 
@@ -56,7 +88,7 @@ export default function EditProduct() {
                   <h1>Бүтээгдэхүүний нэр</h1>
                   <input
                     value={productName}
-                    onChange={(e) => setproductName(e.target.value)}
+                    onChange={(e) => setProductName(e.target.value)}
                     type="name"
                     placeholder="Нэр"
                     className="p-2 w-full h-[44px] bg-gray-100 rounded-lg"
@@ -65,6 +97,8 @@ export default function EditProduct() {
                 <div className="flex flex-col gap-2">
                   <h1>Нэмэлт мэдээлэл</h1>
                   <textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                     name="area"
                     className="bg-gray-100 resize-none w-full h-[72px] p-2 rounded-lg flex items-center"
                     placeholder="Гол онцлог, давуу тал, техникийн үзүүлэлтүүдийг онцолсон дэлгэрэнгүй, сонирхолтой тайлбар."
@@ -73,6 +107,8 @@ export default function EditProduct() {
                 <div className="flex flex-col gap-2">
                   <h1>Барааны код</h1>
                   <input
+                    value={productCode}
+                    onChange={(e) => setProductCode(e.target.value)}
                     type="text"
                     placeholder="#12345678"
                     className="p-2 w-full h-[44px] bg-gray-100 rounded-lg"
@@ -106,7 +142,7 @@ export default function EditProduct() {
                 <input
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Үндсэн үнэ"
                   className="p-2 h-[56px] w-[249px]  bg-gray-100 rounded-lg"
                 />
@@ -116,7 +152,7 @@ export default function EditProduct() {
                 <input
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Үлдэгдэл тоо ширхэг"
                   className="p-2  h-[56px] w-[249px] bg-gray-100 rounded-lg"
                 />
@@ -126,10 +162,10 @@ export default function EditProduct() {
           <EditPro
             {...{
               handleUpdate,
-              description,
-              setDescription,
-              coupon,
-              setCoupon,
+              category,
+              setCategory,
+              subCategory,
+              setSubCategory,
             }}
           />
         </div>
