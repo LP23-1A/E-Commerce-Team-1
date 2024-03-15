@@ -6,6 +6,7 @@ import SaveIcon from "../../Components/Icon/Save";
 import UserIcon from "../../Components/Icon/User";
 import UserBlackIcon from "../../Components/Icon/UserBlackIcon";
 import axios from "axios";
+import Sidebar from "@/Components/Sidebar";
 
 const API = "http://localhost:8000/order/get";
 const API2 = "http://localhost:8000/user/getAllUsers"
@@ -25,7 +26,9 @@ export default function Inco() {
 
   
   return (
-    <div className="bg-[#ECEDF0] pl-[121px] pr-[200px] w-[100vw] h-[100vh] pt-[1.5rem] gap-[8px] flex flex-col">
+    <div className="flex">
+      <Sidebar/>
+      <div className="bg-[#ECEDF0] pl-[121px] pr-[200px] w-[100vw] h-[100vh] pt-[1.5rem] gap-[8px] flex flex-col">
       <div className="grid grid-cols-1 divide-y border-[1px] border-[#F7F7F8] rounded-[12px] bg-[#FFFFFF]">
         <div className="flex justify-between p-[32px] ">
           <h1 className="text-[20px] font-bold flex items-center text-[#121316]">
@@ -101,6 +104,7 @@ export default function Inco() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
