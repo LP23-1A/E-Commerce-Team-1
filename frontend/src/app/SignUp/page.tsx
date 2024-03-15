@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { UserContext } from "@/Components/UserContext";
-import PineConeSVG from "@/components/SvG/PineCone";
+import PineConeSVG from "@/Components/SVG/PineCone";
 import ButtonGoogle from "@/Components/ButtonGoogle";
 import ButtonMicrosoft from "@/Components/ButtonMicrosoft";
 import ButtonApple from "@/Components/ButtonApple";

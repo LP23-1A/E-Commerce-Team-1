@@ -25,7 +25,7 @@ export const UserContextProvider = ({ children }: any) => {
     skillInSales: "",
     typeOfProduct: "",
   });
-  console.log(userDataRef.current, "from context");
+  // console.log(userDataRef.current, "from context");
 
   // const setUserData = (newData: {}) => {
   //     userDataRef.current = { ...userDataRef.current, ...newData}

@@ -8,22 +8,22 @@ import UserBlackIcon from "../../Components/Icon/UserBlackIcon";
 import axios from "axios";
 import Sidebar from "@/Components/Sidebar";
 
-const API = "http://localhost:8000/order/get";
-const API2 = "http://localhost:8000/user/getAllUsers"
+const API = "http://localhost:8001/order/get";
 
 export default function Inco() {
   const [data, setdata] = useState([]);
   const handler = async () => {
     let res = await axios.get(API);
-    console.log(res.data);
-
+    console.log(res.data.map((e: { userId: { email: any; }; }) => e.userId.email), "test")
+    console.log(res.data.map((e: { userId: { phoneNumber: any; }; }) => e.userId.phoneNumber), "test")
+    console.log(res.data, "res data");
+    
     setdata(res.data);
   };
 
   useEffect(() => {
     handler();
   }, []);
-
   
   return (
     <div className="flex">
@@ -68,7 +68,7 @@ export default function Inco() {
         <div className="">
           <div className="border-[#F7F7F8] rounded-[12px] bg-[#FFFFFF] flex justify-between flex-col ">
             {data &&
-              data.map((e: any, idp) => {
+              data.map((e: any, i) => {
                 const dateString = e.createdAt;
                 const date = new Date(dateString);
                 const year = date.getFullYear();
@@ -77,23 +77,25 @@ export default function Inco() {
                 const NewDate = `${year}-${month}-${day}`;
 
                 const amount = e.amountPaid;
-                const formattedamount = amount + "₮";
+                const Newamount = amount + "₮";                
 
                 return (
-                  <div className="px-[24px] py-[16px] text-[12px] flex justify-between items-center">
+                  <div key={i} className="px-[24px] py-[16px] text-[12px] flex justify-between items-center">
                     <p className="text-[14px] text-[#121316] font-normal py-[16px] px-[24px]">
                       {e.orderNumber}
                     </p>
                     <div className=" flex items-center gap-[12px]">
                       <div>
-                        <p className="text-[#121316] font-semibold text-[14px]"></p>
+                        <p className="text-[#121316] font-semibold text-[14px]">
+                          {e.userId.email}
+                        </p>
                         <p className="text-[#3F4145] font-normal text-[14px]">
-                          {}
+                          {e.userId.phoneNumber}
                         </p>
                       </div>
                     </div>
                     <p className="text-[14px] text-[#121316] font-normal">
-                      {formattedamount}
+                      {Newamount}
                     </p>
                     <p className="text-[14px] text-[#121316] font-normal">
                       {NewDate}
