@@ -11,7 +11,12 @@ import { Toaster, toast } from "react-hot-toast";
 
 export default function Order() {
   interface Order {
-    _id: any; status: string; orderNumber: string; amountPaid: Number; amountToBePaid: number; createdAt: string;
+    _id: any;
+    status: string;
+    orderNumber: string;
+    amountPaid: Number;
+    amountToBePaid: number;
+    createdAt: string;
   }
   const api = "http://localhost:8000/order/get";
 
@@ -38,44 +43,13 @@ export default function Order() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (selectedState) {
-      const filteredData = order.filter((el) => el.status === selectedState);       
-      // console.log(filteredData);            
-      if (filteredData.length > 0) {
-        setFiltereOrderData(filteredData);
-      } else if (selectedState === "Бүгд") {
-        setFiltereOrderData(order);
-      } else {
-        setFiltereOrderData([]);
-        toast.error("There is no data for the selected status");
-      }
-    }
-  }, [selectedState, order]);
-
   return (
     <div>
       <div className="flex gap-[24px]">
         <Sidebar />
 
         <div className="bg-[#F7F7F8]">
-          <div>
-            {statesOfOrder.map((element, i) => (
-              <button
-                key={i}
-                onClick={() => handleButtonClick(element)}
-                style={{
-                  borderStyle: selectedState === element ? "solid" : "",
-                  borderBottomWidth: selectedState === element ? "2px" : "",
-                  borderColor: selectedState === element ? "#121316" : "",
-                  fontWeight: selectedState === element ? "bold" : ""
-                }}
-                className="text-[14px] px-[16px] py-[20px] text-[#3F4145]"
-              >
-                {element}
-              </button>
-            ))}
-          </div>
+          <OrderFilter />
           <Datefilter />
           <div className="rounded-[8px] border-[1px] m-[24px] bg-white">
             <div className="pl-[24px] py-[20px]">
@@ -88,31 +62,45 @@ export default function Order() {
               const date = new Date(dateString);
 
               const year = date.getFullYear();
-              const month = String(date.getMonth() + 1).padStart(2, '0');
-              const day = String(date.getDate()).padStart(2, '0');
+              const month = String(date.getMonth() + 1).padStart(2, "0");
+              const day = String(date.getDate()).padStart(2, "0");
               const formattedDate = `${year}-${month}-${day}`;
-
 
               const time = new Date(dateString);
 
-              const hours = String(time.getUTCHours()).padStart(2, '0');
-              const minutes = String(time.getUTCMinutes()).padStart(2, '0');
+              const hours = String(time.getUTCHours()).padStart(2, "0");
+              const minutes = String(time.getUTCMinutes()).padStart(2, "0");
               const formattedTime = `${hours}:${minutes}`;
 
               const number = el.amountToBePaid;
-              const formattedNumber = number.toLocaleString('en-US') + '₮';
+              const formattedNumber = number.toLocaleString("en-US") + "₮";
 
               return (
                 <div key={el._id} className="flex">
-                  <p className="flex items-center py-[28px] px-[24px] w-[143px] box-content">{el.orderNumber}</p>
-                  <p className="flex items-center py-[18px] px-[24px] w-[161px] box-content flex-wrap">{"user.gmail.com.com user.name"}</p>
-                  <p className="flex items-center py-[26px] px-[24px] w-[120px] box-content">{formattedDate}</p>
-                  <p className="flex items-center py-[26px] px-[24px] w-[81px] box-content">{formattedTime}</p>
-                  <p className="flex items-center py-[26px] px-[24px] w-[89px] box-content">{formattedNumber}</p>
+                  <p className="flex items-center py-[28px] px-[24px] w-[143px] box-content">
+                    {el.orderNumber}
+                  </p>
+                  <p className="flex items-center py-[18px] px-[24px] w-[161px] box-content flex-wrap">
+                    {"user.gmail.com.com user.name"}
+                  </p>
+                  <p className="flex items-center py-[26px] px-[24px] w-[120px] box-content">
+                    {formattedDate}
+                  </p>
+                  <p className="flex items-center py-[26px] px-[24px] w-[81px] box-content">
+                    {formattedTime}
+                  </p>
+                  <p className="flex items-center py-[26px] px-[24px] w-[89px] box-content">
+                    {formattedNumber}
+                  </p>
                   <p className="pl-[28px] py-[24px] flex items-center w-[188px] box-content">
                     <Status status={el.status} id={el._id} />
                   </p>
-                  <button onClick={() => router.push("OrderDetails")} className="flex items-center py-[30px] px-[57px] w-[] box-content">{">"}</button>
+                  <button
+                    onClick={() => router.push("OrderDetails")}
+                    className="flex items-center py-[30px] px-[57px] w-[] box-content"
+                  >
+                    {">"}
+                  </button>
                 </div>
               );
             })}
