@@ -49,7 +49,6 @@ export default function Order() {
         <Sidebar />
 
         <div className="bg-[#F7F7F8]">
-          <OrderFilter />
           <Datefilter />
           <div className="rounded-[8px] border-[1px] m-[24px] bg-white">
             <div className="pl-[24px] py-[20px]">

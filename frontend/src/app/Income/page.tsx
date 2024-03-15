@@ -8,7 +8,7 @@ import UserBlackIcon from "../../Components/Icon/UserBlackIcon";
 import axios from "axios";
 import Sidebar from "@/Components/Sidebar";
 
-const API = "http://localhost:8001/order/get";
+const API = "http://localhost:8002/order/get";
 
 export default function Inco() {
   const [data, setdata] = useState([]);
