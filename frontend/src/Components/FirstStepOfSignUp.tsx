@@ -16,9 +16,16 @@ export default function FirstStepOfSignUp({ nextStep }: any) {
     };
 
     useEffect(() => {
-        const isActive = inputRef.current?.value !== ""
-        setButtonActive(isActive);
-    }, [inputRef.current?.value])
+        const handleChange = (event: any) => {
+            const value = event.target.value
+            const isActive = value !== ""
+            console.log(inputRef.current?.value, "dsa");
+
+            console.log(isActive, "isactive");
+            setButtonActive(isActive);
+        }
+        handleChange(inputRef.current?.value)
+    }, [inputRef.current?.value]);
 
     const validInput = () => {
         if (inputRef.current?.value !== "") {
@@ -46,7 +53,7 @@ export default function FirstStepOfSignUp({ nextStep }: any) {
     return (
         <>
             <PineConeSVG />
-            <FirstLine/>
+            <FirstLine />
             <div className="flex justify-center">
                 <div className="w-[452px] h-[296px] mt-[220px] p-[20px] text-center">
                     <h3 className="font-bold text-3xl text-black">Information about store</h3>
@@ -56,6 +63,8 @@ export default function FirstStepOfSignUp({ nextStep }: any) {
                             ref={inputRef}
                             onChange={(event) => {
                                 controlUserForm('nameOfStore', event.target.value)
+                                console.log(event.target.value);
+
                             }}
                             className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg"
                             placeholder="name of store"
@@ -63,7 +72,7 @@ export default function FirstStepOfSignUp({ nextStep }: any) {
                         <p className="text-red-400 semibold">{error}</p>
                     </div>
                     <div className="flex justify-between items-baseline">
-                        <button className="w-[48px] h-[48px] flex justify-center items-center bg-slate-100 text-black rounded-full text-2xl transition-transform transform active:scale-95 hover:scale-110 hover:bg-black hover:text-white duration-300">                            
+                        <button className="w-[48px] h-[48px] flex justify-center items-center bg-slate-100 text-black rounded-full text-2xl transition-transform transform active:scale-95 hover:scale-110 hover:bg-black hover:text-white duration-300">
                             <LeftArrow />
                         </button>
 

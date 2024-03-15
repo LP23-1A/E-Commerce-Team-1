@@ -26,7 +26,7 @@ export const UserContextProvider = ({ children }: any) => {
     skillInSales: "",
     typeOfProduct: "",
   });
-  console.log(userDataRef.current, "from context");
+  // console.log(userDataRef.current, "from context");
 
   return (
     <UserContext.Provider value={{ userDataRef }}>

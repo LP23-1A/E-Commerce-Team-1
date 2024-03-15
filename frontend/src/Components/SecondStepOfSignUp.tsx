@@ -16,9 +16,12 @@ export default function SecondStepOfSignUp({ nextStep, prevStep }: any) {
     const controlUserForm = (field: string, value: string | number) => {
         userDataRef.current = { ...userDataRef.current, [field]: value }
     };
+    console.log(userDataRef);
+    
 
     useEffect(() => {
         const isActive = districtRef.current?.value !== "" && khorooRef.current?.value !== "" && phoneNumberRef.current?.value !== "";
+        // console.log(isActive, "isActive");    
         setButtonActive(isActive);
     }, [districtRef.current?.value, khorooRef.current?.value, phoneNumberRef.current?.value])
 
