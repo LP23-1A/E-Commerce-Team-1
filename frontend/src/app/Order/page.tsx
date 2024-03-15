@@ -40,8 +40,7 @@ export default function Order() {
 
   useEffect(() => {
     if (selectedState) {
-      const filteredData = order.filter((el) => el.status === selectedState);       
-      // console.log(filteredData);            
+      const filteredData = order.filter((el) => el.status === selectedState);      
       if (filteredData.length > 0) {
         setFiltereOrderData(filteredData);
       } else if (selectedState === "Бүгд") {
@@ -55,7 +54,7 @@ export default function Order() {
 
   return (
     <div>
-      <div className="flex gap-[24px]">
+      <div className="flex">
         <Sidebar />
 
         <div className="bg-[#F7F7F8]">
@@ -76,7 +75,12 @@ export default function Order() {
               </button>
             ))}
           </div>
-          <Datefilter />
+          <div className="flex justify-between items-end">
+            <Datefilter />
+            <div>
+              <input className="rounded-[8px] border-[1px] border-[#D6D8DB] px-[8px] py-[8px] mr-[24px]" type="text" placeholder="Дугаар, Имэйл"/>
+            </div>
+          </div>
           <div className="rounded-[8px] border-[1px] m-[24px] bg-white">
             <div className="pl-[24px] py-[20px]">
               <p className="text-[20px]">Захиалга</p>
@@ -105,12 +109,12 @@ export default function Order() {
               return (
                 <div key={el._id} className="flex">
                   <p className="flex items-center py-[28px] px-[24px] w-[143px] box-content">{el.orderNumber}</p>
-                  <p className="flex items-center py-[18px] px-[24px] w-[161px] box-content flex-wrap">{"user.gmail.com.com user.name"}</p>
+                  <p className="flex items-center py-[18px] px-[24px] w-[161px] box-content flex-wrap"><b>{el.userId.userName}</b> {el.userId.email}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[120px] box-content">{formattedDate}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[81px] box-content">{formattedTime}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[89px] box-content">{formattedNumber}</p>
                   <p className="pl-[28px] py-[24px] flex items-center w-[188px] box-content">
-                    <Status status={el.status} id={el._id} />
+                    <Status status={el.status} id={el._id}/>
                   </p>
                   <button onClick={() => router.push("OrderDetails")} className="flex items-center py-[30px] px-[57px] w-[] box-content">{">"}</button>
                 </div>
