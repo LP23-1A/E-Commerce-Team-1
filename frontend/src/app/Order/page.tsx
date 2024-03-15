@@ -14,10 +14,12 @@ export default function Order() {
     _id: any; status: string; orderNumber: string; amountPaid: Number; amountToBePaid: number; createdAt: string;
   }
   const api = "http://localhost:8000/order/get";
+
   const [order, setOrder] = useState<Order[]>([]);
   const router = useRouter();
   const [selectedState, setSelectedState] = useState<string | null>("Бүгд");
   const [filtereOrderData, setFiltereOrderData] = useState<Order[]>([]);
+  
 
   const handleButtonClick = (name: string) => {
     setSelectedState(name);
@@ -38,7 +40,8 @@ export default function Order() {
 
   useEffect(() => {
     if (selectedState) {
-      const filteredData = order.filter((el) => el.status === selectedState);
+      const filteredData = order.filter((el) => el.status === selectedState);       
+      // console.log(filteredData);            
       if (filteredData.length > 0) {
         setFiltereOrderData(filteredData);
       } else if (selectedState === "Бүгд") {
@@ -79,7 +82,7 @@ export default function Order() {
               <p className="text-[20px]">Захиалга</p>
             </div>
             <TitleOrders />
-            {filtereOrderData.map((el: any) => {
+            {filtereOrderData && filtereOrderData.map((el: any) => {
 
               const dateString = el.createdAt;
               const date = new Date(dateString);
