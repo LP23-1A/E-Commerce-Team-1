@@ -13,15 +13,7 @@ export default function ModalStoreSettings({
     } else {
       console.log("cannot store input in local storage");
     }
-  };
-    const storeInput = () => {
-        if (inputRef.current !== null) {
-            localStorage.setItem('typeStore', JSON.stringify(inputRef.current.value));
-        } else {
-            console.log('cannot store input in local storage');
-        }
-    };
-
+  };    
 
   return (
     <div

@@ -1,6 +1,5 @@
-
 "use client";
-import PineConeSVG from "@/components/SvG/PineCone";
+import PineConeSVG from "@/Components/SVG/PineCone";
 import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -65,7 +64,8 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
         });
         toast.success("Successfully registered");
         setTimeout(() => {
-          router.push(`/DashBoard/${response.data.createdUser._id}`);
+          // router.push(`/DashBoard/${response.data.createdUser._id}`);
+          router.push('/Order')
         }, 2000);
       }
     } catch (error) {

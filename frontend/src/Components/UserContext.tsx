@@ -34,20 +34,4 @@ export const UserContextProvider = ({ children }: any) => {
     </UserContext.Provider>
   );
 
-    const userDataRef = useRef<UserData>({
-        userName: "",
-        email: "",
-        nameOfStore: "",
-        phoneNumber: 0,
-        district: "",
-        khoroo: "",
-        skillInSales: "",
-        typeOfProduct: ""
-    });    
-    return (
-        <UserContext.Provider value={{ userDataRef }}>
-            {children}
-        </UserContext.Provider>
-    )
-
 };
