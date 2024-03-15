@@ -1,7 +1,7 @@
-import Category from "@/components/Icon/Category";
-import Vector from "@/components/Icon/Vector";
-import Date from "@/components/Icon/Date";
-import Dollar from "@/components/Icon/Dollar";
+import Category from "@/Components/Icon/Category";
+import Vector from "@/Components/Icon/Vector";
+import Date from "@/Components/Icon/Date";
+import Dollar from "@/Components/Icon/Dollar";
 const texts = [
   {
     svg: <Category />,

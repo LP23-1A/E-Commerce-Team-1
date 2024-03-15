@@ -1,11 +1,15 @@
 "use client";
 import { useState } from "react";
 import AddPro from "./AddPro";
+
 import Sidebar from "@/Components/Sidebar";
 import Arrow from "../../Components/Icon/Arrow";
 import Image from "../../Components/Icon/Image";
 import Add from "../../Components/Icon/Add";
 import { useRouter } from "next/navigation";
+
+
+
 import axios from "axios";
 
 const api = "http://localhost:8000/product/create";

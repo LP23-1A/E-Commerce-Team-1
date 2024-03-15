@@ -26,6 +26,6 @@ const UserSchema = new mongose.Schema({
   updatedAt: Date,
 });
 
-const userModal = mongose.model("User", UserSchema);
+const userModal = mongose.model("users", UserSchema);
 
 export { userModal };

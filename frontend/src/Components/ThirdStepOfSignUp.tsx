@@ -1,3 +1,4 @@
+
 "use client";
 import PineConeSVG from "@/components/SvG/PineCone";
 import React, { useContext, useEffect, useState } from "react";
@@ -77,6 +78,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
     const isActive: any = haveSkill !== "" && productType !== "";
     setButtonActive(isActive);
   }, [haveSkill, productType]);
+
 
   useEffect(() => {
     const handleKeyPress = (event: any) => {

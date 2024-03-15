@@ -7,9 +7,10 @@ import Edit from "../../Components/Icon/Edit";
 import headers from "../../Components/utils/Table";
 import Filter from "../../Components/Filter";
 import Sidebar from "@/Components/Sidebar";
-import { useRouter } from "next/navigation";
-import SuccessModalProduct from "@/Components/SuccessProductModal";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
+import SuccessModalProduct from "@/Components/SuccessProductModal";
+
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
