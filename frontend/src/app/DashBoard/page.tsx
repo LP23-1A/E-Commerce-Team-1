@@ -1,7 +1,6 @@
 "use client";
 
 import Product from "../../Components/BestProduct";
-import dollar from "@/components/Icon/Dollar";
 import OrderIcon from "../../Components/Icon/OrderIcon";
 import UserBlackIcon from "../../Components/Icon/UserBlackIcon";
 
