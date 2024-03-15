@@ -78,7 +78,7 @@ export default function Order() {
           <div className="flex justify-between items-end">
             <Datefilter />
             <div>
-              <input type="text" placeholder="Дугаар, Имэйл"/>
+              <input className="rounded-[8px] border-[1px] border-[#D6D8DB] px-[8px] py-[8px] mr-[24px]" type="text" placeholder="Дугаар, Имэйл"/>
             </div>
           </div>
           <div className="rounded-[8px] border-[1px] m-[24px] bg-white">
