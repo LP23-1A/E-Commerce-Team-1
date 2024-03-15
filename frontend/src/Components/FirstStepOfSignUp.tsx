@@ -7,8 +7,12 @@ import PineConeSVG from "@/components/SvG/PineCone";
 >>>>>>> fe54317 (income done)
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "./UserContext";
+<<<<<<< HEAD
 import RightArrow from "./SVG/RightArrow";
 import LeftArrow from "./SVG/LeftArrow";
+=======
+import RightArrow from "./SvG/RightArrow";
+>>>>>>> 119b9ca (income done)
 import FirstLine from "./FirstLine";
 
 export default function FirstStepOfSignUp({ nextStep }: any) {
@@ -74,7 +78,7 @@ export default function FirstStepOfSignUp({ nextStep }: any) {
           </div>
           <div className="flex justify-between items-baseline">
             <button className="w-[48px] h-[48px] flex justify-center items-center bg-slate-100 text-black rounded-full text-2xl transition-transform transform active:scale-95 hover:scale-110 hover:bg-black hover:text-white duration-300">
-              <LeftArrow />
+              {/* <LeftArrow /> */}
             </button>
 
 <<<<<<< HEAD
