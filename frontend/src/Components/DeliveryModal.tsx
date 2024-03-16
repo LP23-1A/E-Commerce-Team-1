@@ -18,17 +18,12 @@ export default function ModalDeliverySettings({ setModalDelivery, buttonActive }
         <div className="w-full flex bg-green-400 absolute h-full justify-center items-center" style={{ backgroundColor: 'rgba(0, 0, 0, .5)' }}>
             <div className="w-[551px] h-[341px] rounded-lg bg-white p-[24px]">
                 <p className="text-xl font-bold">How do you handle your delivery state?</p>
-                <div className="relative">
-                    <input
-                        style={{ backgroundColor: '#D6D8DB', width: '503px', height: '48px', padding: '8px', borderStyle: 'solid', borderWidth: '1px', borderRadius: '8px', color: 'black' }}
-                        type="text"
-                        placeholder="Choose Your delivery condition."
-                    />
+                <div className="relative">               
                     <select
                         className="border mt-[10px] w-full border-solid border-gray-300 bg-slate-100 p-2 rounded-lg"
                         ref={selectedOptionRef}
                     >
-                        <option>Choose</option>
+                        <option>Choose Your delivery condition</option>
                         {wayMethod.map((el, i) => (
                             <option key={i} value={el}>{el}</option>
                         ))}

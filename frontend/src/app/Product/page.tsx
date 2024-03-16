@@ -11,7 +11,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import SuccessModalProduct from "@/Components/SuccessProductModal";
 
-
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
 
