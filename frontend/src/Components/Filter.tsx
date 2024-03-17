@@ -1,10 +1,11 @@
 import Search from "@/Components/Icon/Search";
 import texts from "@/Components/utils/Texts";
-export default function filter() {
+import ProductFilterByCategory from "./ProductFIlterbyCategory";
+export default function filter() { 
   return (
     <div className="flex justify-between w-full">
       <div className="flex gap-4">
-        {texts.map((data, ind) => (
+        {/* {texts.map((data, ind) => (
           <div
             key={ind}
             className="flex items-center justify-around bg-white w-[145px] h-[40px] rounded-lg cursor-pointer"
@@ -13,7 +14,7 @@ export default function filter() {
             {data.text}
             {data.more}
           </div>
-        ))}
+        ))} */}        
       </div>
       <div className="relative flex items-center">
         <div className="absolute pl-2">

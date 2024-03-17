@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Laptop from "@/Components/Icon/Laptop.jpeg";
 import Plus from "../../Components/Icon/Plus";
 import Delete from "../../Components/Icon/Delete";
@@ -10,6 +10,9 @@ import Sidebar from "@/Components/Sidebar";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import SuccessModalProduct from "@/Components/SuccessProductModal";
+import Category from "@/Components/Icon/Category";
+import { ByGenders } from "@/Components/utils/ByGenders";
+import Vector from "@/Components/Icon/Vector";
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
@@ -29,12 +32,15 @@ export default function Product() {
   const router = useRouter();
   const [data, setData] = useState<Items[]>([]);
   const [isSuccessProduct, setIsSuccessProduct] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [filteredData, setFilteredData] = useState<Items[]>([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get<Items[]>(api);
         setData(res.data);
+        setFilteredData(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -64,6 +70,17 @@ export default function Product() {
     }
   }, []);
 
+  useEffect(() => {
+    if (selectedCategory) {
+      const filteredData = data.filter((el: any) => el.category === selectedCategory);
+      if (filteredData.length > 0) {
+        setFilteredData(filteredData)
+      } else if (selectedCategory === "All") {
+        setFilteredData(data)
+      }
+    }
+  }, [selectedCategory, data])
+
   return (
     <div className="flex">
       <Sidebar />
@@ -79,6 +96,16 @@ export default function Product() {
           <Plus />
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
+        <div className="flex items-center justify-around bg-white w-[145px] h-[40px] rounded-lg cursor-pointer">
+          <Category />
+          <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+            <option value="">Ангилал</option>
+            {ByGenders.map((el, i) =>
+              <option className="text-black" key={i}>{el}</option>
+            )}
+            <Vector />
+          </select>
+        </div>
         <Filter />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
@@ -93,7 +120,7 @@ export default function Product() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((dat, index) => (
+                {filteredData && filteredData.map((dat, index) => (
                   <tr key={index}>
                     <td className="w-4 p-4">
                       <input type="checkbox" className="w-5 h-5" />
@@ -127,8 +154,8 @@ export default function Product() {
                       {dat.createdAt
                         ? new Date(dat.createdAt).toISOString().slice(0, 10)
                         : dat.updatedAt
-                        ? new Date(dat.updatedAt).toISOString().slice(0, 10)
-                        : ""}
+                          ? new Date(dat.updatedAt).toISOString().slice(0, 10)
+                          : ""}
                     </td>
                     <td className="px-6 py-4">
                       <button
