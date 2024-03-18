@@ -10,14 +10,9 @@ import Sidebar from "@/Components/Sidebar";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import SuccessModalProduct from "@/Components/SuccessProductModal";
-import Category from "@/Components/Icon/Category";
-import { ByGenders } from "@/Components/utils/ByGenders";
-import Vector from "@/Components/Icon/Vector";
-import toast from "react-hot-toast";
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
-
 interface Items {
   _id: string;
   productName: string;
@@ -26,8 +21,8 @@ interface Items {
   category: string;
   subCategory: string;
   quantity: number;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: string;
+  updatedAt: string;
 }
 export default function Product() {
   const router = useRouter();
@@ -75,22 +70,22 @@ export default function Product() {
 
   const filterByCategory = (category: string) => {
     const filteredData = data.filter((el: Items) => el.category === category);
-    filteredData.length > 0 ? setFilteredData(filteredData) : setFilteredData(data);
+    filteredData.length > 0
+      ? setFilteredData(filteredData)
+      : setFilteredData(data);
   };
 
-  const filterByHour = (hours:any) => {
-    const filteredData = data.filter((el: Items) => {
-      const createdAtDate = new Date(el.createdAt);
-      console.log(createdAtDate, "test");
-      
-      return (
-        createdAtDate.getHours() === hours         
-      );
-    });
-    setFilteredData(filteredData);
+  const filterByHour = (hour: number) => {
+    console.log('hour', hour)
+    var numberOfMlSeconds = now.getTime();
+    var subMlSeconds  =  hour * 60 *1000
+    var filterDate = new Date(numberOfMlSeconds - subMlSeconds);
+    const filteredData = data.filter((el: Items) => new Date( el.createdAt) >= filterDate);
+    console.log('filteredData', filteredData)
+    filteredData.length > 0
+      ? setFilteredData(filteredData)
+      : setFilteredData(data);
   };
-  
-
 
   return (
     <div className="flex">
@@ -107,7 +102,10 @@ export default function Product() {
           <Plus />
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
-        <Filter filterByCategory={filterByCategory} filterByHour={filterByHour} />
+        <Filter
+          filterByCategory={filterByCategory}
+          filterByHour={filterByHour}
+        />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
             <table className="w-full text-sm text-left">
@@ -121,61 +119,62 @@ export default function Product() {
                 </tr>
               </thead>
               <tbody>
-                {filteredData && filteredData.map((dat, index) => (
-                  <tr key={index}>
-                    <td className="w-4 p-4">
-                      <input type="checkbox" className="w-5 h-5" />
-                    </td>
-                    <td className="flex items-center px-6 py-4">
-                      <img
-                        className="w-10 h-10 rounded-full"
-                        src={Laptop.src}
-                        alt="Product Image"
-                      />
-                      <div className="ps-3 text-black">
-                        <h1 className="font-semibold">{dat.productName}</h1>
-                        <p className="font-normal text-gray-500">
-                          {dat.productCode}
-                        </p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      {dat.category && dat.subCategory
-                        ? `${dat.category}, ${dat.subCategory}`
-                        : dat.category || dat.subCategory}
-                    </td>
-                    <td className="px-6 py-4">
-                      {dat.price !== null
-                        ? dat.price.toLocaleString() + "₮"
-                        : ""}
-                    </td>
-                    <td className="px-6 py-4">{dat.quantity}</td>
-                    <td className="px-6 py-4">0</td>
-                    <td className="px-6 py-4">
-                      {dat.createdAt
-                        ? new Date(dat.createdAt).toISOString().slice(0, 10)
-                        : dat.updatedAt
+                {filteredData &&
+                  filteredData.map((dat, index) => (
+                    <tr key={index}>
+                      <td className="w-4 p-4">
+                        <input type="checkbox" className="w-5 h-5" />
+                      </td>
+                      <td className="flex items-center px-6 py-4">
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src={Laptop.src}
+                          alt="Product Image"
+                        />
+                        <div className="ps-3 text-black">
+                          <h1 className="font-semibold">{dat.productName}</h1>
+                          <p className="font-normal text-gray-500">
+                            {dat.productCode}
+                          </p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        {dat.category && dat.subCategory
+                          ? `${dat.category}, ${dat.subCategory}`
+                          : dat.category || dat.subCategory}
+                      </td>
+                      <td className="px-6 py-4">
+                        {dat.price !== null
+                          ? dat.price.toLocaleString() + "₮"
+                          : ""}
+                      </td>
+                      <td className="px-6 py-4">{dat.quantity}</td>
+                      <td className="px-6 py-4">0</td>
+                      <td className="px-6 py-4">
+                        {dat.createdAt
+                          ? new Date(dat.createdAt).toISOString().slice(0, 10)
+                          : dat.updatedAt
                           ? new Date(dat.updatedAt).toISOString().slice(0, 10)
                           : ""}
-                    </td>
-                    <td className="px-6 py-4">
-                      <button
-                        className="px-2 py-1 transition duration-300 transform hover:scale-125"
-                        onClick={() => handleDelete(dat._id)}
-                      >
-                        <Delete />
-                      </button>
-                      <button
-                        className="px-2 py-1 transition duration-300 transform hover:scale-125"
-                        onClick={() =>
-                          router.push(`/EditProduct?productId=${dat._id}`)
-                        }
-                      >
-                        <Edit />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="px-6 py-4">
+                        <button
+                          className="px-2 py-1 transition duration-300 transform hover:scale-125"
+                          onClick={() => handleDelete(dat._id)}
+                        >
+                          <Delete />
+                        </button>
+                        <button
+                          className="px-2 py-1 transition duration-300 transform hover:scale-125"
+                          onClick={() =>
+                            router.push(`/EditProduct?productId=${dat._id}`)
+                          }
+                        >
+                          <Edit />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

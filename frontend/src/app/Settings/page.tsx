@@ -1,4 +1,3 @@
-'use client'
 import Sidebar from "@/Components/Sidebar";
 import CicleSvG from "@/Components/SVG/Circle";
 import SearchSvG from "@/Components/SVG/SearchSvG";

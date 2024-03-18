@@ -1,1 +1,1 @@
-export const ByHours: string[] = ["30min", "1hour", "2hour", "3hour",]
+export const ByHours: number[] = [30, 60, 120, 180,]
