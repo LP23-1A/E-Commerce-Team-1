@@ -18,21 +18,20 @@ export default function Sidebar() {
         setSelectedState(index)
     }
 
-
     return (
         <div className="flex flex-col gap-[16px] pt-[24px]">
             {
                 statesOfOrder.map((state, index) => {
                     return (
-                        <button onClick={() => {
+                        <button key={index} onClick={() => {
                             handlerClick(index)
                             router.push(statesOfRouters[index])
-                            
+
                         }} className={`flex items-center hover:bg-[#DADADA] pr-[24px] ease-in-out duration-200 ${index === selectedState ? "bg-[#DADADA]" : "white"} `}>
-                        <div className="py-[8px] px-[16px]">
-                            {statesOfIcons[index]}
-                        </div>
-                        <p className="text-[16px] text-black">{state}</p>
+                            <div className="py-[8px] px-[16px]">
+                                {statesOfIcons[index]}
+                            </div>
+                            <p className="text-[16px] text-black">{state}</p>
                         </button>
                     )
                 })

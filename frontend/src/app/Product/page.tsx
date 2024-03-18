@@ -13,6 +13,7 @@ import SuccessModalProduct from "@/Components/SuccessProductModal";
 import Category from "@/Components/Icon/Category";
 import { ByGenders } from "@/Components/utils/ByGenders";
 import Vector from "@/Components/Icon/Vector";
+import toast from "react-hot-toast";
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
@@ -32,8 +33,10 @@ export default function Product() {
   const router = useRouter();
   const [data, setData] = useState<Items[]>([]);
   const [isSuccessProduct, setIsSuccessProduct] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [filteredData, setFilteredData] = useState<Items[]>([])
+  const [filteredData, setFilteredData] = useState<Items[]>([]);
+  const now = new Date();
+  const currentHours = now.getHours();
+  const currentMinutes = now.getMinutes();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,16 +73,24 @@ export default function Product() {
     }
   }, []);
 
-  useEffect(() => {
-    if (selectedCategory) {
-      const filteredData = data.filter((el: any) => el.category === selectedCategory);
-      if (filteredData.length > 0) {
-        setFilteredData(filteredData)
-      } else if (selectedCategory === "All") {
-        setFilteredData(data)
-      }
-    }
-  }, [selectedCategory, data])
+  const filterByCategory = (category: string) => {
+    const filteredData = data.filter((el: Items) => el.category === category);
+    filteredData.length > 0 ? setFilteredData(filteredData) : setFilteredData(data);
+  };
+
+  const filterByHour = (hours:any) => {
+    const filteredData = data.filter((el: Items) => {
+      const createdAtDate = new Date(el.createdAt);
+      console.log(createdAtDate, "test");
+      
+      return (
+        createdAtDate.getHours() === hours         
+      );
+    });
+    setFilteredData(filteredData);
+  };
+  
+
 
   return (
     <div className="flex">
@@ -96,17 +107,7 @@ export default function Product() {
           <Plus />
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
-        <div className="flex items-center justify-around bg-white w-[145px] h-[40px] rounded-lg cursor-pointer">
-          <Category />
-          <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-            <option value="">Ангилал</option>
-            {ByGenders.map((el, i) =>
-              <option className="text-black" key={i}>{el}</option>
-            )}
-            <Vector />
-          </select>
-        </div>
-        <Filter />
+        <Filter filterByCategory={filterByCategory} filterByHour={filterByHour} />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
             <table className="w-full text-sm text-left">
