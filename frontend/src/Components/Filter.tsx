@@ -1,6 +1,12 @@
 import Search from "@/Components/Icon/Search";
-import texts from "@/Components/utils/Texts";
-export default function filter() {
+import texts from "../Components/utils/Texts";
+
+export default function Filter({ handleSearch }: any) {
+  const handleInputChange = (e: { target: { value: any } }) => {
+    const searchTerm = e.target.value;
+    handleSearch(searchTerm);
+  };
+
   return (
     <div className="flex justify-between w-full">
       <div className="flex gap-4">
@@ -23,6 +29,7 @@ export default function filter() {
           type="search"
           className="w-[419px] h-[40px] p-4 rounded-lg bg-white pl-12 text-#8B8E95"
           placeholder="Бүтээгдэхүүний нэр, SKU, UPC."
+          onChange={handleInputChange}
         />
       </div>
     </div>
