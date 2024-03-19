@@ -1,1 +1,1 @@
-export const ByDates: string[] = ["Today", "7 days ago", "1 month ago"];
+export const ByDates: number[] = [0, 1,  2,];

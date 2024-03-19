@@ -7,7 +7,7 @@ import Edit from "../../Components/Icon/Edit";
 import headers from "../../Components/utils/Table";
 import Filter from "../../Components/Filter";
 import Sidebar from "@/Components/Sidebar";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import SuccessModalProduct from "@/Components/SuccessProductModal";
 import { toast, Toaster } from "react-hot-toast";
@@ -30,8 +30,6 @@ export default function Product() {
   const [data, setData] = useState<Items[]>([]);
   const [isSuccessProduct, setIsSuccessProduct] = useState(false);
   const [filteredData, setFilteredData] = useState<Items[]>([]);
-  const startDate = new Date('2024-03-19');
-  const endDate = new Date('2024-04-19');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,30 +67,66 @@ export default function Product() {
   }, []);
 
   const filterByCategory = (category: string) => {
-    const filteredData = data.filter((el: Items) => el.category === category);
+    let filteredData;
+    if (category === "All") {
+      setFilteredData(data);
+    } else {
+      filteredData = data.filter((el: Items) => el.category === category);
+      if (filteredData.length > 0) {
+        setFilteredData(filteredData);
+      } else {
+        toast.error("There is no data for that category");
+        setFilteredData([]);
+      }
+    }
+  };
+
+  const filterByDates = (selectedHour: any) => {
+    const now = new Date();
+    const today = now.getDate();
+    const yesterDay = today - 1;
+    const twoDaysAgo = today - 2;
+
+    const filteredData = data.filter((el: Items) => {
+      const exactCreationDay = parseInt(el.createdAt.slice(8, 10));
+      if (selectedHour == 0 && exactCreationDay === today) {
+        return true;
+      } else if (selectedHour == 1 && exactCreationDay === yesterDay) {
+        return true;
+      } else if (selectedHour == 2 && exactCreationDay == twoDaysAgo) {
+        return true;
+      }
+      return false;
+    });
     if (filteredData.length > 0) {
       setFilteredData(filteredData);
     } else {
-      toast.error("there is no data for that")
-      setFilteredData(data);
+      toast.error("There is no data for that");
+      setFilteredData([]);
     }
   };
 
-  const filterByHour = (selectedHour: any) => {    
-    const today = new Date(new Date().setDate(new Date().getDate() - 7))
-    const filteredData = data.filter((el: Items) => {
-      const createdAt = new Date(el.createdAt)
-      return createdAt > today
+  const sortPrice = (choisenPrice: string) => {
+    let sortedData: Items[] = [...data];
+    if (choisenPrice === "Low To High") {
+      sortedData.sort((a, b) => a.price - b.price);
+    } else if (choisenPrice === "High To Low") {
+      sortedData.sort((a, b) => b.price - a.price);
+    }
+    setFilteredData(sortedData);
+  };
+
+  const searchingProNme = (name: string) => {
+    const filteredData = data.filter((el) => {
+      return el.productName.toLowerCase().includes(name);
     });
-    console.log(filteredData)
-    if (filteredData.length < 0) {
+    if (filteredData.length > 0) {
       setFilteredData(filteredData);
     } else {
-      toast.error('there is no data for selected time')
-      setFilteredData(data)
+      toast.error("the given product name doesnt exist");
+      setFilteredData([]);
     }
   };
-
 
   return (
     <div className="flex">
@@ -111,7 +145,9 @@ export default function Product() {
         </button>
         <Filter
           filterByCategory={filterByCategory}
-          filterByHour={filterByHour}
+          filterByDates={filterByDates}
+          sortByPriceStatus={sortPrice}
+          searchByName={searchingProNme}
         />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
@@ -159,10 +195,16 @@ export default function Product() {
                       <td className="px-6 py-4">0</td>
                       <td className="px-6 py-4">
                         {dat.createdAt
-                          ? new Date(dat.createdAt).toISOString()
+                          ? String(new Date(dat.createdAt).toISOString()).slice(
+                              0,
+                              10
+                            )
                           : dat.updatedAt
-                            ? new Date(dat.updatedAt).toISOString()
-                            : ""}
+                          ? String(new Date(dat.updatedAt).toISOString()).slice(
+                              0,
+                              10
+                            )
+                          : ""}
                       </td>
                       <td className="px-6 py-4">
                         <button
