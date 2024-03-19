@@ -1,1 +1,0 @@
-export const ByHours: number[] = [30, 60, 120, 180,]

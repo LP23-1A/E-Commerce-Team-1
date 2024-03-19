@@ -10,6 +10,7 @@ import Sidebar from "@/Components/Sidebar";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import SuccessModalProduct from "@/Components/SuccessProductModal";
+import { toast, Toaster } from "react-hot-toast";
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
@@ -29,9 +30,8 @@ export default function Product() {
   const [data, setData] = useState<Items[]>([]);
   const [isSuccessProduct, setIsSuccessProduct] = useState(false);
   const [filteredData, setFilteredData] = useState<Items[]>([]);
-  const now = new Date();
-  const currentHours = now.getHours();
-  const currentMinutes = now.getMinutes();
+  const startDate = new Date('2024-03-19');
+  const endDate = new Date('2024-04-19');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,22 +70,29 @@ export default function Product() {
 
   const filterByCategory = (category: string) => {
     const filteredData = data.filter((el: Items) => el.category === category);
-    filteredData.length > 0
-      ? setFilteredData(filteredData)
-      : setFilteredData(data);
+    if (filteredData.length > 0) {
+      setFilteredData(filteredData);
+    } else {
+      toast.error("there is no data for that")
+      setFilteredData(data);
+    }
   };
 
-  const filterByHour = (hour: number) => {
-    console.log('hour', hour)
-    var numberOfMlSeconds = now.getTime();
-    var subMlSeconds  =  hour * 60 *1000
-    var filterDate = new Date(numberOfMlSeconds - subMlSeconds);
-    const filteredData = data.filter((el: Items) => new Date( el.createdAt) >= filterDate);
-    console.log('filteredData', filteredData)
-    filteredData.length > 0
-      ? setFilteredData(filteredData)
-      : setFilteredData(data);
+  const filterByHour = (selectedHour: any) => {    
+    const today = new Date(new Date().setDate(new Date().getDate() - 7))
+    const filteredData = data.filter((el: Items) => {
+      const createdAt = new Date(el.createdAt)
+      return createdAt > today
+    });
+    console.log(filteredData)
+    if (filteredData.length < 0) {
+      setFilteredData(filteredData);
+    } else {
+      toast.error('there is no data for selected time')
+      setFilteredData(data)
+    }
   };
+
 
   return (
     <div className="flex">
@@ -152,10 +159,10 @@ export default function Product() {
                       <td className="px-6 py-4">0</td>
                       <td className="px-6 py-4">
                         {dat.createdAt
-                          ? new Date(dat.createdAt).toISOString().slice(0, 10)
+                          ? new Date(dat.createdAt).toISOString()
                           : dat.updatedAt
-                          ? new Date(dat.updatedAt).toISOString().slice(0, 10)
-                          : ""}
+                            ? new Date(dat.updatedAt).toISOString()
+                            : ""}
                       </td>
                       <td className="px-6 py-4">
                         <button
@@ -180,6 +187,7 @@ export default function Product() {
           </div>
         </div>
       </div>
+      <Toaster position="top-center" />
       {isSuccessProduct && (
         <SuccessModalProduct setIsSuccessProduct={setIsSuccessProduct} />
       )}
