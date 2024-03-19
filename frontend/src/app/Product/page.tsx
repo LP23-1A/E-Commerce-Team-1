@@ -42,19 +42,6 @@ export default function Product() {
     fetchData();
   }, []);
 
-  const handleSortByPrice = (type: string) => {
-    const sortedData = [...data];
-    sortedData.sort((a, b) => {
-      if (type === "lowToHigh") {
-        return a.price - b.price;
-      } else if (type === "highToLow") {
-        return b.price - a.price;
-      }
-      return 0;
-    });
-    setData(sortedData);
-  };
-
   const handleDelete = async (productId: string) => {
     try {
       await axios.delete(`${api2}/${productId}`);
@@ -92,7 +79,7 @@ export default function Product() {
           <Plus />
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
-        <Filter handleSortByPrice={handleSortByPrice} />
+        <Filter {...{ data, setData }} />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
             <table className="w-full text-sm text-left">

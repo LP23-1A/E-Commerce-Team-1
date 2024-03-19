@@ -1,6 +1,18 @@
 import Search from "@/Components/Icon/Search";
 
-export default function Filter({ handleSortByPrice }: any) {
+export default function Filter({ data, setData }: any) {
+  const handleSortByPrice = (type: string) => {
+    const sortedData = [...data];
+    sortedData.sort((a, b) => {
+      if (type === "lowToHigh") {
+        return a.price - b.price;
+      } else if (type === "highToLow") {
+        return b.price - a.price;
+      }
+      return 0;
+    });
+    setData(sortedData);
+  };
   const handlePriceChange = (e: { target: { value: any } }) => {
     const Option = e.target.value;
     handleSortByPrice(Option);
