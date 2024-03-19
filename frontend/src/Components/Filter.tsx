@@ -1,7 +1,13 @@
 import Search from "@/Components/Icon/Search";
 import texts from "../Components/utils/Texts";
 
-export default function Filter({ handleSearch }: any) {
+export default function Filter({ data, setFilteredData }: any) {
+  const handleSearch = (productName: string) => {
+    const filtered = data.filter((item: { productName: string }) =>
+      item.productName.toLowerCase().includes(productName.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
   const handleInputChange = (e: { target: { value: any } }) => {
     const searchTerm = e.target.value;
     handleSearch(searchTerm);

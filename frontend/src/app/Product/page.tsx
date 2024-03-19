@@ -43,13 +43,6 @@ export default function Product() {
     fetchData();
   }, []);
 
-  const handleSearch = (productName: string) => {
-    const filtered = data.filter((item) =>
-      item.productName.toLowerCase().includes(productName.toLowerCase())
-    );
-    setFilteredData(filtered);
-  };
-
   const handleDelete = async (productId: string) => {
     try {
       await axios.delete(`${api2}/${productId}`);
@@ -87,7 +80,7 @@ export default function Product() {
           <Plus />
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
-        <Filter handleSearch={handleSearch} />
+        <Filter {...{ data, setFilteredData }} />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
             <table className="w-full text-sm text-left">
