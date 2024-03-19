@@ -12,7 +12,7 @@ interface ProductData {
   createdAt: number;
   category: string;
   subCategory: string;
-  images: string[];
+  images: [String];
 }
 
 export const createProduct = async (req: Request, res: Response) => {
@@ -30,6 +30,7 @@ export const createProduct = async (req: Request, res: Response) => {
       thumbnails,
       images,
     }: ProductData = req.body;
+    console.log(req.body);
     const product = await ProductModel.create({
       productName,
       categoryId,
@@ -45,6 +46,7 @@ export const createProduct = async (req: Request, res: Response) => {
     });
     res.status(200).send(product);
   } catch (error) {
+    console.log(error);
     res.status(500).send({ success: false, message: "Internal server error" });
   }
 };

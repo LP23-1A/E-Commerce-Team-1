@@ -1,5 +1,5 @@
 "use client";
-import SignUp from "./SignUp/page";
+import SignUp from "../app/AddProduct/page";
 
 export default function Home() {
   return (

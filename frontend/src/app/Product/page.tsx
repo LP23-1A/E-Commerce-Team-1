@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Laptop from "@/Components/Icon/Laptop.jpeg";
 import Plus from "../../Components/Icon/Plus";
 import Delete from "../../Components/Icon/Delete";
 import Edit from "../../Components/Icon/Edit";
@@ -10,7 +9,6 @@ import Sidebar from "@/Components/Sidebar";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import SuccessModalProduct from "@/Components/SuccessProductModal";
-
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
@@ -25,6 +23,7 @@ interface Items {
   quantity: number;
   createdAt: number;
   updatedAt: number;
+  images: string;
 }
 export default function Product() {
   const router = useRouter();
@@ -102,8 +101,8 @@ export default function Product() {
                     <td className="flex items-center px-6 py-4">
                       <img
                         className="w-10 h-10 rounded-full"
-                        src={Laptop.src}
-                        alt="Product Image"
+                        src={dat.images}
+                        alt=""
                       />
                       <div className="ps-3 text-black">
                         <h1 className="font-semibold">{dat.productName}</h1>
