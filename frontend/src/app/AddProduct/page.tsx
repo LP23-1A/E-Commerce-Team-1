@@ -3,20 +3,15 @@ import { useState } from "react";
 import AddPro from "./AddPro";
 import Sidebar from "@/Components/Sidebar";
 import Arrow from "../../Components/Icon/Arrow";
-import Add from "../../Components/Icon/Add";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import Image from "../../Components/Icon/Image";
+import Aws from "../../Components/Aws";
 
 const api = "http://localhost:8000/product/create";
 
 export default function AddProduct() {
   const router = useRouter();
-  const imageArray = [1, 2, 3];
-  const [click, setClick] = useState(false);
-  const handler = () => {
-    setClick(!click);
-  };
+
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -108,27 +103,7 @@ export default function AddProduct() {
                 </div>
               </div>
             </div>
-            <div className="bg-white w-[563px] h-[312px] p-4 m-8 rounded-lg">
-              <div className="flex flex-col gap-8">
-                <h1>Бүтээгдэхүүний зураг</h1>
-                <div className="flex justify-around">
-                  <div className="flex justify-center">
-                    {imageArray.map((index) => (
-                      <div
-                        key={index}
-                        className="w-[125px] h-[125px] rounded-xl border-dashed border-gray-300 border-2 flex justify-center items-center m-2"
-                        onClick={handler}
-                      >
-                        <Image />
-                      </div>
-                    ))}
-                  </div>
-                  <button className="flex justify-center items-center w-[125px] h-[125px]">
-                    <Add />
-                  </button>
-                </div>
-              </div>
-            </div>
+            <Aws {...{ handleImageUpload, images }} />
             <div className=" flex justify-evenly bg-white w-[563px] h-[132px] p-4 m-8 rounded-lg">
               <div>
                 <h1>Үндсэн үнэ</h1>
@@ -168,18 +143,6 @@ export default function AddProduct() {
           />
         </div>
       </div>
-      {click && (
-        <div className="fixed  w-full h-full flex justify-center items-center bg-black bg-opacity-50">
-          <div className="w-[300px] h-[200px] bg-white rounded-lg flex justify-center items-center">
-            <input
-              type="file"
-              accept="image/png, image/jpeg, image/jpg"
-              onChange={(e) => handleImageUpload(e)}
-            />
-            <button onClick={handler}>Upload</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
