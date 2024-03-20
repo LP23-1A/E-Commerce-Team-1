@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import toast from "react-hot-toast";
 
 const wayMethod = ['By Car 🚗', 'By tram 🚋', 'By Bus 🚌', 'By Bicycle🚲', 'By Walk 🚶🏾', 'Others ✨'];
 
@@ -10,7 +11,7 @@ export default function ModalDeliverySettings({ setModalDelivery, buttonActive }
             localStorage.setItem('deliveryState', JSON.stringify(selectedOptionRef.current.value));
             setModalDelivery(false)
         } else {
-            console.log('cannot pick user choice');            
+            toast.error('cannot pick')
         }
     };
 
@@ -18,7 +19,7 @@ export default function ModalDeliverySettings({ setModalDelivery, buttonActive }
         <div className="w-full flex bg-green-400 absolute h-full justify-center items-center" style={{ backgroundColor: 'rgba(0, 0, 0, .5)' }}>
             <div className="w-[551px] h-[341px] rounded-lg bg-white p-[24px]">
                 <p className="text-xl font-bold">How do you handle your delivery state?</p>
-                <div className="relative">               
+                <div className="relative">
                     <select
                         className="border mt-[10px] w-full border-solid border-gray-300 bg-slate-100 p-2 rounded-lg"
                         ref={selectedOptionRef}

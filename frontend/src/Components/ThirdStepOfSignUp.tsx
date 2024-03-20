@@ -107,8 +107,6 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
           >
             This information will be used to support store configuration
           </h5>
-          {/* take Input */}
-
           <div className="flex gap-4 flex-col">
             <div>
               <p className="font-semibold text-base text-black mt-[30px]">

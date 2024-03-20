@@ -105,29 +105,7 @@ export default function Product() {
       setFilteredData([]);
     }
   };
-
-  const sortPrice = (choisenPrice: string) => {
-    let sortedData: Items[] = [...data];
-    if (choisenPrice === "Low To High") {
-      sortedData.sort((a, b) => a.price - b.price);
-    } else if (choisenPrice === "High To Low") {
-      sortedData.sort((a, b) => b.price - a.price);
-    }
-    setFilteredData(sortedData);
-  };
-
-  const searchingProNme = (name: string) => {
-    const filteredData = data.filter((el) => {
-      return el.productName.toLowerCase().includes(name);
-    });
-    if (filteredData.length > 0) {
-      setFilteredData(filteredData);
-    } else {
-      toast.error("the given product name doesnt exist");
-      setFilteredData([]);
-    }
-  };
-
+  
   return (
     <div className="flex">
       <Sidebar />
@@ -145,9 +123,7 @@ export default function Product() {
         </button>
         <Filter
           filterByCategory={filterByCategory}
-          filterByDates={filterByDates}
-          sortByPriceStatus={sortPrice}
-          searchByName={searchingProNme}
+          filterByDates={filterByDates}                    
         />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
@@ -196,15 +172,15 @@ export default function Product() {
                       <td className="px-6 py-4">
                         {dat.createdAt
                           ? String(new Date(dat.createdAt).toISOString()).slice(
-                              0,
-                              10
-                            )
+                            0,
+                            10
+                          )
                           : dat.updatedAt
-                          ? String(new Date(dat.updatedAt).toISOString()).slice(
+                            ? String(new Date(dat.updatedAt).toISOString()).slice(
                               0,
                               10
                             )
-                          : ""}
+                            : ""}
                       </td>
                       <td className="px-6 py-4">
                         <button

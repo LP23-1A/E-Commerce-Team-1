@@ -108,7 +108,7 @@ export default function Order() {
               return (
                 <div key={el._id} className="flex">
                   <p className="flex items-center py-[28px] px-[24px] w-[143px] box-content">{el.orderNumber}</p>
-                  <p className="flex items-center py-[18px] px-[24px] w-[161px] box-content flex-wrap"><b>{el.userId.userName}</b> {el.userId.email}</p>
+                  <p className="flex items-center py-[18px] px-[24px] w-[161px] box-content flex-wrap"><b>{el.userId?.userName}</b> {el.userId?.email}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[120px] box-content">{formattedDate}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[81px] box-content">{formattedTime}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[89px] box-content">{formattedNumber}</p>

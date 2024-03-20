@@ -2,14 +2,14 @@ import Sidebar from "@/Components/Sidebar";
 import Arrow from "@/Components/Icon/Arrow";
 import Navbar from "@/Components/Navbar";
 
-export default function OrderDetails(){
+export default function OrderDetails() {
     return (
         <div>
             <div className="flex">
-                <Sidebar/>
+                <Sidebar />
                 <div>
                     <button className="text-[16px] p-[16px] flex gap-[32px] items-center">
-                        <Arrow/>
+                        <Arrow />
                         <p className="text-[16px]">Захиалгын дэлгэрэнгүй</p>
                     </button>
                     <div className="flex gap-[24px]">
@@ -39,7 +39,7 @@ export default function OrderDetails(){
                             <div className="rounded-[12px] border-[1px] border-[#ECEDF0] w-[519px]">
                                 <p className="py-[20px] px-[24px] text-[16px]">Төлбөрийн мэдээлэл</p>
                                 <div>
-                                    
+
                                 </div>
                             </div>
                         </div>
