@@ -26,6 +26,18 @@ export const getOrder = async (req: Request, res: Response) => {
     }
 }
 
+export const getOrderById = async (req: Request, res: Response) => {
+    
+    try {
+        const { id } = req.params;
+        const getOrderById = await OrderModel.findById(id);
+        console.log(getOrderById)
+        res.status(200).send(getOrderById)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const deleteOrder = async (req: Request, res: Response) => {
     try {
         const { ProductId } = req.params;

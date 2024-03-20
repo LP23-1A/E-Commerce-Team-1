@@ -1,9 +1,5 @@
-<<<<<<< HEAD:frontend/src/app/Admin/OrderDetails/page.tsx
-import Sidebar from "@/Components/Admin/Sidebar";
-import { Arrow } from "@/Components/Admin/Icon/index";
-=======
 'use client';
-import Sidebar from "@/Components/Sidebar";
+import Sidebar from "@/Components/Admin/Sidebar";
 import Arrow from "@/Components/Icon/Arrow";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -33,7 +29,6 @@ export default function OrderDetails( {params} : {params: {orderId: string}} ) {
       }, []);
 
       console.log(order)
->>>>>>> f8ccbb7 (Order details path done):frontend/src/app/Order/[orderId]/page.tsx
 
     return (
         <div>
