@@ -64,7 +64,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
         });
         toast.success("Successfully registered");
         setTimeout(() => {
-          // router.push(`/DashBoard/${response.data.createdUser._id}`);
+          router.push(`/DashBoard/${response.data.createdUser._id}`);
           router.push('/Order')
         }, 2000);
       }

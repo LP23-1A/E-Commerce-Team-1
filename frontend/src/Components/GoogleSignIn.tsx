@@ -13,8 +13,7 @@ export default function GoogleSignIn() {
     const fetcher = (url: string) => fetch(url).then((el) => el.json());
     const { data, isLoading }: any = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
     const router = useRouter();
-    const arrayUser = [user]
-    // console.log(user?.email, "user");   
+    const arrayUser = [user]    
 
     const closeDisplay = () => {
         setDisplay(false)
