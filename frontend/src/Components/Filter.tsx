@@ -1,19 +1,66 @@
-import Search from "@/Components/Icon/Search";
-import texts from "@/Components/utils/Texts";
-export default function filter() {
+import { useRef, useState } from "react";
+import Category from "./Icon/Category";
+import { ByGenders } from "./utils/ByGenders";
+import DateIcon from "./Icon/Date";
+import { ByDates } from "./utils/ByDates";
+import Search from "./Icon/Search";
+import Dollar from "./Icon/Dollar";
+const sortByPrice = ["Low To High", "High To Low"];
+
+export default function filter({ filterByCategory, filterByDates }: any) {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedTime, setSelectedTime] = useState(0);
+
+  const handleFilter = (event: any) => {
+    const valueCategory = event.target.value;
+    setSelectedCategory(valueCategory);
+    filterByCategory(valueCategory);
+  };
+
+  const manageHour = (event: any) => {
+    const valueHour = event.target.value;
+    setSelectedTime(valueHour);
+    filterByDates(valueHour);
+  };
+
+  const convertToTimeFormat = (time_date: number) => {
+    if (time_date == 0) {
+      var formattedDate = String(time_date) + "Today";
+      return formattedDate.slice(1);
+    } else if (time_date == 1) {
+      var formattedDate = String(time_date) + "a day ago";
+      return formattedDate.slice(1);
+    } else if (time_date == 2) {
+      var formattedDate = String(time_date) + " days ago";
+      return formattedDate;
+    }
+  };
   return (
     <div className="flex justify-between w-full">
       <div className="flex gap-4">
-        {texts.map((data, ind) => (
-          <div
-            key={ind}
-            className="flex items-center justify-around bg-white w-[145px] h-[40px] rounded-lg cursor-pointer"
-          >
-            {data.svg}
-            {data.text}
-            {data.more}
-          </div>
-        ))}
+        <div className="flex items-center justify-around bg-white w-[145px] h-[40px] rounded-lg cursor-pointer">
+          <Category />
+          <select value={selectedCategory} onChange={handleFilter}>
+            <option value="">Ангилал</option>
+            {ByGenders.map((el, i) => (
+              <option className="text-black" key={i}>
+                {el}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex items-center justify-around bg-white w-[145px] h-[40px] rounded-lg cursor-pointer">
+          <DateIcon />
+          <select value={selectedTime} onChange={manageHour}>
+            <option value="0">By Date</option>
+            {ByDates.map((el, i) => (
+              <option className="text-black" key={i} value={el}>
+                {convertToTimeFormat(el)}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="relative flex items-center">
         <div className="absolute pl-2">

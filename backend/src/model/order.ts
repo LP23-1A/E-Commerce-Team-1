@@ -11,7 +11,8 @@ const OrderSchema = new mongoose.Schema({
     amountToBePaid: Number,
     details: [
       {
-        // Define the schema for OrderDetails here
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product"
       }
     ],
     createdAt: { type: Date, default: Date.now },

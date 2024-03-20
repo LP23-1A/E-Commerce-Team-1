@@ -14,11 +14,12 @@ export default function GoogleSignIn() {
     const { data, isLoading }: any = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
     const router = useRouter();
     const arrayUser = [user]
+    // console.log(user?.email, "user");   
 
     const closeDisplay = () => {
         setDisplay(false)
-    };    
-    
+    };
+
     if (!display) return
 
     const NavigateToDashboard = () => {
@@ -38,7 +39,7 @@ export default function GoogleSignIn() {
                 }
             }
         } else if (isLoading) {
-            toast.loading('Fetchin Data ...')
+            toast.loading('Fetching Data ...')
         }
     };
 

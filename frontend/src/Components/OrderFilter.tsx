@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { statesOfOrder } from "./utils/StatesOfOrder";
 import useSWR from "swr";
-import { Toaster, Toast, toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function OrderFilter() {
     const [selectedState, setSelectedState] = useState<string | null>(null);

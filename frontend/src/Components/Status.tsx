@@ -11,7 +11,7 @@ export default function Status(status: any, id: any) {
     amountToBePaid: Number;
     createdAt: String;
   }
-  
+
   const [order, setOrder] = useState<Order[]>([]);
   const api = "http://localhost:8000/order/get";
 
@@ -27,7 +27,7 @@ export default function Status(status: any, id: any) {
 
     fetchData();
   }, []);
-  
+
   const handleStatusChange = async (orderId: number, newStatus: string) => {
     try {
       await axios.put(`http://localhost:8000/order/${orderId}`, {
@@ -46,10 +46,10 @@ export default function Status(status: any, id: any) {
     }
   };
   const statusOptions: any = {
-    "Бэлтгэгдэж байна": ["Бэлтгэгдэж байна", "Хүргэгдсэн", "Хүргэлтэнд гарсан", "Шинэ захиалга","Цуцлагдсан"],
-    "Шинэ захиалга": ["Шинэ захиалга", "Бэлтгэгдэж байна", "Хүргэгдсэн", "Хүргэлтэнд гарсан","Цуцлагдсан"],
-    "Хүргэлтэнд гарсан": ["Хүргэлтэнд гарсан", "Бэлтгэгдэж байна", "Хүргэгдсэн", "Шинэ захиалга","Цуцлагдсан"],
-    "Цуцлагдсан": ["Цуцлагдсан","Хүргэлтэнд гарсан", "Бэлтгэгдэж байна", "Хүргэгдсэн", "Шинэ захиалга"]
+    "Бэлтгэгдэж байна": ["Бэлтгэгдэж байна", "Хүргэгдсэн", "Хүргэлтэнд гарсан", "Шинэ захиалга", "Цуцлагдсан"],
+    "Шинэ захиалга": ["Шинэ захиалга", "Бэлтгэгдэж байна", "Хүргэгдсэн", "Хүргэлтэнд гарсан", "Цуцлагдсан"],
+    "Хүргэлтэнд гарсан": ["Хүргэлтэнд гарсан", "Бэлтгэгдэж байна", "Хүргэгдсэн", "Шинэ захиалга", "Цуцлагдсан"],
+    "Цуцлагдсан": ["Цуцлагдсан", "Хүргэлтэнд гарсан", "Бэлтгэгдэж байна", "Хүргэгдсэн", "Шинэ захиалга"]
   };
 
   const statusStyles: any = {
@@ -73,7 +73,7 @@ export default function Status(status: any, id: any) {
       onChange={(e) => handleStatusChange(status.id, e.target.value)}
       className={`${style} px-[10px] py-[6px] rounded-[20px]`}
     >
-      {options.map((option:any) => (
+      {options.map((option: any) => (
         <option key={option} value={option}>{option}</option>
       ))}
     </select>

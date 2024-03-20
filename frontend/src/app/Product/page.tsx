@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Laptop from "@/Components/Icon/Laptop.jpeg";
 import Plus from "../../Components/Icon/Plus";
 import Delete from "../../Components/Icon/Delete";
@@ -7,14 +7,13 @@ import Edit from "../../Components/Icon/Edit";
 import headers from "../../Components/utils/Table";
 import Filter from "../../Components/Filter";
 import Sidebar from "@/Components/Sidebar";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import SuccessModalProduct from "@/Components/SuccessProductModal";
-
+import { toast, Toaster } from "react-hot-toast";
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
-
 interface Items {
   _id: string;
   productName: string;
@@ -23,19 +22,21 @@ interface Items {
   category: string;
   subCategory: string;
   quantity: number;
-  createdAt: number;
-  updatedAt: number;
+  createdAt: string;
+  updatedAt: string;
 }
 export default function Product() {
   const router = useRouter();
   const [data, setData] = useState<Items[]>([]);
   const [isSuccessProduct, setIsSuccessProduct] = useState(false);
+  const [filteredData, setFilteredData] = useState<Items[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get<Items[]>(api);
         setData(res.data);
+        setFilteredData(res.data);
       } catch (error) {
         console.log(error);
       }
@@ -65,6 +66,46 @@ export default function Product() {
     }
   }, []);
 
+  const filterByCategory = (category: string) => {
+    let filteredData;
+    if (category === "All") {
+      setFilteredData(data);
+    } else {
+      filteredData = data.filter((el: Items) => el.category === category);
+      if (filteredData.length > 0) {
+        setFilteredData(filteredData);
+      } else {
+        toast.error("There is no data for that category");
+        setFilteredData([]);
+      }
+    }
+  };
+
+  const filterByDates = (selectedHour: any) => {
+    const now = new Date();
+    const today = now.getDate();
+    const yesterDay = today - 1;
+    const twoDaysAgo = today - 2;
+
+    const filteredData = data.filter((el: Items) => {
+      const exactCreationDay = parseInt(el.createdAt.slice(8, 10));
+      if (selectedHour == 0 && exactCreationDay === today) {
+        return true;
+      } else if (selectedHour == 1 && exactCreationDay === yesterDay) {
+        return true;
+      } else if (selectedHour == 2 && exactCreationDay == twoDaysAgo) {
+        return true;
+      }
+      return false;
+    });
+    if (filteredData.length > 0) {
+      setFilteredData(filteredData);
+    } else {
+      toast.error("There is no data for that");
+      setFilteredData([]);
+    }
+  };
+  
   return (
     <div className="flex">
       <Sidebar />
@@ -80,7 +121,10 @@ export default function Product() {
           <Plus />
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
-        <Filter />
+        <Filter
+          filterByCategory={filterByCategory}
+          filterByDates={filterByDates}                    
+        />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
             <table className="w-full text-sm text-left">
@@ -94,66 +138,74 @@ export default function Product() {
                 </tr>
               </thead>
               <tbody>
-                {data.map((dat, index) => (
-                  <tr key={index}>
-                    <td className="w-4 p-4">
-                      <input type="checkbox" className="w-5 h-5" />
-                    </td>
-                    <td className="flex items-center px-6 py-4">
-                      <img
-                        className="w-10 h-10 rounded-full"
-                        src={Laptop.src}
-                        alt="Product Image"
-                      />
-                      <div className="ps-3 text-black">
-                        <h1 className="font-semibold">{dat.productName}</h1>
-                        <p className="font-normal text-gray-500">
-                          {dat.productCode}
-                        </p>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      {dat.category && dat.subCategory
-                        ? `${dat.category}, ${dat.subCategory}`
-                        : dat.category || dat.subCategory}
-                    </td>
-                    <td className="px-6 py-4">
-                      {dat.price !== null
-                        ? dat.price.toLocaleString() + "₮"
-                        : ""}
-                    </td>
-                    <td className="px-6 py-4">{dat.quantity}</td>
-                    <td className="px-6 py-4">0</td>
-                    <td className="px-6 py-4">
-                      {dat.createdAt
-                        ? new Date(dat.createdAt).toISOString().slice(0, 10)
-                        : dat.updatedAt
-                        ? new Date(dat.updatedAt).toISOString().slice(0, 10)
-                        : ""}
-                    </td>
-                    <td className="px-6 py-4">
-                      <button
-                        className="px-2 py-1 transition duration-300 transform hover:scale-125"
-                        onClick={() => handleDelete(dat._id)}
-                      >
-                        <Delete />
-                      </button>
-                      <button
-                        className="px-2 py-1 transition duration-300 transform hover:scale-125"
-                        onClick={() =>
-                          router.push(`/EditProduct?productId=${dat._id}`)
-                        }
-                      >
-                        <Edit />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {filteredData &&
+                  filteredData.map((dat, index) => (
+                    <tr key={index}>
+                      <td className="w-4 p-4">
+                        <input type="checkbox" className="w-5 h-5" />
+                      </td>
+                      <td className="flex items-center px-6 py-4">
+                        <img
+                          className="w-10 h-10 rounded-full"
+                          src={Laptop.src}
+                          alt="Product Image"
+                        />
+                        <div className="ps-3 text-black">
+                          <h1 className="font-semibold">{dat.productName}</h1>
+                          <p className="font-normal text-gray-500">
+                            {dat.productCode}
+                          </p>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4">
+                        {dat.category && dat.subCategory
+                          ? `${dat.category}, ${dat.subCategory}`
+                          : dat.category || dat.subCategory}
+                      </td>
+                      <td className="px-6 py-4">
+                        {dat.price !== null
+                          ? dat.price.toLocaleString() + "₮"
+                          : ""}
+                      </td>
+                      <td className="px-6 py-4">{dat.quantity}</td>
+                      <td className="px-6 py-4">0</td>
+                      <td className="px-6 py-4">
+                        {dat.createdAt
+                          ? String(new Date(dat.createdAt).toISOString()).slice(
+                            0,
+                            10
+                          )
+                          : dat.updatedAt
+                            ? String(new Date(dat.updatedAt).toISOString()).slice(
+                              0,
+                              10
+                            )
+                            : ""}
+                      </td>
+                      <td className="px-6 py-4">
+                        <button
+                          className="px-2 py-1 transition duration-300 transform hover:scale-125"
+                          onClick={() => handleDelete(dat._id)}
+                        >
+                          <Delete />
+                        </button>
+                        <button
+                          className="px-2 py-1 transition duration-300 transform hover:scale-125"
+                          onClick={() =>
+                            router.push(`/EditProduct?productId=${dat._id}`)
+                          }
+                        >
+                          <Edit />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
         </div>
       </div>
+      <Toaster position="top-center" />
       {isSuccessProduct && (
         <SuccessModalProduct setIsSuccessProduct={setIsSuccessProduct} />
       )}

@@ -13,7 +13,7 @@ export default function ModalStoreSettings({
     } else {
       console.log("cannot store input in local storage");
     }
-  };    
+  };
 
   return (
     <div

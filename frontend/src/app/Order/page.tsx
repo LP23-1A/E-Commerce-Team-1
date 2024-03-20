@@ -94,10 +94,9 @@ export default function Order() {
               const year = date.getFullYear();
               const month = String(date.getMonth() + 1).padStart(2, '0');
               const day = String(date.getDate()).padStart(2, '0');
-              const formattedDate = `${year}-${month}-${day}`;
-
-
-              const time = new Date(dateString);
+              const formattedDate = `${year}-${month}-${day}`;              
+              
+              const time = new Date(dateString);                            
 
               const hours = String(time.getUTCHours()).padStart(2, '0');
               const minutes = String(time.getUTCMinutes()).padStart(2, '0');
@@ -109,13 +108,13 @@ export default function Order() {
               return (
                 <div key={el._id} className="flex">
                   <p className="flex items-center py-[28px] px-[24px] w-[143px] box-content">{el.orderNumber}</p>
-                  <p className="flex items-center py-[18px] px-[24px] w-[161px] box-content flex-wrap"><b>{el.userId.userName}</b> {el.userId.email}</p>
+                  <p className="flex items-center py-[18px] px-[24px] w-[161px] box-content flex-wrap"><b>{el.userId?.userName}</b> {el.userId?.email}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[120px] box-content">{formattedDate}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[81px] box-content">{formattedTime}</p>
                   <p className="flex items-center py-[26px] px-[24px] w-[89px] box-content">{formattedNumber}</p>
-                  <p className="pl-[28px] py-[24px] flex items-center w-[188px] box-content">
+                  <div className="pl-[28px] py-[24px] flex items-center w-[188px] box-content">
                     <Status status={el.status} id={el._id}/>
-                  </p>
+                  </div>
                   <button onClick={() => router.push("OrderDetails")} className="flex items-center py-[30px] px-[57px] w-[] box-content">{">"}</button>
                 </div>
               );

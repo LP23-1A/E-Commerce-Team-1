@@ -1,4 +1,4 @@
-export default function date() {
+export default function DateICon() {
   return (
     <svg
       width="24"

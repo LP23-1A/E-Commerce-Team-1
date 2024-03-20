@@ -1,7 +1,6 @@
 'use client'
 import Sidebar from "@/Components/Sidebar";
 import CicleSvG from "@/Components/SVG/Circle";
-import SearchSvG from "@/Components/SVG/SearchSvG";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -54,50 +53,52 @@ export default function Settings() {
       {isSuccess && (
         <SuccessModalTypeOfStore HandleClose={HandleClose} HandleAfter={HandleAfter} />
       )}
-      <div className="w-[729px] p-[32px] ml-[559px] mt-[98px] rounded-xl border-solid border">
-        <p className="font-semibold text-lg text-black">Create Profile of Store</p>
-        <div className="mt-[10px] flex flex-col gap-[20px]">
-          {nextStep || valueOfTypeStore
-            ? <DisAbledFirst />
-            : <div className="flex justify-between flex-row border-solid border items-center p-[10px] rounded-xl" style={{ borderColor: '#ECEDF0' }}>
-              <div className="flex items-center">
-                <div className="w-[44px] h-[44px] p-[8px 16px] flex items-center justify-center">
-                  <CicleSvG />
+      <div className="w-full flex flex-col h-full mt-5 items-center">
+        <div className="w-[729px] p-[32px] rounded-xl border-solid border">
+          <p className="font-semibold text-lg text-black">Create Profile of Store</p>
+          <div className="mt-[10px] flex flex-col gap-[20px]">
+            {nextStep || valueOfTypeStore
+              ? <DisAbledFirst />
+              : <div className="flex justify-between flex-row border-solid border items-center p-[10px] rounded-xl" style={{ borderColor: '#ECEDF0' }}>
+                <div className="flex items-center">
+                  <div className="w-[44px] h-[44px] p-[8px 16px] flex items-center justify-center">
+                    <CicleSvG />
+                  </div>
+                  <h5 className="font-normal text-base">Choose what kind of store</h5>
                 </div>
-                <h5 className="font-normal text-base">Choose what kind of store</h5>
+                <button onClick={() => setModalStore(true)} className="p-[10px] broder-solid border rounded-xl font-semibold text-sm">Type of Store</button>
               </div>
-              <button onClick={() => setModalStore(true)} className="p-[10px] broder-solid border rounded-xl font-semibold text-sm">Type of Store</button>
-            </div>
-          }
+            }
 
-          {productData
-            ? <DisAbledSecond />
-            : <div className="flex justify-between flex-row border-solid border items-center p-[10px] rounded-xl" style={{ borderColor: '#ECEDF0' }}>
-              <div className="flex items-center">
-                <div className="w-[44px] h-[44px] p-[8px 16px] flex items-center justify-center">
-                  <CicleSvG />
+            {productData
+              ? <DisAbledSecond />
+              : <div className="flex justify-between flex-row border-solid border items-center p-[10px] rounded-xl" style={{ borderColor: '#ECEDF0' }}>
+                <div className="flex items-center">
+                  <div className="w-[44px] h-[44px] p-[8px 16px] flex items-center justify-center">
+                    <CicleSvG />
+                  </div>
+                  <h5 className="font-normal text-base">Add your first commodity</h5>
                 </div>
-                <h5 className="font-normal text-base">Add your first commodity</h5>
+                <button onClick={() => router.push('/AddProduct')} className="p-[10px] broder-solid border rounded-xl font-semibold text-sm">Add Product</button>
               </div>
-              <button onClick={() => router.push('/AddProduct')} className="p-[10px] broder-solid border rounded-xl font-semibold text-sm">Add Product</button>
-            </div>
-          }
+            }
 
-          {deliveryState
-            ? <DisAbledThird />
-            : <div className="flex justify-between flex-row border-solid border items-center p-[10px] rounded-xl" style={{ borderColor: '#ECEDF0' }}>
-              <div className="flex items-center">
-                <div className="w-[44px] h-[44px] p-[8px 16px] flex items-center justify-center">
-                  <CicleSvG />
+            {deliveryState
+              ? <DisAbledThird />
+              : <div className="flex justify-between flex-row border-solid border items-center p-[10px] rounded-xl" style={{ borderColor: '#ECEDF0' }}>
+                <div className="flex items-center">
+                  <div className="w-[44px] h-[44px] p-[8px 16px] flex items-center justify-center">
+                    <CicleSvG />
+                  </div>
+                  <h5 className="font-normal text-base">Configure Delivery State</h5>
                 </div>
-                <h5 className="font-normal text-base">Configure Delivery State</h5>
+                <button onClick={() => setModalDelivery(true)} className="p-[10px] broder-solid border rounded-xl font-semibold text-sm">Adjust Distribution</button>
               </div>
-              <button onClick={() => setModalDelivery(true)} className="p-[10px] broder-solid border rounded-xl font-semibold text-sm">Adjust Distribution</button>
-            </div>
-          }
+            }
 
+          </div>
+          <Toaster position="top-center" />
         </div>
-        <Toaster position="top-center" />
       </div>
       {
         modalStore && (
