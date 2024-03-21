@@ -1,11 +1,9 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Category from "./Icon/Category";
 import { ByGenders } from "./utils/ByGenders";
 import DateIcon from "./Icon/Date";
 import { ByDates } from "./utils/ByDates";
 import Search from "./Icon/Search";
-import Dollar from "./Icon/Dollar";
-const sortByPrice = ["Low To High", "High To Low"];
 
 export default function filter({ filterByCategory, filterByDates }: any) {
   const [selectedCategory, setSelectedCategory] = useState("");

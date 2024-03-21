@@ -30,7 +30,7 @@ export default function SignUp() {
     fetcher
   );
   const allUsers = data?.allUsers;
-  console.log(Array.isArray(allUsers), "test");
+  // console.log(Array.isArray(allUsers), "test");
   
 
   const handleColor = (valueEmail: string, valueName: string) => {
