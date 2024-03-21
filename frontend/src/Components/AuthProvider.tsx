@@ -8,7 +8,7 @@ const AuthProvider = ({ children }: any) => {
             domain="dev-trhn4w3ga6nuqgmc.us.auth0.com"
             clientId="bjW8p0spgX4iIhgmD7wQfZHv8c29e0V3"
             authorizationParams={{
-                redirect_uri: window.location.origin + '/InfoAboutStore'
+                redirect_uri: window.location.origin + '/VerifyRoles'
             }}
         >
             <UserContextProvider>

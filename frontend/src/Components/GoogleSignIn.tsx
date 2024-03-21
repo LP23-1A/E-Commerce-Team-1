@@ -14,7 +14,7 @@ export default function GoogleSignIn() {
     const { data, isLoading }: any = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
     const router = useRouter();
     const arrayUser = [user]
-    // console.log(user?.email, "user");   
+    const allUsers = data?.allUsers;  
 
     const closeDisplay = () => {
         setDisplay(false)
@@ -22,9 +22,9 @@ export default function GoogleSignIn() {
 
     if (!display) return
 
-    const NavigateToDashboard = () => {
-        const allUsers = data?.allUsers;
-        if (allUsers) {
+    const NavigateToDashboard = async () => {
+        try {
+            if (!allUsers || !Array.isArray(allUsers)) throw new Error('Invalid user Data');
             for (const element of allUsers) {
                 if (element.email === user?.email && element.userName === user?.name) {
                     toast.loading('Processing...')
@@ -33,11 +33,11 @@ export default function GoogleSignIn() {
                         toast.dismiss()
                     }, 1000)
                     return
-                } else {
-                    toast.error('Cannot Sign In')
-                    console.log("user cannot be found");
                 }
             }
+        } catch (error) {
+            toast.error('Cannot Sign In')
+            console.log("user cannot be found", error);
         } else if (isLoading) {
             toast.loading('Fetching Data ...')
         }
