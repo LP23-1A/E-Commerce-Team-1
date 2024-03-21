@@ -24,6 +24,7 @@ interface Items {
   quantity: number;
   createdAt: string;
   updatedAt: string;
+  images: string;
 }
 export default function Product() {
   const router = useRouter();
@@ -122,8 +123,12 @@ export default function Product() {
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
         <Filter
-          filterByCategory={filterByCategory}
-          filterByDates={filterByDates}                    
+          {...{
+            filteredData,
+            data,
+            setFilteredData,
+            setData,
+          }}
         />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
@@ -147,8 +152,8 @@ export default function Product() {
                       <td className="flex items-center px-6 py-4">
                         <img
                           className="w-10 h-10 rounded-full"
-                          src={Laptop.src}
-                          alt="Product Image"
+                          src={dat.images}
+                          alt=""
                         />
                         <div className="ps-3 text-black">
                           <h1 className="font-semibold">{dat.productName}</h1>
@@ -180,7 +185,9 @@ export default function Product() {
                               0,
                               10
                             )
-                            : ""}
+                              0,
+                              10
+                            )                           : ""}
                       </td>
                       <td className="px-6 py-4">
                         <button

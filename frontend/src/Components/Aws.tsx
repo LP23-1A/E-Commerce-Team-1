@@ -1,54 +1,65 @@
 "use client";
-import { useState } from "react";
-import getSignedUrlForUpload from "@/app/api/upload-image/route";
+import React, { useState } from "react";
+import Image from "../Components/Icon/Image";
+import Add from "../Components/Icon/Add";
 
-export default function UploadComponent() {
-  const [uploadedUrl, setUploadedUrl] = useState<string>("");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [uploading, setUploading] = useState<boolean>(false);
-  const [uploadError, setUploadError] = useState<string>("");
+export default function Img({ handleImageUpload, images }: any) {
+  const numberOfImages = 3;
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<null | number>(
+    null
+  );
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-    }
+  const handleImageClick = (index: number) => {
+    setSelectedImageIndex(index);
+    setShowModal(!showModal);
   };
 
-  const handleUpload = async () => {
-    if (!selectedFile) return;
-
-    setUploading(true);
-    setUploadError("");
-
-    try {
-      const { uploadUrl, objectUrl } = await getSignedUrlForUpload();
-      await fetch(uploadUrl, {
-        method: "PUT",
-        body: selectedFile,
-        headers: {
-          "Content-Type": selectedFile.type,
-        },
-      });
-
-      setUploadedUrl(objectUrl);
-      console.log("Object uploaded successfully:", objectUrl);
-    } catch (error) {
-      console.error("Error uploading object:", error);
-      setUploadError("Error uploading object. Please try again.");
-    } finally {
-      setUploading(false);
-    }
+  const handleImageInputChange = (e: any) => {
+    handleImageUpload(e);
   };
 
   return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload} disabled={!selectedFile || uploading}>
-        {uploading ? "Uploading..." : "Upload"}
-      </button>
-      {uploadError && <div style={{ color: "red" }}>{uploadError}</div>}
-      {uploadedUrl && <img src={uploadedUrl} alt="Uploaded" />}
+    <div className="bg-white w-[563px] h-[312px] p-4 m-8 rounded-lg">
+      <div className="flex flex-col gap-8">
+        <h1>Бүтээгдэхүүний зураг</h1>
+        <div className="flex justify-around">
+          {[...Array(numberOfImages)].map((_, index) => (
+            <div
+              key={index}
+              className="flex justify-center"
+              onClick={() => handleImageClick(index)}
+            >
+              <div className="w-[125px] h-[125px] rounded-lg border-dashed border-gray-300 border-2 flex justify-center items-center m-2 relative">
+                {selectedImageIndex === index && images[selectedImageIndex] ? (
+                  <img
+                    src={URL.createObjectURL(images[selectedImageIndex])}
+                    alt={`Product Image ${index}`}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                ) : (
+                  <Image />
+                )}
+              </div>
+            </div>
+          ))}
+          <button className="flex justify-center items-center w-[125px] h-[125px]">
+            <Add />
+          </button>
+        </div>
+      </div>
+      {showModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50">
+          <div className="w-[300px] h-[200px] bg-white rounded-lg flex  justify-center items-center">
+            <input
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={handleImageInputChange}
+            />
+            <button onClick={() => setShowModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

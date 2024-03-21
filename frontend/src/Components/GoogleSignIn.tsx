@@ -14,7 +14,7 @@ export default function GoogleSignIn() {
     const { data, isLoading }: any = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
     const router = useRouter();
     const arrayUser = [user]
-    const allUsers = data?.allUsers;
+    const allUsers = data?.allUsers;  
 
     const closeDisplay = () => {
         setDisplay(false)
@@ -38,6 +38,8 @@ export default function GoogleSignIn() {
         } catch (error) {
             toast.error('Cannot Sign In')
             console.log("user cannot be found", error);
+        } else if (isLoading) {
+            toast.loading('Fetching Data ...')
         }
     };
 
