@@ -1,40 +1,54 @@
 "use client";
 import { useState } from "react";
 import AddPro from "./AddPro";
-
 import Sidebar from "@/Components/Sidebar";
 import Arrow from "../../Components/Icon/Arrow";
-import Image from "../../Components/Icon/Image";
-import Add from "../../Components/Icon/Add";
 import { useRouter } from "next/navigation";
-
-
-
 import axios from "axios";
+import Aws from "../../Components/Aws";
 
 const api = "http://localhost:8000/product/create";
 
 export default function AddProduct() {
   const router = useRouter();
-  const imageArray = [1, 2, 3];
-  const [productName, setproductName] = useState("");
+
+  const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [productCode, setProductCode] = useState("");
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
-  const handleSubmit = async () => {
-    const formData = {
-      productName: productName,
-      price: price,
-      description: description,
-      productCode: productCode,
-      quantity: quantity,
-      category: category,
-      subCategory: subCategory,
-    };
+  const [images, setImages] = useState<string[]>([]);
+
+  const handleImageUpload = async (e: any) => {
     try {
+      setImages((prev) => [...prev, e.target.files[0]]);
+    } catch (error) {
+      console.log("Error uploading image:", error);
+    }
+  };
+  const handleSubmit = async () => {
+    if (!images.length) {
+      return;
+    }
+    try {
+      const urls = await axios.get("api/upload-image");
+      const imageRes = await axios.put(urls.data?.signedUrl, images[0], {
+        headers: {
+          "Content-Type": images[0],
+        },
+      });
+      const formData = {
+        productName,
+        price,
+        description,
+        productCode,
+        quantity,
+        category,
+        subCategory,
+        images: urls.data?.objectUrl,
+      };
       const res = await axios.post(api, formData);
       localStorage.setItem("product", JSON.stringify([res]));
       console.log(res);
@@ -61,8 +75,8 @@ export default function AddProduct() {
                   <h1>Бүтээгдэхүүний нэр</h1>
                   <input
                     value={productName}
-                    onChange={(e) => setproductName(e.target.value)}
-                    type="name"
+                    onChange={(e) => setProductName(e.target.value)}
+                    type="text"
                     placeholder="Нэр"
                     className="p-2 w-full h-[44px] bg-gray-100 rounded-lg"
                   />
@@ -89,26 +103,7 @@ export default function AddProduct() {
                 </div>
               </div>
             </div>
-            <div className="bg-white w-[563px] h-[312px] p-4 m-8 rounded-lg">
-              <div className="flex flex-col gap-8">
-                <h1>Бүтээгдэхүүний зураг</h1>
-                <div className="flex justify-around">
-                  <div className="flex justify-center">
-                    {imageArray.map((index) => (
-                      <div
-                        key={index}
-                        className="w-[125px] h-[125px] rounded-xl border-dashed border-gray-300 border-2 flex justify-center items-center m-2"
-                      >
-                        <Image />
-                      </div>
-                    ))}
-                  </div>
-                  <button className="flex justify-center items-center w-[125px] h-[125px]">
-                    <Add />
-                  </button>
-                </div>
-              </div>
-            </div>
+            <Aws {...{ handleImageUpload, images }} />
             <div className=" flex justify-evenly bg-white w-[563px] h-[132px] p-4 m-8 rounded-lg">
               <div>
                 <h1>Үндсэн үнэ</h1>

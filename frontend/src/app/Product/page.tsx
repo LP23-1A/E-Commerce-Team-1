@@ -24,6 +24,7 @@ interface Items {
   quantity: number;
   createdAt: string;
   updatedAt: string;
+  images: string;
 }
 export default function Product() {
   const router = useRouter();
@@ -66,46 +67,6 @@ export default function Product() {
     }
   }, []);
 
-  const filterByCategory = (category: string) => {
-    let filteredData;
-    if (category === "All") {
-      setFilteredData(data);
-    } else {
-      filteredData = data.filter((el: Items) => el.category === category);
-      if (filteredData.length > 0) {
-        setFilteredData(filteredData);
-      } else {
-        toast.error("There is no data for that category");
-        setFilteredData([]);
-      }
-    }
-  };
-
-  const filterByDates = (selectedHour: any) => {
-    const now = new Date();
-    const today = now.getDate();
-    const yesterDay = today - 1;
-    const twoDaysAgo = today - 2;
-
-    const filteredData = data.filter((el: Items) => {
-      const exactCreationDay = parseInt(el.createdAt.slice(8, 10));
-      if (selectedHour == 0 && exactCreationDay === today) {
-        return true;
-      } else if (selectedHour == 1 && exactCreationDay === yesterDay) {
-        return true;
-      } else if (selectedHour == 2 && exactCreationDay == twoDaysAgo) {
-        return true;
-      }
-      return false;
-    });
-    if (filteredData.length > 0) {
-      setFilteredData(filteredData);
-    } else {
-      toast.error("There is no data for that");
-      setFilteredData([]);
-    }
-  };
-  
   return (
     <div className="flex">
       <Sidebar />
@@ -122,8 +83,12 @@ export default function Product() {
           <h1>Бүтээгдэхүүн нэмэх</h1>
         </button>
         <Filter
-          filterByCategory={filterByCategory}
-          filterByDates={filterByDates}                    
+          {...{
+            filteredData,
+            data,
+            setFilteredData,
+            setData,
+          }}
         />
         <div className="overflow-x-auto shadow-md rounded-lg">
           <div className="w-full max-h-[480px] overflow-y-auto bg-white">
@@ -147,8 +112,8 @@ export default function Product() {
                       <td className="flex items-center px-6 py-4">
                         <img
                           className="w-10 h-10 rounded-full"
-                          src={Laptop.src}
-                          alt="Product Image"
+                          src={dat.images}
+                          alt=""
                         />
                         <div className="ps-3 text-black">
                           <h1 className="font-semibold">{dat.productName}</h1>
@@ -172,15 +137,15 @@ export default function Product() {
                       <td className="px-6 py-4">
                         {dat.createdAt
                           ? String(new Date(dat.createdAt).toISOString()).slice(
-                            0,
-                            10
-                          )
-                          : dat.updatedAt
-                            ? String(new Date(dat.updatedAt).toISOString()).slice(
                               0,
                               10
                             )
-                            : ""}
+                          : dat.updatedAt
+                          ? String(new Date(dat.updatedAt).toISOString()).slice(
+                              0,
+                              10
+                            )
+                          : ""}
                       </td>
                       <td className="px-6 py-4">
                         <button
