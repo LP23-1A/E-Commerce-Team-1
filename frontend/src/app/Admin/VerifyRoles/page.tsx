@@ -15,9 +15,9 @@ export default function VerifyRoles() {
         if (error) console.log(error, "error at fetching data");
         allUsers?.filter((el: any) => {
             if (el.email === user?.email) {
-                router.push(`/DashBoard/${el._id}`);
+                router.push(`/Admin/DashBoard/${el._id}`);
             } else {
-                router.push('/InfoAboutStore')
+                router.push('/Admin/InfoAboutStore')
             }
         })
     }, [user?.email])
