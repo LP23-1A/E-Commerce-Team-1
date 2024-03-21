@@ -1,26 +1,24 @@
+import { useEffect, useState } from "react";
 import Bullet from "./Icon/BulletIcon";
 import SettingsIcon from "./Icon/SettingsIcon";
+import axios from "axios";
 
-const data = [
-  {
-    price: "12000",
-    sold: "2",
-  },
-  {
-    price: "95000",
-    sold: "3",
-  },
-  {
-    price: "59000",
-    sold: "4",
-  },
-  {
-    price: "354000",
-    sold: "5",
-  },
-];
+const API = "http://localhost:8000/dashboard/sum"
 
 export default function Product() {
+  const [data, setData] = useState([{ productName: "", sales: "", price: "" }]);
+  const handler = async () => {
+    try {
+      const res = await axios.get(API);
+      setData(res.data.data.product);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    handler();
+  }, []);
   return (
     <div className="px-[24px] py-[16px] bg-[#FFFFFF] w-[100%] rounded-[12px] flex flex-col gap-[12px]">
       <div className="flex justify-between items-center">
@@ -35,18 +33,18 @@ export default function Product() {
           <div className=" text-[12px] font-semibold">Үнэ</div>
         </div>
         <>
-          {data.map((el) => {
+          { data && 
+          data.map((el,number) => {
             return (
               <div className="px-[24px] py-[16px] text-[12px] flex justify-between items-center">
                 <p className="text-[14px] text-[#121316] font-normal py-[16px] px-[24px]">
-                  {" "}
-                  tooo
+                {number + 1}
                 </p>
                 <div className=" flex items-center gap-[12px] px-[8px] py-[12px]">
                   <SettingsIcon />
                   <div>
                     <p className="text-[#121316] font-semibold text-[14px]">
-                      WOMEN'S HORSEBIT MULE
+                    {el.productName}
                     </p>
                     <p className="text-[#3F4145] font-normal text-[14px]">
                       #12345678
@@ -54,7 +52,7 @@ export default function Product() {
                   </div>
                 </div>
                 <p className="text-[14px] text-[#121316] font-normal py-[16px] px-[24px]">
-                  {el.sold}
+                  {el.sales}
                 </p>
                 <p className="text-[14px] text-[#121316] font-normal  py-[16px] px-[24px]">
                   {el.price}$
