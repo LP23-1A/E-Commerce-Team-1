@@ -73,7 +73,7 @@ export default function EditProduct() {
       <Sidebar />
       <div className="flex flex-col bg-gray-100 w-full h-full">
         <div className="flex gap-10 pt-6 items-center bg-white p-4">
-          <button onClick={() => router.push("/Product")}>
+          <button onClick={() => router.push("/Admin/Product")}>
             <Arrow />
           </button>
           <h1>Бүтээгдэхүүн нэмэх</h1>

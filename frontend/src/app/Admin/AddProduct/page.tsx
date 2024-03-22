@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import AddPro from "./AddPro";
 import Sidebar from "@/Components/Admin/Sidebar";
 import axios from "axios";
-import Aws from "../../../Components/Admin/Aws";
+import { Aws } from "@/Components/Admin/Aws";
 
 const api = "http://localhost:8000/product/create";
 
@@ -62,7 +62,7 @@ export default function AddProduct() {
       <Sidebar />
       <div className="flex flex-col bg-gray-100 w-full h-full">
         <div className="flex gap-10 pt-6 items-center bg-white p-4">
-          <button onClick={() => router.push("/Product")}>
+          <button onClick={() => router.push("/Admin/Product")}>
             <Arrow />
           </button>
           <h1>Бүтээгдэхүүн нэмэх</h1>

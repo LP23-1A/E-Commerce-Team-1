@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState } from "react";
 import { ByGenders } from "./utils/ByGenders";
 import { ByDates } from "./utils/ByDates";
@@ -71,7 +71,10 @@ export default function filter({ data, setFilteredData, filteredData }: any) {
     const filtered = data.filter((item: { productName: string }) =>
       item.productName.toLowerCase().includes(productName.toLowerCase())
     );
-    setFilteredData(filtered);
+    filtered.length > 0
+      ? setFilteredData(filtered)
+      : (toast.error("There is no product matching that you searching for."),
+        setFilteredData([]));
   };
   const handleInputChange = (e: { target: { value: any } }) => {
     const searchTerm = e.target.value;
