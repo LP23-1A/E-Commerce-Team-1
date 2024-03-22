@@ -8,10 +8,7 @@ export default function Datefilter({ setFiltereOrderData, order }: any) {
   const now = new Date();
   const today: number = now.getDate();
   const sevenDaysAgo = today - 7;
-  const [buttonActive, setButtonActive] = useState(today);
-  const values = OrderFilters.map(el => parseFloat(el.value));
-  console.log(values, "values");
-
+  const [buttonActive, setButtonActive] = useState(today);  
 
   const handleActiveButton = (dates: number) => {
     setButtonActive(dates);

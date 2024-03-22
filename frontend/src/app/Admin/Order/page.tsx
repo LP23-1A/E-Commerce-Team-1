@@ -57,8 +57,10 @@ export default function Order() {
   };
 
   const searchInput = (number_email: any) => {
-    const filteredOrderData = order?.filter((el: any) =>
-    el.userId?.email && el.userId.email.toLowerCase().includes(number_email.toLowerCase())
+    const filteredOrderData = order?.filter(
+      (el: any) =>
+        el.userId?.email &&
+        el.userId.email.toLowerCase().includes(number_email.toLowerCase())
     );
     setFiltereOrderData(filteredOrderData);
   };
