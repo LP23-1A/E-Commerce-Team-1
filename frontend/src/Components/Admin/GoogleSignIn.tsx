@@ -4,13 +4,16 @@ import { useRouter } from "next/navigation";
 import React, { Toaster, toast } from "react-hot-toast";
 import { Google , RemoveX} from "./Icon/index";
 import useSWR from "swr";
+const testAPI = process.env.BACK_END_USER;
 
 export default function GoogleSignIn() {
 
     const { user } = useAuth0();
     const [display, setDisplay] = useState(true);
     const fetcher = (url: string) => fetch(url).then((el) => el.json());
-    const { data, isLoading }: any = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
+    const { data, isLoading }: any = useSWR(testAPI, fetcher);
+    console.log(data, "test API");
+    
     const router = useRouter();
     const arrayUser = [user]
     const allUsers = data?.allUsers;
@@ -28,7 +31,7 @@ export default function GoogleSignIn() {
                 if (element.email === user?.email && element.userName === user?.name) {
                     toast.loading('Processing...')
                     setTimeout(() => {
-                        router.push(`/DashBoard/${element._id}`);
+                        router.push(`/Admin/DashBoard/${element._id}`);
                         toast.dismiss()
                     }, 1000)
                     return

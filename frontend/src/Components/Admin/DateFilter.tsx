@@ -4,10 +4,14 @@ import toast, { Toaster } from "react-hot-toast";
 import { OrderFilters } from "./utils/OrderFilters";
 
 export default function Datefilter({ setFiltereOrderData, order }: any) {
+
   const now = new Date();
   const today: number = now.getDate();
   const sevenDaysAgo = today - 7;
   const [buttonActive, setButtonActive] = useState(today);
+  const values = OrderFilters.map(el => parseFloat(el.value));
+  console.log(values, "values");
+
 
   const handleActiveButton = (dates: number) => {
     setButtonActive(dates);
@@ -33,17 +37,18 @@ export default function Datefilter({ setFiltereOrderData, order }: any) {
     }
   };
 
-  const filterByMonth = (month: number) => {
-    const filtereOrderData = order.filter((el: any) => {
-      const exactCreationMonth = parseInt(el.createdAt.slice(5, 7));
+  const filterByMonths = (month: any) => {
+    const filteredOrderData = order.filter((el: any) => {
+      const exactCreationMonth = parseInt(el.createdAt.slice(5, 7))
+      return exactCreationMonth == month
     });
-  };
-
-  const convertToMonth = (month: number) => {
-    var formattedDate = "" + String(month) + " month";
-    filterByMonth(month);
-    return formattedDate;
-  };
+    if (filteredOrderData.length > 0) {
+      setFiltereOrderData(filteredOrderData);
+    } else {
+      toast.error("There is no data for that selection");
+      setFiltereOrderData([]);
+    }
+  }
 
   return (
     <div className="flex gap-[8px] pt-[34px] pl-[24px]">
@@ -65,16 +70,23 @@ export default function Datefilter({ setFiltereOrderData, order }: any) {
       >
         7 хоног
       </button>
-      <div className="flex items-center gap-[8px] rounded-[8px] border-[#ECEDF0] border-[1px] py-[12xp] px-[20px] text-[14px] bg-white">
+
+      <button
+        className="flex items-center gap-[8px] rounded-[8px] border-[#ECEDF0] border-[1px] py-[12xp] px-[20px] text-[14px] bg-white">
         <Calendar />
-        <select>
+        <select
+          onChange={(event) => filterByMonths(event.target.value)}>
           <option value="">Сараар</option>
-          {OrderFilters.map((el, i) => {
-            return <option key={i}>{convertToMonth(el)}</option>;
+          {OrderFilters.map((el, i) => {            
+            return <option
+              value={el.value}
+              key={i}>{el.month}
+               month</option>;
           })}
-        </select>        
-      </div>
+        </select>
+      </button>
       <Toaster position="top-center" />
     </div>
   );
 }
+

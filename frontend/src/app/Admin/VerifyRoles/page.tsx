@@ -8,11 +8,12 @@ export default function VerifyRoles() {
     const { user } = useAuth0();
     const router = useRouter();
     const fetcher = (url: string) => fetch(url).then((res) => res.json());
-    const { data, error } = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
-    const allUsers = data?.allUsers;    
+    const { data, error, isLoading } = useSWR("http://localhost:8000/user/getAllUsers", fetcher);
+    const allUsers = data?.allUsers;
 
     useEffect(() => {
         if (error) console.log(error, "error at fetching data");
+
         allUsers?.filter((el: any) => {
             if (el.email === user?.email) {
                 router.push(`/Admin/DashBoard/${el._id}`);
@@ -22,5 +23,5 @@ export default function VerifyRoles() {
         })
     }, [user?.email])
 
-    return <> {!data && <div>loading ...</div>} </>;
+    return <> {isLoading && <div>loading ...</div>} </>;
 };

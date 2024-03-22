@@ -55,15 +55,14 @@ export default function Order() {
     setInput(value);
     searchInput(value);
   };
-  
+
   const searchInput = (number_email: any) => {
     const filteredOrderData = order?.filter((el: any) =>
-      el.userId && el.userId.phoneNumber &&
-      el.userId.phoneNumber.toLowerCase().includes(number_email.toLowerCase())
+    el.userId?.email && el.userId.email.toLowerCase().includes(number_email.toLowerCase())
     );
     setFiltereOrderData(filteredOrderData);
   };
-  
+
   return (
     <div>
       <div className="flex">
