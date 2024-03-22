@@ -37,7 +37,7 @@ export default function Order() {
 
     fetchData();
   }, []);
-  console.log(order)
+  
   useEffect(() => {
     if (selectedState) {
       const filteredData = order.filter((el) => el.status === selectedState);

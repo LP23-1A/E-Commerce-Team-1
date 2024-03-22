@@ -30,7 +30,7 @@ export const getOrderById = async (req: Request, res: Response) => {
     
     try {
         const { id } = req.params;
-        const getOrderById = await OrderModel.findById(id);
+        const getOrderById = await OrderModel.findById(id).populate('userId').populate('details');
         console.log(getOrderById)
         res.status(200).send(getOrderById)
     } catch (error) {
