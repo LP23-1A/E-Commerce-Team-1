@@ -1,20 +1,24 @@
 import { useEffect, useState } from "react";
 import Bullet from "./Icon/BulletIcon";
-import SettingsIcon from "./Icon/SettingsIcon";
 import axios from "axios";
+import { SettingsIcon } from "./Icon";
+import { log } from "console";
 
 const API = "http://localhost:8000/dashboard/sum"
 
 export default function Product() {
-  const [data, setData] = useState([{ productName: "", sales: "", price: "" }]);
+  const [data, setData] = useState([{ productName: "", sales: "", price: "", productCode:"", images:""}]);
   const handler = async () => {
     try {
       const res = await axios.get(API);
-      setData(res.data.data.product);
+      setData(res.data.data.productInfo);
+      console.log(res.data.data.productInfo);
+      
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  
 
   useEffect(() => {
     handler();
@@ -40,14 +44,14 @@ export default function Product() {
                 <p className="text-[14px] text-[#121316] font-normal py-[16px] px-[24px]">
                 {number + 1}
                 </p>
-                <div className=" flex items-center gap-[12px] px-[8px] py-[12px]">
-                  <SettingsIcon />
+                <div className=" flex items-center gap-[12px] px-[8px] py-[12px] ">
+                  <img src={el.images} className="h-10 w-10 rounded-full" alt="" />
                   <div>
                     <p className="text-[#121316] font-semibold text-[14px]">
                     {el.productName}
                     </p>
                     <p className="text-[#3F4145] font-normal text-[14px]">
-                      #12345678
+                    {el.productCode}
                     </p>
                   </div>
                 </div>

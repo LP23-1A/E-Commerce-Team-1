@@ -1,12 +1,11 @@
 "use client";
 
-import Product from "../../Components/BestProduct";
-import DollarIcon from "../../Components/Icon/Dollar";
-import OrderIcon from "../../Components//Icon/OrderIcon";
-import UserBlackIcon from "../../Components/Icon/UserBlackIcon";
-import Sidebar from "@/Components/Sidebar";
+import Product from "../../../Components/Admin/BestProduct";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import Sidebar from "@/Components/Admin/Sidebar";
+import UserBlackIcon from "@/Components/Admin/Icon/UserBlackIcon";
+import { OrderIcon } from "@/Components/Admin/Icon";
 
 const API = "http://localhost:8000/dashboard/sum";
 
@@ -16,7 +15,7 @@ const dashboard = () => {
     const dashboardHandler = async () => {
       let res = await axios.get(API);
       amount.current = res.data.data.incomeData[0].amountPaid;
-      setData(res.data.data);
+      setData(res.data.data); 
     };
   
     useEffect(() => {
@@ -29,7 +28,6 @@ const dashboard = () => {
       <div className="flex gap-[24px]">
         <div className="flex flex-col gap-[12px] px-[24px] py-[16px] bg-[#FFFFFF] rounded-[12px]  w-[100%]">
           <div className="flex items-center  gap-[8px]">
-            <DollarIcon />
             <p className="font-semibold text-[16px]">Орлого</p>
           </div>
           <h1 className="text-[32px] font-bold text-[#121316]">{amount.current}</h1>
