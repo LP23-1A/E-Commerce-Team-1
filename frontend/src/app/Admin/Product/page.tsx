@@ -64,7 +64,7 @@ export default function Product() {
         </div>
         <button
           className="bg-black w-[280px] h-[48px] text-white flex items-center p-4 justify-center gap-4 rounded-lg"
-          onClick={() => router.push('/Admin/AddProduct')}
+          onClick={() => router.push("/Admin/AddProduct")}
         >
           <Plus />
           <h1>Бүтээгдэхүүн нэмэх</h1>
@@ -123,10 +123,16 @@ export default function Product() {
                       <td className="px-6 py-4">0</td>
                       <td className="px-6 py-4">
                         {dat.createdAt
-                          ? String(new Date(dat.createdAt).toISOString()).slice(0, 10)
+                          ? String(new Date(dat.createdAt).toISOString()).slice(
+                              0,
+                              10
+                            )
                           : dat.updatedAt
-                            ? String(new Date(dat.updatedAt).toISOString()).slice(0, 10)
-                            : ""}
+                          ? String(new Date(dat.updatedAt).toISOString()).slice(
+                              0,
+                              10
+                            )
+                          : ""}
                       </td>
 
                       <td className="px-6 py-4">
@@ -139,7 +145,9 @@ export default function Product() {
                         <button
                           className="px-2 py-1 transition duration-300 transform hover:scale-125"
                           onClick={() =>
-                            router.push(`/EditProduct?productId=${dat._id}`)
+                            router.push(
+                              `/Admin/EditProduct?productId=${dat._id}`
+                            )
                           }
                         >
                           <Edit />

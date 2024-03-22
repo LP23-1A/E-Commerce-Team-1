@@ -1,8 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
-import items from "../../../Components/Admin/utils/Items";
+import items from "@/Components/Admin/utils/Items";
 
-export default function addPro({
+export default function Product({
   handleSubmit,
   productName,
   productCode,
@@ -107,7 +107,7 @@ export default function addPro({
             onClick={() => {
               handleSubmit();
               manageProduct();
-              router.push("/Product");
+              router.push("/Admin/Product");
             }}
           >
             Нийтлэх

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Image, Add } from "./Icon/index";
 
-export default function Img({ handleImageUpload, images }: any) {
+export function Aws({ handleImageUpload, images }: any) {
   const numberOfImages = 3;
   const [showModal, setShowModal] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState<null | number>(
