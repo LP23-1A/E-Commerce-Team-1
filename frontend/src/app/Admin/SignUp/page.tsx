@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { UserContext } from "@/Components/Admin/UserContext";
 import { PineCone, RightArrow } from "@/Components/Admin/Icon/index";
+import { fetchAllAdmins } from "@/Components/Admin/Api_Admin/getAllUsers";
 import ButtonGoogle from "@/Components/Admin/ButtonGoogle";
 import ButtonMicrosoft from "@/Components/Admin/ButtonMicrosoft";
 import ButtonApple from "@/Components/Admin/ButtonApple";
@@ -23,12 +24,10 @@ export default function SignUp() {
   const controlUserForm = (field: string, value: string | number) => {
     userDataRef.current = { ...userDataRef.current, [field]: value };
   };
-  const fetcher = (url: string) => fetch(url).then((el) => el.json());
-  const { data, error }: any = useSWR(
-    "http://localhost:8000/user/getAllUsers",
-    fetcher
-  );
+  const { data, error }: any = useSWR("user/getAllUsers", fetchAllAdmins);
   const allUsers = data?.allUsers;
+
+  if (error) console.error("error at during fetching all admins", error);
 
   const handleColor = (valueEmail: string, valueName: string) => {
     setEmail(valueEmail);
