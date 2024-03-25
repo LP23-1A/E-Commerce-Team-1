@@ -4,13 +4,13 @@ import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { UserContext } from "@/Components/Admin/UserContext";
 import { PineCone, RightArrow } from "@/Components/Admin/Icon/index";
+import { fetchAllAdmins } from "@/Components/Admin/Api_Admin/getAllUsers";
 import ButtonGoogle from "@/Components/Admin/ButtonGoogle";
 import ButtonMicrosoft from "@/Components/Admin/ButtonMicrosoft";
 import ButtonApple from "@/Components/Admin/ButtonApple";
 import AlreSignedUp from "@/Components/Admin/Alre-SignedUp";
 import GoogleSignIn from "@/Components/Admin/GoogleSignIn";
 import useSWR from "swr";
-
 
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const USERNAME_REGEX = /^[A-Z].{2,}$/;
@@ -24,12 +24,10 @@ export default function SignUp() {
   const controlUserForm = (field: string, value: string | number) => {
     userDataRef.current = { ...userDataRef.current, [field]: value };
   };
-  const fetcher = (url: string) => fetch(url).then((el) => el.json());
-  const { data, error }: any = useSWR(
-    "http://localhost:8000/user/getAllUsers",
-    fetcher
-  );
+  const { data, error }: any = useSWR("user/getAllUsers", fetchAllAdmins);
   const allUsers = data?.allUsers;
+
+  if (error) console.error("error at during fetching all admins", error);
 
   const handleColor = (valueEmail: string, valueName: string) => {
     setEmail(valueEmail);
@@ -55,7 +53,7 @@ export default function SignUp() {
       }
 
       if (name === "" || email === "") {
-        toast.error("🤧 Come on man, fill in the given forms.");
+        toast("🤧 Come on man, fill in the given forms.");
         return;
       }
 
@@ -65,7 +63,7 @@ export default function SignUp() {
       }
 
       if (!validateName(name)) {
-        toast.error(
+        toast(
           "😱 The name must be at least 3 characters long and the first letter must be capitalized"
         );
         return;
@@ -78,7 +76,7 @@ export default function SignUp() {
         }
       }
 
-      toast.success("🚀 To The Next section");
+      toast("🚀 To The Next section");
       setTimeout(() => {
         router.push("/Admin/InfoAboutStore");
       }, 2000);
@@ -101,68 +99,66 @@ export default function SignUp() {
   }, [NavigateToNext]);
 
   return (
-    <>
-      <div className="flex w-full flex-row justify-between">
-        <PineCone />
-        <div className="flex justify-center w-full items-center pr-[250px]">
-          <div className="w-[440px] rounded-xl mt-[160px] p-[40px] h-[fit-content] border border-solid border-gray-300 border-1">
-            <p className="flex font-bold text-3xl justify-center w-[360px] h-[60px] pb-5 ">
-              To Register
-            </p>
-            <div className="w-[360xp] mt-10 h-[88px] flex flex-col gap-4">
-              <p className="font-normal text-base text-black">Your Email</p>
-              <input
-                value={email}
-                onChange={(e) => {
-                  handleColor(e.target.value, name);
-                  controlUserForm("userName", e.target.value);
-                }}
-                className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg"
-                placeholder="Email"
-                type="text"
-              />
-            </div>
-            <div className="w-[360xp] h-[88px] flex flex-col gap-4 mt-2">
-              <p className="font-normal text-base text-black">Your Name</p>
-              <input
-                value={name}
-                onChange={(e) => {
-                  handleColor(email, e.target.value);
-                  controlUserForm("email", e.target.value);
-                }}
-                className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg"
-                placeholder="Name"
-                type="text"
-              />
-            </div>
-            <button
-              style={{
-                background: buttonActive ? "black" : "#D6D8DB",
-                color: buttonActive ? "white" : "gray",
+    <div className="flex w-full flex-row justify-between">
+      <PineCone />
+      <div className="flex justify-center w-full items-center pr-[250px]">
+        <div className="w-[440px] rounded-xl mt-[160px] p-[40px] h-[fit-content] border border-solid border-gray-300 border-1">
+          <p className="flex font-bold text-3xl justify-center w-[360px] h-[60px] pb-5 ">
+            To Register
+          </p>
+          <div className="w-[360xp] mt-10 h-[88px] flex flex-col gap-4">
+            <p className="font-normal text-base text-black">Your Email</p>
+            <input
+              value={email}
+              onChange={(e) => {
+                handleColor(e.target.value, name);
+                controlUserForm("userName", e.target.value);
               }}
-              onClick={NavigateToNext}
-              className="flex flex-row w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110"
-            >
-              <div></div>
-              Next
-              <div className="arrow w-[16px] text-lg h-[24px] justify-center items-center flex">
-                <RightArrow />
-              </div>
-            </button>
-            <Toaster position="top-center" />
-            <div className="border border-solid border-grey-300 w-[360px] mt-6"></div>
-            <ButtonGoogle />
-            <ButtonMicrosoft />
-            <ButtonApple />
-            <div className="border border-solid border-grey-300 w-[360px] mt-10"></div>
-            <AlreSignedUp />
-            <p className="absolute mt-[100px] ml-[100px] text-slate-400">
-              © 2023 Pinecone
-            </p>
+              className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg"
+              placeholder="Email"
+              type="text"
+            />
           </div>
+          <div className="w-[360xp] h-[88px] flex flex-col gap-4 mt-2">
+            <p className="font-normal text-base text-black">Your Name</p>
+            <input
+              value={name}
+              onChange={(e) => {
+                handleColor(email, e.target.value);
+                controlUserForm("email", e.target.value);
+              }}
+              className="border border-solid border-gray-300 bg-slate-100 p-2 rounded-lg"
+              placeholder="Name"
+              type="text"
+            />
+          </div>
+          <button
+            style={{
+              background: buttonActive ? "black" : "#D6D8DB",
+              color: buttonActive ? "white" : "gray",
+            }}
+            onClick={NavigateToNext}
+            className="flex flex-row w-[360px] items-center justify-between rounded-lg mt-2 h-[56px] p-2 transition-transform transform active:scale-95 duration-300 hover:scale-110"
+          >
+            <div></div>
+            Next
+            <div className="arrow w-[16px] text-lg h-[24px] justify-center items-center flex">
+              <RightArrow />
+            </div>
+          </button>
+          <Toaster position="top-center" />
+          <div className="border border-solid border-grey-300 w-[360px] mt-6"></div>
+          <ButtonGoogle />
+          <ButtonMicrosoft />
+          <ButtonApple />
+          <div className="border border-solid border-grey-300 w-[360px] mt-10"></div>
+          <AlreSignedUp />
+          <p className="absolute mt-[100px] ml-[100px] text-slate-400">
+            © 2023 Pinecone
+          </p>
         </div>
-        <GoogleSignIn />
       </div>
-    </>
+      <GoogleSignIn />
+    </div>
   );
 }

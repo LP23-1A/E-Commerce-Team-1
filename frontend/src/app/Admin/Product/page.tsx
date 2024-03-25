@@ -7,7 +7,7 @@ import Sidebar from "@/Components/Admin/Sidebar";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import SuccessModalProduct from "@/Components/Admin/SuccessProductModal";
-import { toast, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { Items } from "@/Components/Admin/Interface/Product";
 
 const api = "http://localhost:8000/product/get";
