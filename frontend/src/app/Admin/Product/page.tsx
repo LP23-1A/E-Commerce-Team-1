@@ -145,7 +145,9 @@ export default function Product() {
                         <button
                           className="px-2 py-1 transition duration-300 transform hover:scale-125"
                           onClick={() =>
-                            router.push(`/EditProduct?productId=${dat._id}`)
+                            router.push(
+                              `/Admin/EditProduct?productId=${dat._id}`
+                            )
                           }
                         >
                           <Edit />
