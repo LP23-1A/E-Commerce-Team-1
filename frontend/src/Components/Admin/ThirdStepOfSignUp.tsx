@@ -5,25 +5,12 @@ import { useRouter } from "next/navigation";
 import { useAuth0 } from "@auth0/auth0-react";
 import { UserContext } from "./UserContext";
 import { Toaster, toast } from "react-hot-toast";
+import { experience } from "@/Components/Admin/utils/AdminExperience";
+import { commodity } from "@/Components/Admin/utils/AdminCommodity";
 import axios from "axios";
 import ThirdLine from "./ThirdLine";
 
 const backEndOfSignUp = "http://localhost:8000/user/postUser";
-
-const experience = [
-  "i was selling on instagram",
-  "i was selling on facebook",
-  "i was selling on youtube",
-  "i was selling on other platforms",
-  "🔥 Others",
-];
-const commodity = [
-  "👚 women clothes",
-  "👗 dress",
-  "👢 women boot",
-  "🥾 Hiking Boot",
-  "🔥 Others",
-];
 
 export default function ThirdStepOfSignUp({ prevStep }: any) {
   const [buttonActive, setButtonActive] = useState(false);
@@ -31,8 +18,6 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
   const { userDataRef }: any = useContext(UserContext);
   const [haveSkill, setHaveSkill] = useState("");
   const [productType, setProductType] = useState("");
-  console.log(userDataRef.current.district, "from third");
-
   const router = useRouter();
 
   const manageSkill = (event: any) => {
