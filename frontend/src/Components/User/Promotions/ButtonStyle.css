@@ -1,0 +1,15 @@
+.hoverRotate {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.3 ease-in-out;
+  transform: rotate(45deg);
+}
+
+.hoverRotate:hover {
+  transform: rotate(480deg);
+  transition-duration: 0.5s;
+}
+
+.hoverRotate:active {
+  transform: scale(0.95) rotate(45deg);
+}
