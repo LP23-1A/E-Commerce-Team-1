@@ -21,7 +21,7 @@ export default function Page3({ nextPage, previousPage }: any) {
     <>
       {data &&
         data.slice(3, 4).map((element: any, index: number) => (
-          <div key={index} className="flex justify-center items-center w-[80%]">
+          <div key={index} className="flex justify-center items-center w-8/12">
             <div className="flex w-full justify-between">
               <div className="w-5/12 flex flex-col gap-[10px]">
                 <div
@@ -52,10 +52,10 @@ export default function Page3({ nextPage, previousPage }: any) {
                   More Detail about
                 </button>
               </div>
-              <div className="w-4/12">
+              <div>
                 <img
                   style={{ borderRadius: "10px" }}
-                  className="w-4/12 bg-green-400 w-[350px] h-[350px]"
+                  className="w-[350px] h-[350px]"
                   src={element.images}
                   alt=""
                 />
