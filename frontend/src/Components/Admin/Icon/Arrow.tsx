@@ -12,5 +12,5 @@ export const Arrow = () => {
         fill="#121316"
       />
     </svg>
-  );
+  )
 }
