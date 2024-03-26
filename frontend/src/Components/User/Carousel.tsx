@@ -18,10 +18,10 @@ export default function Carousel() {
     setCurrentPage(currentPage === 3 ? 1 : currentPage + 1);
   };
 
-    useEffect(() => {
-        const timer = setTimeout(switchToNextPage, 4000);
-        return () => clearTimeout(timer);
-    }, [currentPage]);
+    // useEffect(() => {
+    //     const timer = setTimeout(switchToNextPage, 1000);
+    //     return () => clearTimeout(timer);
+    // }, [currentPage]);
 
   const renderPage = () => {
     switch (currentPage) {
