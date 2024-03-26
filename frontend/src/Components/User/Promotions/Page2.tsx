@@ -1,4 +1,5 @@
 import { FetchAllProducts } from "../Api/FetchAllProducts";
+import { useRouter } from "next/navigation";
 import useSWR from "swr";
 import IsLoading from "../Isloading";
 import toast from "react-hot-toast";
@@ -6,6 +7,7 @@ import ControlButton2 from "./ControlButton2";
 
 export default function Page2({ nextPage, previousPage }: any) {
   const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
+  const router = useRouter();
 
   if (isLoading) return <IsLoading />;
 
@@ -41,6 +43,7 @@ export default function Page2({ nextPage, previousPage }: any) {
                   {element.description}
                 </h6>
                 <button
+                  onClick={() => router.push(`/User/Details/=specificInfo=?${element._id}`)}
                   style={{ backgroundColor: "#FB2E86", borderRadius: "5px" }}
                   className="w-[163px] h-[50px] text-white"
                 >

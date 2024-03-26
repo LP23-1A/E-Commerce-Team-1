@@ -1,11 +1,13 @@
-import useSWR from "swr";
 import { FetchAllProducts } from "../Api/FetchAllProducts";
+import { useRouter } from "next/navigation";
+import useSWR from "swr";
 import IsLoading from "../Isloading";
 import toast from "react-hot-toast";
 import ControlButton3 from "./ControlButton3";
 
 export default function Page3({ nextPage, previousPage }: any) {
   const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
+  const router = useRouter();
 
   if (isLoading) return <IsLoading />;
 
@@ -41,13 +43,15 @@ export default function Page3({ nextPage, previousPage }: any) {
                   {element.description}
                 </h6>
                 <button
+                  onClick={() =>
+                    router.push(`/User/Details/=specificInfo=?${element._id}`)
+                  }
                   style={{ backgroundColor: "#FB2E86", borderRadius: "5px" }}
                   className="w-[163px] h-[50px] text-white"
                 >
                   More Detail about
                 </button>
               </div>
-
               <div className="w-4/12">
                 <img
                   style={{ borderRadius: "10px" }}
