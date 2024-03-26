@@ -1,7 +1,7 @@
 'use client';
 import { SavedProduct } from "@/Components/Admin/Interface/SavedProducts";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 const api = "http://localhost:8000/savedProduct/get";
 
@@ -32,14 +32,14 @@ export default function SavedProducts(){
             console.error("Error fetching data:", error);
           }
     }   
-    
     return (
-        <div className="flex flex-col gap-[34px] items-center justify-center">
+        <div className="flex flex-col gap-[34px] w-[1440px] items-center justify-center">
             <div className="flex flex-col items-start">
                 <p className="text-[#151875] text-[22px]">Хадгалсан бүтээгдэхүүн </p>
                 <p className="text-[#8A8FB9] text-[12px]">{order.length} бүтээгдэхүүн</p>
             </div>
             {order.map((el) => {
+                console.log(el.products)
                 function formatCurrency(amount: number): string {
                     const formattedAmount = amount.toLocaleString('en-US');
                     return `${formattedAmount}₮`;
