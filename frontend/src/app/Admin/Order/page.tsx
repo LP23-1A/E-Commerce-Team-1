@@ -71,7 +71,7 @@ export default function Order() {
     <div>
       <div className="flex">
         <Sidebar />
-        <div className="bg-[#F7F7F8]">
+        <div className="bg-[#F7F7F8] w-full">
           <div>
             {statesOfOrder.map((element, i) => (
               <button

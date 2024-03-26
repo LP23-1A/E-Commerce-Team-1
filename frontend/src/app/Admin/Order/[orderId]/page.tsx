@@ -44,7 +44,7 @@ export default function OrderDetails({
     <div>
       <div className="flex">
         <Sidebar />
-        <div>
+        <div className="w-full">
           <button
             onClick={() => router.push("/Admin/Order")}
             className="text-[16px] p-[16px] flex gap-[32px] items-center"
@@ -54,7 +54,7 @@ export default function OrderDetails({
           </button>
           <div className="flex gap-[24px] p-[24px] bg-[#F7F7F8]">
             <div className="bg-white w-[627px] flex flex-col gap-[24px] p-[24px] rounded-[12px] border-[1px] border-[#ECEDF0]">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <div>
                   <p className="text-[16px] text-[#3F4145]">
                     Захиалгын ID дугаар:{" "}
@@ -63,7 +63,7 @@ export default function OrderDetails({
                     {order.orderNumber}
                   </p>
                 </div>
-                <Status />
+                <Status status={order.status} id={order._id} />
               </div>
               <div>
                 <p className="text-[16px] text-[#3F4145]">
