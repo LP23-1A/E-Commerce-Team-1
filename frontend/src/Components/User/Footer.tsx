@@ -52,7 +52,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-around w-full h-[53px] bg-[#E7E4F8]">
+      <div className="flex items-center justify-between px-[210px] w-full h-[53px] bg-[#E7E4F8]">
         <p style={{ color: "#9DA0AE" }}>©ecommerce</p>
         <div className="flex items-center gap-2">
           <Facebook />
