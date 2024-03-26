@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Page1 from "./Promotions/Page1";
 import Page2 from "./Promotions/Page2";
 import Page3 from "./Promotions/Page3";

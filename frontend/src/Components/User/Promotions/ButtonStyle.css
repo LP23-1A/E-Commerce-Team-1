@@ -40,3 +40,29 @@
   transform: rotateX(0deg);
   opacity: 1;
 }
+
+.flip-horizontol {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
+
+.flip-horizontol > div {
+  position: absolute;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.flip-horizontol > .back {
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+
+.flip-horizontol:hover > .front {
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+
+.flip-horizontol:hover > .back {
+  transform: rotateY(0deg);
+  opacity: 1;
+}

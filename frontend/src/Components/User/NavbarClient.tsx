@@ -1,5 +1,6 @@
 import ContactMethod from "./ContactMethod";
 import HeadingBar from "./HeadingBar";
+
 export default function NavbarClient() {
   return (
     <div
