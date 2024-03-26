@@ -4,7 +4,7 @@ import sort from "./utils/Sort";
 
 export default function Footer() {
   return (
-    <div>
+    <div className="w-full">
       <div className="flex justify-evenly items-center w-full h-[479px] bg-[#F2F0FF]">
         <div>
           <h1 className="font-bold text-3xl mb-6">eCommerce</h1>

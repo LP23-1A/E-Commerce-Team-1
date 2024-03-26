@@ -3,7 +3,7 @@ import { CartIcon, HeartIcon, UserIcon } from "./Icon/index";
 export default function HeadingBar() {
   return (
     <div className="flex flex-row gap-[29px]">
-      <button className="flex flex-row items-center gap-2">
+      <a href="/User/LogIn" className="flex flex-row items-center gap-2">
         <h5
           className="text-base font-weight font-semibold"
           style={{ color: "#F1F1F1" }}
@@ -11,7 +11,7 @@ export default function HeadingBar() {
           Log in
         </h5>
         <UserIcon />
-      </button>
+      </a>
       <button className="flex flex-row items-center gap-2">
         <h5
           className="text-base font-weight font-semibold"
