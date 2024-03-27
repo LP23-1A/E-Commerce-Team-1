@@ -6,7 +6,6 @@ import React from "react";
 import "./globals.css";
 import Footer from "@/Components/User/Footer";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
