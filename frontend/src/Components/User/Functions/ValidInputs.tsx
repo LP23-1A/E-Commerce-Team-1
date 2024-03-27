@@ -12,7 +12,7 @@ function ValidPassWord(password: any) {
 }
 
 export const authenticateInputs = (email: any, password: any) => {
-  if (email === "" || password || "") {
+  if (email == "" || password == "") {
     toast("🗿 the provided forms must be filled");
     return;
   }

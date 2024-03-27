@@ -57,7 +57,7 @@ export default function Page1({ nextPage, previousPage }: any) {
               <div>
                 <img
                   style={{ borderRadius: "10px" }}
-                  className="w-4/12 bg-green-400 w-[350px] h-[350px]"
+                  className="w-4/12 w-[350px] h-[350px]"
                   src={element.images}
                   alt=""
                 />                

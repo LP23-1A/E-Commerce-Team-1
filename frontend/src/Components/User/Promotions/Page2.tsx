@@ -53,8 +53,8 @@ export default function Page2({ nextPage, previousPage }: any) {
 
               <div>
                 <img
-                  style={{ borderRadius: "10px" }}
-                  className="w-4/12 bg-green-400 w-[350px] h-[350px]"
+                  style={{ borderRadius: "10px", backgroundRepeat: "no-repeat"  }}
+                  className="w-4/12 w-[350px] h-[350px]"
                   src={element.images}
                   alt=""
                 />
