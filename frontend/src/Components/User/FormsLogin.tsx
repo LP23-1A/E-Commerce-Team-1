@@ -1,12 +1,14 @@
 "use client";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
-const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+import { authenticateInputs } from "./Functions/ValidInputs";
 
 export default function FormsLogin() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const inputEmail = (event: ChangeEvent<HTMLInputElement>) => {
     const valueEmail = event.target.value;
@@ -18,23 +20,24 @@ export default function FormsLogin() {
     return valuePassWords;
   };
 
-  function ValidEmail(email: any) {
-    return USEREMAIL_REGEX.test(email);
-  }
-
-  const authenticateEmail = () => {
-    if (!ValidEmail(emailRef.current?.value)) {
-      toast.error("Email must include some symbols and numbers");
-    }
-  };
-
   const toggleVisibility = () => {
     setIsVisible((prevState) => !prevState);
   };
 
-  const validForms =
-    emailRef.current?.value.trim() !== "" &&
-    passwordRef.current?.value.trim() !== "";
+  const isFormFilled = email.trim() !== "" && password.trim() !== "";
+
+  useEffect(() => {
+    var handleClick = (event: any) => {
+      if (event.key === "Enter") {
+        authenticateInputs(emailRef.current?.value, passwordRef.current?.value);
+      }
+    };
+
+    document.addEventListener("keydown", handleClick);
+    return () => {
+      document.removeEventListener("keydown", handleClick);
+    };
+  }, [authenticateInputs(emailRef.current?.value, passwordRef.current?.value)]);
 
   return (
     <div className="w-full h-[600px] flex flex-col justify-center items-center">
@@ -52,7 +55,7 @@ export default function FormsLogin() {
           className="text-center text-base font-normal"
           style={{ color: "#9096B2" }}
         >
-          You can log in using the information below
+          You can log in giving the required information below
         </h6>
         <div className="flex flex-col gap-[20px]">
           <input
@@ -86,9 +89,14 @@ export default function FormsLogin() {
           Forget my password
         </span>
         <button
-          onClick={authenticateEmail}
+          onClick={() => {
+            authenticateInputs(
+              emailRef.current?.value,
+              passwordRef.current?.value
+            );
+          }}
           className="text-center text-base font-normal border-solid rounded w-[432px] h-[52px] text-white hover:scale-110 duration-300"
-          style={{ background: "#FB2E86" }}
+          style={{ background: isFormFilled ? "#FB2E86" : "grey" }}
         >
           Log In
         </button>
