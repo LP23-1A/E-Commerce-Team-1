@@ -35,8 +35,8 @@ export default function Product() {
   const handleDelete = async (productId: string) => {
     try {
       await axios.delete(`${api2}/${productId}`);
-      const updatedData = data.filter((item) => item._id !== productId);
-      setData(updatedData);
+      const updatedData = filteredData.filter((item) => item._id !== productId);
+      setFilteredData(updatedData);
       console.log("deleted");
     } catch (error) {
       console.log("can't delete");

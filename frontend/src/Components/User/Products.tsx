@@ -2,8 +2,10 @@ import { useState } from "react";
 import useSWR from "swr";
 import { FetchAllProducts } from "./Api/FetchAllProducts";
 import { Bucket, SearchPlus, Like } from "./Icon/index";
+import { useRouter } from "next/navigation";
 
 export default function Products() {
+  const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
 
@@ -25,10 +27,13 @@ export default function Products() {
             className="relative text-center"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() =>
+              router.push(`/User/ProductDetail?productId=${dat._id}`)
+            }
           >
             <img
               src={dat.images}
-              className="w-[200px] h-[200px] object-contain"
+              className="w-[200px] h-[200px] object-contain bg-[#F6F7FB] p-4"
             />
             {hoveredIndex === index && (
               <div className="absolute inset-0 flex justify-start items-center">
