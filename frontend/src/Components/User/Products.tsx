@@ -13,12 +13,12 @@ export default function Products() {
   const numberOfProducts = data.length;
 
   return (
-    <div className="flex flex-col gap-8 px-[200px] py-8">
+    <div className="flex flex-col gap-8 px-[360px] py-8">
       <div>
         <h1 className="text-[#151875] font-bold">Электрон бараа</h1>
         <p className="text-[#8A8FB9]">{numberOfProducts} бүтээгдэхүүн</p>
       </div>
-      <div className="flex flex-wrap w-full justify-between">
+      <div className="flex flex-wrap w-full justify-between gap-6">
         {data.map((dat: any, index: number) => (
           <div
             key={index}
@@ -28,7 +28,7 @@ export default function Products() {
           >
             <img
               src={dat.images}
-              className="w-[200px] h-[200px] object-cover"
+              className="w-[200px] h-[200px] object-contain"
             />
             {hoveredIndex === index && (
               <div className="absolute inset-0 flex justify-start items-center">

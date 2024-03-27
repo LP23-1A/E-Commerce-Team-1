@@ -34,7 +34,7 @@ export function Aws({ handleImageUpload, images }: any) {
                   <img
                     src={URL.createObjectURL(images[selectedImageIndex])}
                     alt={`Product Image ${index}`}
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-contain rounded-lg"
                   />
                 ) : (
                   <Image />

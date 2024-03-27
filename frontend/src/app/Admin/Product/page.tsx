@@ -98,7 +98,7 @@ export default function Product() {
                       </td>
                       <td className="flex items-center px-6 py-4">
                         <img
-                          className="w-10 h-10 rounded-full"
+                          className="w-10 h-10 rounded-full object-contain"
                           src={dat.images}
                           alt=""
                         />

@@ -5,7 +5,7 @@ import sort from "./utils/Sort";
 export default function Footer() {
   return (
     <div>
-      <div className="flex justify-evenly items-center w-full h-[479px] bg-[#F2F0FF]">
+      <div className="flex justify-around items-center w-full h-[479px] bg-[#F2F0FF]">
         <div>
           <h1 className="font-bold text-3xl mb-6">eCommerce</h1>
           <div className="mb-6">
@@ -52,7 +52,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between px-[210px] w-full h-[53px] bg-[#E7E4F8]">
+      <div className="flex items-center justify-around w-full h-[53px] bg-[#E7E4F8]">
         <p style={{ color: "#9DA0AE" }}>©ecommerce</p>
         <div className="flex items-center gap-2">
           <Facebook />

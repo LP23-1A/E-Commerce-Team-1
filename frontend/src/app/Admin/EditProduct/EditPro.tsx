@@ -90,7 +90,7 @@ export default function EditPro({
           className=" bg-black border-[1px] border-gray-200 w-[130px] h-[50px] rounded-lg font-semibold text-white"
           onClick={() => {
             handleUpdate(productId);
-            router.push("/Product");
+            router.push("/Admin/Product");
           }}
         >
           Нийтлэх

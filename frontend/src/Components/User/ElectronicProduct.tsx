@@ -4,7 +4,7 @@ import Products from "./Products";
 export default function ElectronicPro() {
   return (
     <div>
-      <div className="flex items-center justify-between px-[200px] py-4">
+      <div className="flex items-center justify-between px-[360px] py-4">
         <div className="flex items-center gap-10">
           <h1 className="font-semibold text-2xl text-[#0D0E43]">Ecommerce</h1>
           <div className="flex items-center gap-4">
@@ -24,7 +24,7 @@ export default function ElectronicPro() {
           </div>
         </div>
       </div>
-      <div className="flex items-center h-[100px] bg-[#F6F5FF] px-[200px] gap-4">
+      <div className="flex items-center h-[100px] bg-[#F6F5FF] px-[360px] gap-4">
         <p>Home</p>
         <p className="text-[#FB2E86]">Электрон бараа</p>
       </div>
