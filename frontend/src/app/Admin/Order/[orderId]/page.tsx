@@ -33,6 +33,7 @@ export default function OrderDetails({params,}: {params: { orderId: string };
     fetchData();
   }, []);
 
+  console.log(params.orderId)
   return (
     <div>
       <div className="flex">
@@ -86,10 +87,9 @@ export default function OrderDetails({params,}: {params: { orderId: string };
                 
                 const inputDate = el.createdAt;
                 const formattedDate = formatDate(inputDate);
-                console.log(el.images)
 
                 return (
-                    <div className="w-[580px] rounded-[12px] bg-[#F7F7F8] flex">
+                    <div key={el._id} className="w-[580px] rounded-[12px] bg-[#F7F7F8] flex">
                         <img className="bg- overflow-hidden w-[180px] h-[156px] object-contain" src={el.images} alt="" />
                         <div className="w-[400px] py-[16px] h-[156px] px-[24px]">
                             <p className="text-[24px] pb-[8px]"><b>{el.productName}</b></p>
@@ -136,7 +136,7 @@ export default function OrderDetails({params,}: {params: { orderId: string };
                         const formattedPrice = formatCurrency(finalPrice);                        
 
                         return(
-                            <div className="flex flex-col gap-[20px]">
+                            <div key={el._id} className="flex flex-col gap-[20px]">
                                 <div className="flex justify-between">
                                     <div className="flex items-center">
                                         <p className="text-[#3F4145] text-[14px]">{el.productName}</p>

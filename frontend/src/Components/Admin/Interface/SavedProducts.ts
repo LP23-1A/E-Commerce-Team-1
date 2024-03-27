@@ -1,3 +1,3 @@
 export interface SavedProduct {
-    _id: any; products:any;
+    _id: string; products:any; userId:any; savedProductId: string;
   }
