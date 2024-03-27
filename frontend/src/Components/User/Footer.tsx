@@ -4,8 +4,6 @@ import sort from "./utils/Sort";
 
 export default function Footer() {
   return (
-    <div className="w-full">
-      <div className="flex justify-evenly items-center w-full h-[479px] bg-[#F2F0FF]">
     <div>
       <div className="flex justify-around items-center w-full h-[479px] bg-[#F2F0FF]">
         <div>
