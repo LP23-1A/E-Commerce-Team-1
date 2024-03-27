@@ -4,6 +4,8 @@ import AuthProvider from "@/Components/Admin/AuthProvider";
 import NavbarClient from "@/Components/User/NavbarClient";
 import React from "react";
 import "./globals.css";
+import Footer from "@/Components/User/Footer";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,6 +24,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <NavbarClient />
         <AuthProvider>{children}</AuthProvider>
+        {/* <Navbar /> */}
+        <Footer />
       </body>
     </html>
   );
