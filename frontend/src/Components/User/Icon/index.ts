@@ -7,3 +7,7 @@ export * from "./Facebook";
 export * from "./Instagram";
 export * from "./Twitter";
 export * from "./AtomIcon"
+export * from "./Search";
+export * from "./Bucket";
+export * from "./Like";
+export * from "./SearchPlus";

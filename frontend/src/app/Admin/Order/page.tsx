@@ -23,6 +23,8 @@ export default function Order() {
     setSelectedState(name);
   };
 
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,7 +37,7 @@ export default function Order() {
 
     fetchData();
   }, []);
-
+  
   useEffect(() => {
     if (selectedState) {
       const filteredData = order.filter((el) => el.status === selectedState);
@@ -69,7 +71,7 @@ export default function Order() {
     <div>
       <div className="flex">
         <Sidebar />
-        <div className="bg-[#F7F7F8]">
+        <div className="bg-[#F7F7F8] w-full">
           <div>
             {statesOfOrder.map((element, i) => (
               <button

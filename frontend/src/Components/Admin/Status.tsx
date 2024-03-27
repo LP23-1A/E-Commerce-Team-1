@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function Status(status: any, id: any) {
+export default function Status({status, id}: {status: any, id: any}) {
   interface Order {
     _id: any;
     status: string;
@@ -45,6 +45,8 @@ export default function Status(status: any, id: any) {
       console.error("Error updating status:", error);
     }
   };
+
+  console.log(status)
   const statusOptions: any = {
     "Бэлтгэгдэж байна": ["Бэлтгэгдэж байна", "Хүргэгдсэн", "Хүргэлтэнд гарсан", "Шинэ захиалга", "Цуцлагдсан"],
     "Шинэ захиалга": ["Шинэ захиалга", "Бэлтгэгдэж байна", "Хүргэгдсэн", "Хүргэлтэнд гарсан", "Цуцлагдсан"],
@@ -58,20 +60,20 @@ export default function Status(status: any, id: any) {
     "Хүргэлтэнд гарсан": "text-[#1890FF] bg-[#B7DDFF]",
   };
 
-  if (status.status === "Хүргэгдсэн") {
+  if (status === "Хүргэгдсэн") {
     return <p className="bg-[#C1E6CF] color-[#0A4E22] px-[10px] py-[6px] rounded-[20px] text-[#0A4E22]">Хүргэгдсэн</p>;
   }
-  else if (status.status === "Цуцлагдсан") {
+  else if (status === "Цуцлагдсан") {
     return <p className="text-[#AE0000] bg-[#FF8686] px-[10px] py-[6px] rounded-[20px]">Цуцлагдсан</p>
   }
 
-  const options = statusOptions[status.status] || [];
-  const style = statusStyles[status.status] || "text-[#3F4145] bg-[#ECEDF0]";
+  const options = statusOptions[status] || [];
+  const style = statusStyles[status] || "text-[#3F4145] bg-[#ECEDF0]";
 
   return (
     <select
-      onChange={(e) => handleStatusChange(status.id, e.target.value)}
-      className={`${style} px-[10px] py-[6px] rounded-[20px]`}
+      onChange={(e) => handleStatusChange(id, e.target.value)}
+      className={`${style} px-[10px] py-[6px] rounded-[20px] h-[36px]`}
     >
       {options.map((option: any) => (
         <option key={option} value={option}>{option}</option>

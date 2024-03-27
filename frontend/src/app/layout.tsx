@@ -23,7 +23,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <NavbarClient />
         <AuthProvider>{children}</AuthProvider>
-        <Footer/>
+        {/* <Navbar /> */}
+        <Footer />
       </body>
     </html>
   );
