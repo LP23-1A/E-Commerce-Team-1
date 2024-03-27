@@ -146,7 +146,7 @@ export default function Order() {
                       <Status status={el.status} id={el._id} />
                     </div>
                     <button
-                      onClick={() => router.push("OrderDetails")}
+                      onClick={() => router.push(`Order/${el._id}`)}
                       className="flex items-center py-[30px] px-[57px] w-[] box-content"
                     >
                       {">"}
