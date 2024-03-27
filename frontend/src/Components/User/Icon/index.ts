@@ -11,3 +11,4 @@ export * from "./Search";
 export * from "./Bucket";
 export * from "./Like";
 export * from "./SearchPlus";
+export * from "./StarIcon"
