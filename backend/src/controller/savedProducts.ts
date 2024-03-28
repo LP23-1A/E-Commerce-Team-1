@@ -36,8 +36,8 @@ export const getSavedProductById = async (req: Request, res: Response) => {
 
 export const deleteSavedProduct = async (req: Request, res: Response) => {
     try {
-        const { ProductId } = req.params;
-        const deleteSavedProduct = await savedProductModel.findByIdAndDelete(ProductId);
+        const { id } = req.params;
+        const deleteSavedProduct = await savedProductModel.findByIdAndDelete(id);
 
         console.log('deleted', deleteSavedProduct);
 
