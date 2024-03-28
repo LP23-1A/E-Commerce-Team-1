@@ -1,4 +1,7 @@
+import axios from "axios";
 import { Search } from "./Icon/index";
+
+const api = `http://localhost:8000/product/get`;
 
 export default function MiniNavbar() {
   return (
