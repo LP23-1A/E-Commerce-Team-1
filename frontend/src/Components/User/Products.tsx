@@ -1,13 +1,24 @@
-import { useState } from "react";
-import useSWR from "swr";
+"use client";
+import { useEffect, useState } from "react";
 import { FetchAllProducts } from "./Api/FetchAllProducts";
 import { Bucket, SearchPlus, Like } from "./Icon/index";
 import { useRouter } from "next/navigation";
+import useSWR from "swr";
 
-export default function Products() {
+export default function Products({ searchTerm }: any) {
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      const filtered = data.filter((product: { productName: string }) =>
+        product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }
+  }, [data, searchTerm]);
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -21,7 +32,7 @@ export default function Products() {
         <p className="text-[#8A8FB9]">{numberOfProducts} бүтээгдэхүүн</p>
       </div>
       <div className="flex flex-wrap w-full justify-between gap-6">
-        {data.map((dat: any, index: number) => (
+        {filteredProducts.map((dat: any, index: number) => (
           <div
             key={index}
             className="relative text-center"
@@ -33,7 +44,7 @@ export default function Products() {
           >
             <img
               src={dat.images}
-              className="w-[200px] h-[200px] object-contain bg-[#F6F7FB] p-4"
+              className="w-[200px] h-[200px] object-contain"
             />
             {hoveredIndex === index && (
               <div className="absolute inset-0 flex justify-start items-center">

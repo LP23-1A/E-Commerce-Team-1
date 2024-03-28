@@ -12,6 +12,10 @@ export default function Relate() {
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
 
+  const shuffledData = data.sort(() => Math.random() - 0.5);
+
+  const selectedData = shuffledData.slice(0, 4);
+
   return (
     <div className="flex flex-col gap-4 px-[360px] py-8">
       <h1 className="text-[#101750] font-bold text-2xl">
@@ -19,7 +23,7 @@ export default function Relate() {
       </h1>
       <div className="flex flex-col gap-8">
         <div className="flex flex-wrap w-full justify-between gap-6">
-          {data.map((dat: any, index: number) => (
+          {selectedData.map((dat: any, index: number) => (
             <div
               key={index}
               className="relative text-center"
@@ -31,7 +35,7 @@ export default function Relate() {
             >
               <img
                 src={dat.images}
-                className="w-[200px] h-[200px] object-contain bg-[#F6F7FB] p-4"
+                className="w-[200px] h-[200px] object-contain"
               />
               {hoveredIndex === index && (
                 <div className="absolute inset-0 flex justify-start items-center">
