@@ -20,8 +20,8 @@ export const Search = () => {
           y2="15.3755"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#F3F9FF" />
-          <stop offset="1" stop-color="#F1F0FF" />
+          <stop stopColor="#F3F9FF" />
+          <stop offset="1" stopColor="#F1F0FF" />
         </linearGradient>
       </defs>
     </svg>

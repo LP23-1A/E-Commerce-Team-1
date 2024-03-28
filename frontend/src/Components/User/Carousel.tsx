@@ -2,6 +2,7 @@ import { useState } from "react";
 import Page1 from "./Promotions/Page1";
 import Page2 from "./Promotions/Page2";
 import Page3 from "./Promotions/Page3";
+import MiniNavbar from "./UserMiniNavbar";
 
 export default function Carousel() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,10 +19,10 @@ export default function Carousel() {
     setCurrentPage(currentPage === 3 ? 1 : currentPage + 1);
   };
 
-    // useEffect(() => {
-    //     const timer = setTimeout(switchToNextPage, 1000);
-    //     return () => clearTimeout(timer);
-    // }, [currentPage]);
+  // useEffect(() => {
+  //     const timer = setTimeout(switchToNextPage, 1000);
+  //     return () => clearTimeout(timer);
+  // }, [currentPage]);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -44,7 +45,7 @@ export default function Carousel() {
       <div
         className="w-full h-[764px] flex items-center justify-center"
         style={{ backgroundColor: "#F2F0FF" }}
-      >
+      >        
         {renderPage()}
       </div>
     </div>

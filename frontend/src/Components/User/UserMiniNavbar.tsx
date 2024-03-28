@@ -1,9 +1,14 @@
-import axios from "axios";
+'use client'
 import { Search } from "./Icon/index";
-
-const api = `http://localhost:8000/product/get`;
+import { useRouter } from "next/navigation";
 
 export default function MiniNavbar() {
+  const router = useRouter();
+
+  const NavigateToGrid = () => {
+    router.push("/User/GridDefault");
+  };
+
   return (
     <div className="flex items-center justify-between px-[360px] py-4">
       <div className="flex items-center gap-10">
@@ -11,6 +16,7 @@ export default function MiniNavbar() {
         <div className="flex items-center gap-4">
           <select className="text-[#FB2E86]">
             <option value="">Нүүр</option>
+            <option onClick={NavigateToGrid} value="">Grid Default</option>
           </select>
           <p>Ангилал</p>
         </div>
