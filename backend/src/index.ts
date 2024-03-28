@@ -1,6 +1,6 @@
-import { connectDataBase } from "./utils/database";
+import { connectDataBase } from "./utils/Database";
 import { order } from "./router/order";
-import { product } from "./router/product";
+import { product } from "./router/Product";
 import { user } from "../src/router/user";
 import express from "express";
 import dotenv from "dotenv";
