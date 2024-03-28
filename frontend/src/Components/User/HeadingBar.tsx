@@ -1,10 +1,23 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { UserIcon, HeartIcon, CartIcon, AtomIcon } from "./Icon/index";
+import { useRouter } from "next/navigation";
 import "./Promotions/ButtonStyle.css";
+import { CartContexForProduct } from "./CartContext";
 
 export default function HeadingBar() {
+  const { productData } = useContext(CartContexForProduct);
+
+  useEffect(() => {
+    console.log(productData.length, "rtest");
+  }, [productData]);
+
   const [currentUrl, setCurrentUrl] = useState(window.location.href);
+  const router = useRouter();
+
+  const NavigateToBasket = () => {
+    router.push("/User/BasketProduct");
+  };
 
   useEffect(() => {
     setCurrentUrl(window.location.href);
@@ -46,9 +59,16 @@ export default function HeadingBar() {
         </h5>
         <HeartIcon />
       </button>
-      <button className="flex items-center">
-        <CartIcon />
-      </button>
+      <div className="relative mt-[15px]">
+        <button onClick={NavigateToBasket} className="flex items-center">
+          <CartIcon />
+        </button>
+        
+          <div className="w-[15px] h-[15px] rounded-full bg-[#EC42A2] flex justify-center items-center absolute mt-[-25px] ml-[15px]">
+            {productData?.length}
+          </div>
+        
+      </div>
     </div>
   );
 }

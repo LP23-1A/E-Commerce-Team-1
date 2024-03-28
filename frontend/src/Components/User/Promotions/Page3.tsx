@@ -20,7 +20,7 @@ export default function Page3({ nextPage, previousPage }: any) {
   return (
     <>
       {data &&
-        data.slice(3, 4).map((element: any, index: number) => (
+        data.slice(2, 3).map((element: any, index: number) => (
           <div key={index} className="flex justify-center items-center w-8/12">
             <div className="flex w-full justify-between">
               <div className="w-5/12 flex flex-col gap-[10px]">

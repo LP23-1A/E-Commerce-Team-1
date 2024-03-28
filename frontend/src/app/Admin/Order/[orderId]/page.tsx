@@ -6,10 +6,7 @@ import axios from "axios";
 import { Arrow } from "@/Components/Admin/Icon";
 import Status from "@/Components/Admin/Status";
 
-export default function OrderDetails({
-  params,
-}: {
-  params: { orderId: string };
+export default function OrderDetails({params,}: {params: { orderId: string };
 }) {
   interface Order {
     _id: any;
@@ -35,10 +32,6 @@ export default function OrderDetails({
 
     fetchData();
   }, []);
-
-  console.log("order here ", order);
-
-  console.log("details here", order.details);
 
   return (
     <div>

@@ -5,6 +5,8 @@ import NavbarClient from "@/Components/User/NavbarClient";
 import React from "react";
 import "./globals.css";
 import Footer from "@/Components/User/Footer";
+import MiniNavbar from "@/Components/User/UserMiniNavbar";
+import { CartProvider } from "@/Components/User/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NavbarClient />
-        <AuthProvider>{children}</AuthProvider>
-        {/* <Navbar /> */}
-        <Footer />
+        <AuthProvider>
+          <CartProvider>
+            <NavbarClient />
+            <MiniNavbar />
+            {children}
+            <Footer />
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );
