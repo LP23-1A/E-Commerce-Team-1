@@ -11,14 +11,14 @@ export default function Products({ searchTerm }: any) {
   const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  useEffect(() => {
-    if (data) {
-      const filtered = data.filter((product: { productName: string }) =>
-        product.productName.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredProducts(filtered);
-    }
-  }, [data, searchTerm]);
+  // useEffect(() => {
+  //   if (data) {
+  //     const filtered = data.filter((product: { productName: string }) =>
+  //       product.productName.toLowerCase().includes(searchTerm.toLowerCase())
+  //     );
+  //     setFilteredProducts(filtered);
+  //   }
+  // }, [data, searchTerm]);
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
@@ -32,7 +32,7 @@ export default function Products({ searchTerm }: any) {
         <p className="text-[#8A8FB9]">{numberOfProducts} бүтээгдэхүүн</p>
       </div>
       <div className="flex flex-wrap w-full justify-between gap-6">
-        {filteredProducts.map((dat: any, index: number) => (
+        {data.map((dat: any, index: number) => (
           <div
             key={index}
             className="relative text-center"

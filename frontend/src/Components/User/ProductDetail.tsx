@@ -12,21 +12,22 @@ export default function detail() {
   const search = useSearchParams();
   const productId = search.get("productId");
   const { intoBasket } = useContext(CartContexForProduct);
-  
+
   const { data, error } = useSWR(`${api}/${productId}`, async (url) => {
     const res = await axios.get(url);
     return res.data;
-  });
+  });  
 
   if (error) return <div>Error fetching data</div>;
   if (!data) return <div>Loading...</div>;
 
   const addToBasket = () => {
     const specificProduct = {
-      ...data,
-    };
-    intoBasket(specificProduct);
+      ...data
+    }
+    intoBasket(specificProduct)
   };
+
 
   return (
     <div className="flex pl-[360px] p-4 gap-16">
@@ -49,11 +50,7 @@ export default function detail() {
         </p>
         <p className="text-[#9295AA] text-lg w-[591px]">{data.description}</p>
         <div className="flex items-center gap-2">
-          <button className="w-[100px] h-[35px] bg-[#FB2E86] rounded-sm font-bold text-white text-sm">
-          <button
-            onClick={addToBasket}
-            className="w-[100px] h-[35px] bg-[#FB2E86] rounded-sm font-bold text-white text-sm"
-          >
+          <button onClick={addToBasket} className="w-[100px] h-[35px] bg-[#FB2E86] rounded-sm font-bold text-white text-sm">
             Сагслах
           </button>
           <button className="flex justify-center items-center w-[44px] h-[35px] bg-[#F6F5FF] rounded-sm">
