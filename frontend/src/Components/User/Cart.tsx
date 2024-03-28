@@ -1,61 +1,92 @@
 "use client";
 import { CartContexForProduct } from "@/Components/User/CartContext";
-import { useContext, useState } from "react";
-import { ProductInterface } from "./Interface/ProductInterface";
+import { useContext, useEffect, useState } from "react";
+import { XIcon } from "./Icon";
+import { FetchAllProducts } from "./Api/FetchAllProducts";
+import useSWR from "swr";
 import CartHeading from "./CartHeading";
+import AsideCompletion from "./AsideCompletion";
+import { ContextTypeProduct } from "./Interface/ContextType";
+import ProductCartContent from "./ProductCartContent";
 
 export default function CartProduct() {
   const { productData } = useContext(CartContexForProduct);
+  const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
+  const [readyData, setReadyData] = useState([]);
+
+  useEffect(() => {
+    if (!isLoading && productData.length > 0) {
+      const updatedData: any = productData.map(
+        (product: ContextTypeProduct) => {
+          const foundProduct = data.find(
+            (item: { _id: any }) => item._id === product._id
+          );
+          if (foundProduct) {
+            return {
+              ...foundProduct,
+              count: product.count,
+            };
+          }
+          return null;
+        }
+      );
+      setReadyData(updatedData);
+    }
+  }, [productData, data, isLoading]);
+
+  const increaseCount = (comingId: string) => {
+    const updatedProduct: any = readyData.map((el: any) => {
+      if (el._id === comingId) {
+        return {
+          ...el,
+          count: (el.count || 0) + 1,
+        };
+      }
+      return el;
+    });
+    setReadyData(updatedProduct);
+  };
+
+  const decreaseCount = (comingId: string) => {
+    const updatedProduct: any = readyData.map((el: any) => {
+      if (el._id === comingId) {
+        return {
+          ...el,
+          count: Math.max((el.count || 0) - 1, 0),
+        };
+      }
+      return el;
+    });
+    setReadyData(updatedProduct);
+  };
+
+  const removeProduct = (comingId: string) => {
+    const desiredProduct = readyData.findIndex(
+      (el: any) => el._id === comingId
+    );
+    if (desiredProduct !== -1) {
+      const newProducts = [...readyData];
+      newProducts.splice(desiredProduct, 1);
+      setReadyData(newProducts);
+    }
+  };
 
   return (
-    <div className="w-full flex justify-center items-center">
-      <div className="w-8/12 ">
+    <div className="w-full flex justify-center items-center mb-[60px] mt-[60px]">
+      <div className="w-10/12 ">
         <CartHeading />
-        {productData &&
-          productData.map((el: ProductInterface, i) => {
-            return (
-              <div key={i}>
-                <div className="flex flex-row">
-                  <div className="w-[718px] bg-red-400 flex flex-row justify-between border-solid border-b-2 border-gray-100">
-                    <img
-                      className="w-[83px] h-[87px] rounded"
-                      src={el.images}
-                      alt=""
-                    />
-                    <div className="flex flex-col">
-                      <div className="font-extrabold non-italic text-sm text-[#000]">
-                        {el.productName}
-                      </div>
-                      <div className="font-extrabold non-italic text-[#A1A8C1] text-sm">
-                        Color: Brown
-                      </div>
-                    </div>
-                    <h5 className="text-sm font-bold non-italic text-[#151875]">
-                      {el.price}₮
-                    </h5>
-                    <div className="flex justify-between">
-                      <button className="bg-[#BEBFC2] w-[20px] h-[20px] flex items-center justify-center">
-                        -
-                      </button>
-                      <div>0</div>
-                      <button className="bg-[#BEBFC2] w-[20px] h-[20px] flex items-center justify-center">
-                        +
-                      </button>
-                    </div>
-                    <div>{el.price}</div>
-                  </div>
-                  <div className="w-[384px] h-[243px] bg-[#F4F4FC]">
-                    <div className="non-italic font-semibold non-italic text-[#1D3178]">
-                      Complete
-                    </div>
-                    <div className="non-italic font-semibold non-italic text-[#1D3178]">
-                      Price of Paying
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <div className="w-full flex flex-row justify-between">
+          <ProductCartContent
+            productData={productData}
+            readyData={readyData}
+            increaseCount={increaseCount}
+            decreaseCount={decreaseCount}
+            removeProduct={removeProduct}
+          />
+          {productData.length !== 0 && (
+            <AsideCompletion productData={productData} readyData={readyData} />
+          )}
+        </div>
       </div>
     </div>
   );

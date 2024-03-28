@@ -17,8 +17,8 @@ export default function MiniNavbar({ onSearch }: any) {
     const selectedOption = event.target.value;
     setSelectedValue(selectedOption);
 
-    if (selectedOption === "one") {
-      router.push("/Admin/AddProduct");
+    if (selectedOption === "Grid") {
+      router.push("/User/GridDefault");
     }
   };
 
@@ -33,7 +33,7 @@ export default function MiniNavbar({ onSearch }: any) {
             onChange={handleSelectChange}
           >
             <option value="">Нүүр</option>
-            <option value="one">one</option>
+            <option value="Grid">Grid</option>
           </select>
           <p>Ангилал</p>
         </div>

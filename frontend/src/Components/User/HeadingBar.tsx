@@ -7,13 +7,12 @@ import { CartContexForProduct } from "./CartContext";
 
 export default function HeadingBar() {
   const { productData } = useContext(CartContexForProduct);
-
-  useEffect(() => {
-    console.log(productData.length, "rtest");
-  }, [productData]);
-
   const [currentUrl, setCurrentUrl] = useState(window.location.href);
   const router = useRouter();
+
+  useEffect(() => {
+    productData.length;
+  }, [productData]);
 
   const NavigateToBasket = () => {
     router.push("/User/BasketProduct");
@@ -63,11 +62,10 @@ export default function HeadingBar() {
         <button onClick={NavigateToBasket} className="flex items-center">
           <CartIcon />
         </button>
-        
-          <div className="w-[15px] h-[15px] rounded-full bg-[#EC42A2] flex justify-center items-center absolute mt-[-25px] ml-[15px]">
-            {productData?.length}
-          </div>
-        
+
+        <div className="w-[15px] h-[15px] rounded-full bg-[#EC42A2] flex justify-center items-center absolute mt-[-25px] ml-[15px]">
+          {productData?.length}
+        </div>
       </div>
     </div>
   );
