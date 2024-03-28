@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import { AtomIcon, StarIcon } from "./Icon";
+import { AtomIcon, GoldenStar, StarIcon } from "./Icon";
 import CommentSection from "./Comment";
 import "./Promotions/ButtonStyle.css";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Ratings() {
   const [comment, setComment] = useState("");
@@ -25,12 +25,13 @@ export default function Ratings() {
     setRating(0);
   };
 
-  const checkEmptyForms = () => {    
+  const checkEmptyForms = () => {
     if (rating == 0 || comment == "") {
-      toast.error("please fill in the given forms");
-      return false
+      toast("⭐ rating from 5 stars and text your comment");
+      return;
+    } else {
+      handleSubmit();
     }
-    return true
   };
 
   return (
@@ -44,17 +45,21 @@ export default function Ratings() {
       >
         <div className="flex flex-row gap-[20px] border-solid border-b-2 pb-[15px]">
           {[...Array(5)].map((_, index) => {
-            index += 1;
+            const starValue = index + 1;
             return (
               <button
-                type="button"
                 key={index}
-                className={index <= (hover || rating) ? "on" : "off"}
-                onClick={() => setRating(index)}
-                onMouseEnter={() => setHover(index)}
-                onMouseLeave={() => setHover(rating)}
+                onMouseEnter={() => setHover(starValue)}
+                onMouseLeave={() => setHover(0)}
+                onClick={() => setRating(starValue)}
               >
-                <span className="star">&#9733;</span>
+                <span className="star">
+                  {starValue <= (hover || rating) ? (
+                    <GoldenStar />
+                  ) : (
+                    <StarIcon />
+                  )}
+                </span>
               </button>
             );
           })}
@@ -68,10 +73,7 @@ export default function Ratings() {
         />
         <div className="w-full flex items-end flex-col">
           <button
-            onClick={() => {
-              handleSubmit();
-              checkEmptyForms();
-            }}
+            onClick={checkEmptyForms}
             className="w-[135px] h-[39px] text-white rounded-sm bg-[#FB2E86]"
           >
             Evaluate
@@ -79,6 +81,7 @@ export default function Ratings() {
         </div>
       </div>
       <CommentSection afterComment={afterComment} />
+      <Toaster position="top-center" />
     </div>
   );
 }
