@@ -7,6 +7,17 @@ const api = "http://localhost:8000/savedProduct/get";
 
 export default function SavedProducts(){
     const [order, setOrder] = useState<SavedProduct[]>([]);
+    const deleteById = async ( id : string ) => {
+        console.log("Delete function called with id:", id);
+        try {
+             await axios.delete(`http://localhost:8000/savedProduct/${id}`);
+             const updateData = order.filter((el) => el._id !== id)
+             setOrder(updateData)
+             console.log("State after deletion:", order);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+    }   
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,18 +32,6 @@ export default function SavedProducts(){
     }, []);
     console.log()
 
-    const deleteById = async ( id : string ) => {
-        console.log("Delete function called with id:", id);
-        try {
-             await axios.delete(`http://localhost:8000/savedProduct/${id}`);
-             const updateData = order.filter((el) => el._id !== id)
-             setOrder(updateData)
-             console.log("State after deletion:", order);
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-    }
-    
     return (
         <div className="flex flex-col gap-[34px] items-center justify-center">
             <div className="flex flex-col items-start">
