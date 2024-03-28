@@ -23,7 +23,7 @@
 
 .btn-flip > div {
   position: absolute;
-  transition: transform 0.5s ease, opacity 0.5s ease; 
+  transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
 .btn-flip > .back {
@@ -65,4 +65,17 @@
 .flip-horizontol:hover > .back {
   transform: rotateY(0deg);
   opacity: 1;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: #000;
+}
+.off {
+  color: #ccc;
 }

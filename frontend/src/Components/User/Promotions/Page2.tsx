@@ -20,7 +20,7 @@ export default function Page2({ nextPage, previousPage }: any) {
   return (
     <>
       {data &&
-        data.slice(2, 3).map((element: any, index: number) => (
+        data.slice(1, 2).map((element: any, index: number) => (
           <div key={index} className="flex justify-center items-center w-8/12">
             <div className="w-full flex justify-between">
               <div className="w-5/12 flex flex-col gap-[10px]">
@@ -53,8 +53,8 @@ export default function Page2({ nextPage, previousPage }: any) {
 
               <div>
                 <img
-                  style={{ borderRadius: "10px" }}
-                  className="w-4/12 bg-green-400 w-[350px] h-[350px]"
+                  style={{ borderRadius: "10px", backgroundRepeat: "no-repeat"  }}
+                  className="w-4/12 w-[350px] h-[350px]"
                   src={element.images}
                   alt=""
                 />
