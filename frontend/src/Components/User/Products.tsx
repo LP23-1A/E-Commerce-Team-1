@@ -5,20 +5,10 @@ import { Bucket, SearchPlus, Like } from "./Icon/index";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
-export default function Products({ searchTerm }: any) {
+export default function Products() {
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-
-  // useEffect(() => {
-  //   if (data) {
-  //     const filtered = data.filter((product: { productName: string }) =>
-  //       product.productName.toLowerCase().includes(searchTerm.toLowerCase())
-  //     );
-  //     setFilteredProducts(filtered);
-  //   }
-  // }, [data, searchTerm]);
 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;

@@ -3,15 +3,10 @@ import { useState } from "react";
 import { Search } from "./Icon/index";
 import { useRouter } from "next/navigation";
 
-export default function MiniNavbar({ onSearch }: any) {
+export default function MiniNavbar() {
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
 
-  const handleSearch = (e: { target: { value: any } }) => {
-    setSearchTerm(e.target.value);
-    onSearch(e.target.value);
-  };
+  const [selectedValue, setSelectedValue] = useState("");
 
   const handleSelectChange = (event: { target: { value: any } }) => {
     const selectedOption = event.target.value;
@@ -48,8 +43,6 @@ export default function MiniNavbar({ onSearch }: any) {
           type="search"
           placeholder="Product search..."
           className="border border-inherit border-[2px] h-[40px] p-2"
-          value={searchTerm}
-          onChange={handleSearch}
         />
         <div className="flex items-center justify-center w-[52px] h-[40px] bg-[#FB2E86]">
           <Search />

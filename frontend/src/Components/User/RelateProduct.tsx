@@ -1,21 +1,35 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
 import { FetchAllProducts } from "./Api/FetchAllProducts";
 import { Bucket, SearchPlus, Like } from "./Icon/index";
 import { useRouter } from "next/navigation";
+ 
+interface Product {
+  _id: string;
+  images: string;
+  productName: string;
+  price: number | null;
+}
+ 
 export default function Relate() {
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
-
+  const [shuffledData, setShuffledData] = useState<Product[]>([]);
+ 
+  useEffect(() => {
+    if (data) {
+      const shuffled = [...data].sort(() => Math.random() - 0.5);
+      setShuffledData(shuffled);
+    }
+  }, [data]);
+ 
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
-
-  const shuffledData = data.sort(() => Math.random() - 0.5);
-
+ 
   const selectedData = shuffledData.slice(0, 4);
-
+ 
   return (
     <div className="flex flex-col gap-4 px-[360px] py-8">
       <h1 className="text-[#101750] font-bold text-2xl">
@@ -23,7 +37,7 @@ export default function Relate() {
       </h1>
       <div className="flex flex-col gap-8">
         <div className="flex flex-wrap w-full justify-between gap-6">
-          {selectedData.map((dat: any, index: number) => (
+          {selectedData.map((dat: Product, index: number) => (
             <div
               key={index}
               className="relative text-center"

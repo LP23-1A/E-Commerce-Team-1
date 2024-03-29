@@ -1,4 +1,5 @@
-import StarRate from "./StarRate";
+"use client";
+import Ratings from "./Ratings";
 
 export default function Additional() {
   return (
@@ -11,7 +12,7 @@ export default function Additional() {
         <h1 className="text-[#1D3178] font-bold">Үнэлгээ нэмэх</h1>
         <div className="w-full bg-white h-[283px] rounded-md p-4 flex flex-col gap-4">
           <div className="flex flex-col">
-            <StarRate />
+            <Ratings />
             <input
               type="text"
               className="w-full px-4 border-b-2 border-[#BFC6E0] focus:outline-none focus:border-blue-500"
