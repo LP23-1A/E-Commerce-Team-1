@@ -7,6 +7,7 @@ import "./globals.css";
 import Footer from "@/Components/User/Footer";
 import MiniNavbar from "@/Components/User/UserMiniNavbar";
 import { CartProvider } from "@/Components/User/CartContext";
+import Path from "@/Components/User/Path";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           <CartProvider>
             <NavbarClient />
             <MiniNavbar />
+            <Path />
             {children}
             <Footer />
           </CartProvider>

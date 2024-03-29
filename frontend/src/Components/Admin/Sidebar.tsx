@@ -39,7 +39,7 @@ export default function Sidebar() {
   };  
 
   return (
-    <div className="flex flex-col gap-[16px] pt-[24px]">
+    <div className="flex flex-col gap-[16px] pt-[24px] w-[15%]">
       {statesOfOrder.map((state, index) => {
         return (
           <button

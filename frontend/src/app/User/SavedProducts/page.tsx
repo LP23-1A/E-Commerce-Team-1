@@ -33,9 +33,9 @@ export default function SavedProducts(){
     console.log()
 
     return (
-        <div className="flex flex-col gap-[34px] items-center justify-center">
+        <div className="flex flex-col gap-[34px] items-center justify-center p-[96px]">
             <div className="flex flex-col items-start">
-                <p className="text-[#151875] text-[22px]">Хадгалсан бүтээгдэхүүн </p>
+                <p className="text-[#151875] text-[22px] font-bold">Хадгалсан бүтээгдэхүүн </p>
                 <p className="text-[#8A8FB9] text-[12px]">{order.length} бүтээгдэхүүн</p>
             </div>
             {order.map((el) => {
@@ -51,13 +51,13 @@ export default function SavedProducts(){
                         </div>
                         <div className="flex flex-col justify-between items-start p-[16px]">
                             <div className="flex flex-col gap-[16px]">
-                                <p className="text-[#151875] text-[18px]">{el.products.productName}</p>
+                                <p className="text-[#151875] text-[18px] font-semibold">{el.products.productName}</p>
                                 <p className="text-[21px] text-[#151875]">{formattedAmount}</p>
                                 <p className="text-[#9295AA] text-[18px]">{el.products.description}</p>
                             </div>
                             <div className="flex gap-[10px]">
-                                <button className="text-[16px] text-white py-[12px] px-[25px] flex items-center justify-center bg-[#FB2E86] rounded-[4px]">Худалдан авах</button>
-                                <button onClick={() => deleteById(el._id)} className="text-[16px] text-[#535399] py-[12px] px-[25px] flex items-center justify-center bg-[#F6F5FF] rounded-[4px]">Хасах</button>
+                                <button className="font-semibold text-[16px] text-white py-[12px] px-[25px] flex items-center justify-center bg-[#FB2E86] rounded-[4px]">Худалдан авах</button>
+                                <button onClick={() => deleteById(el._id)} className="font-semibold text-[16px] text-[#535399] py-[12px] px-[25px] flex items-center justify-center bg-[#F6F5FF] rounded-[4px]">Хасах</button>
                             </div>
                         </div>
                     </div>
