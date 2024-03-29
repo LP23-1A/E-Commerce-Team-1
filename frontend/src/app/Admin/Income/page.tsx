@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Sidebar from "../../../Components/Admin/Sidebar";
+import Navbar from "@/Components/Admin/Navbar";
 
 const API = "http://localhost:8000/order/get";
 const API2 = "http://localhost:8000/dashboard/sum";
@@ -28,6 +29,8 @@ export default function Inco() {
       dashboardHandler();
     }, []);
   return (
+    <div>
+      <Navbar/>
     <div className="flex">
       <Sidebar/>
       <div className="bg-[#ECEDF0] pl-[121px] pr-[200px] w-[100vw] h-[100vh] pt-[1.5rem] gap-[8px] flex flex-col">
@@ -108,6 +111,7 @@ export default function Inco() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

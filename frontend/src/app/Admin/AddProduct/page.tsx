@@ -6,6 +6,7 @@ import AddPro from "./AddPro";
 import Sidebar from "@/Components/Admin/Sidebar";
 import axios from "axios";
 import { Aws } from "@/Components/Admin/Aws";
+import Navbar from "@/Components/Admin/Navbar";
 
 const api = "http://localhost:8000/product/create";
 
@@ -58,6 +59,8 @@ export default function AddProduct() {
   };
 
   return (
+    <div>
+      <Navbar/>
     <div className="flex">
       <Sidebar />
       <div className="flex flex-col bg-gray-100 w-full h-full">
@@ -143,6 +146,7 @@ export default function AddProduct() {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }

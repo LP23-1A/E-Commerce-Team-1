@@ -10,6 +10,7 @@ import DisAbledFirst from "@/Components/Admin/DisAbledFirst";
 import DisAbledSecond from "@/Components/Admin/DisAbledSecond";
 import ModalDeliverySettings from "@/Components/Admin/DeliveryModal";
 import DisAbledThird from "@/Components/Admin/DisabledThird";
+import Navbar from "@/Components/Admin/Navbar";
 
 export default function Settings() {
   const [modalStore, setModalStore] = useState(false);
@@ -47,6 +48,8 @@ export default function Settings() {
   };
 
   return (
+    <div>
+      <Navbar/>
     <div className="flex flex-row">
       <Sidebar />
 
@@ -110,6 +113,7 @@ export default function Settings() {
           <ModalDeliverySettings buttonActive={buttonActive} setModalDelivery={setModalDelivery} />
         )
       }
+    </div>
     </div>
   )
 };

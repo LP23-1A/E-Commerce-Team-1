@@ -9,6 +9,7 @@ import axios from "axios";
 import SuccessModalProduct from "@/Components/Admin/SuccessProductModal";
 import { Toaster } from "react-hot-toast";
 import { Items } from "@/Components/Admin/Interface/Product";
+import Navbar from "@/Components/Admin/Navbar";
 
 const api = "http://localhost:8000/product/get";
 const api2 = "http://localhost:8000/product";
@@ -55,6 +56,8 @@ export default function Product() {
   }, []);
 
   return (
+    <div>
+      <Navbar/>
     <div className="flex">
       <Sidebar />
       <div className="flex flex-col gap-6 bg-gray-100 w-full h-screen px-4">
@@ -164,6 +167,7 @@ export default function Product() {
       {isSuccessProduct && (
         <SuccessModalProduct setIsSuccessProduct={setIsSuccessProduct} />
       )}
+    </div>
     </div>
   );
 }

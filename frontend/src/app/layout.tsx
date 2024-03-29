@@ -26,11 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthProvider>
           <CartProvider>
-            <NavbarClient />
-            <MiniNavbar />
-            <Path />
             {children}
-            <Footer />
           </CartProvider>
         </AuthProvider>
       </body>

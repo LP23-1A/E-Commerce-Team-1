@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Arrow } from "@/Components/Admin/Icon";
 import Status from "@/Components/Admin/Status";
+import Navbar from "@/Components/Admin/Navbar";
 
 export default function OrderDetails({params,}: {params: { orderId: string };
 }) {
@@ -36,6 +37,7 @@ export default function OrderDetails({params,}: {params: { orderId: string };
   console.log(params.orderId)
   return (
     <div>
+      <Navbar/>
       <div className="flex">
         <Sidebar />
         <div className="w-full">

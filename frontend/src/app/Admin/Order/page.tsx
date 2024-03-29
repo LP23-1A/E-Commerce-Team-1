@@ -9,6 +9,7 @@ import TitleOrders from "@/Components/Admin/TitlesOrder";
 import { statesOfOrder } from "@/Components/Admin/utils/StatesOfOrder";
 import { Toaster, toast } from "react-hot-toast";
 import { Order } from "@/Components/Admin/Interface/Order";
+import Navbar from "@/Components/Admin/Navbar";
 
 const api = "http://localhost:8000/order/get";
 
@@ -69,6 +70,7 @@ export default function Order() {
 
   return (
     <div>
+      <Navbar/>
       <div className="flex">
         <Sidebar />
         <div className="bg-[#F7F7F8] w-full">

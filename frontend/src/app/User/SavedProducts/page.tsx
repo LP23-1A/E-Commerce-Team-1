@@ -2,6 +2,10 @@
 import { SavedProduct } from "@/Components/Admin/Interface/SavedProducts";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Footer from "@/Components/User/Footer";
+import NavbarClient from "@/Components/User/NavbarClient";
+import Path from "@/Components/User/Path";
+import MiniNavbar from "@/Components/User/UserMiniNavbar";
 
 const api = "http://localhost:8000/savedProduct/get";
 
@@ -33,7 +37,12 @@ export default function SavedProducts(){
     console.log()
 
     return (
+        <div>
+            <NavbarClient />
+            <MiniNavbar />
+            <Path />
         <div className="flex flex-col gap-[34px] items-center justify-center p-[96px]">
+            
             <div className="flex flex-col items-start">
                 <p className="text-[#151875] text-[22px] font-bold">Хадгалсан бүтээгдэхүүн </p>
                 <p className="text-[#8A8FB9] text-[12px]">{order.length} бүтээгдэхүүн</p>
@@ -63,6 +72,9 @@ export default function SavedProducts(){
                     </div>
                 )
             })}
+            
+        </div>
+        <Footer />
         </div>
     )
 }

@@ -8,6 +8,7 @@ import UserBlackIcon from "@/Components/Admin/Icon/UserBlackIcon";
 import { OrderIcon } from "@/Components/Admin/Icon";
 import Chart from "@/Components/Admin/Salechart";
 import Chartver from "@/Components/Admin/ChartTwo";
+import Navbar from "@/Components/Admin/Navbar";
 
 const API = "http://localhost:8000/dashboard/sum";
 
@@ -24,6 +25,8 @@ const dashboard = () => {
       dashboardHandler();
     }, []);
   return (
+    <div>
+      <Navbar/>
     <div className="flex">
         <Sidebar/>
         <div className="bg-[#ECEDF0] px-[24px] py-[30px] w-[100%] flex flex-col gap-[30px]">
@@ -60,6 +63,7 @@ const dashboard = () => {
         <Chartver/>
         </div>
       </div>
+    </div>
     </div>
     </div>
   );

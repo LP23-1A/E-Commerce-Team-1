@@ -5,6 +5,7 @@ import Sidebar from "@/Components/Admin/Sidebar";
 import { Arrow, Add, Image } from "@/Components/Admin/Icon/index";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
+import Navbar from "@/Components/Admin/Navbar";
 
 const api = "http://localhost:8000/product/getOne";
 const api2 = "http://localhost:8000/product";
@@ -69,6 +70,8 @@ export default function EditProduct() {
   };
 
   return (
+    <div>
+      <Navbar/>
     <div className="flex">
       <Sidebar />
       <div className="flex flex-col bg-gray-100 w-full h-full">
@@ -168,6 +171,7 @@ export default function EditProduct() {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 }
