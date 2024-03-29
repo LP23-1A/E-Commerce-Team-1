@@ -17,15 +17,20 @@ export default function MiniNavbar({ onSearch }: any) {
     const selectedOption = event.target.value;
     setSelectedValue(selectedOption);
 
-    if (selectedOption === "one") {
-      router.push("/Admin/AddProduct");
+    if (selectedOption === "Grid") {
+      router.push("/User/GridDefault");
     }
   };
 
   return (
     <div className="flex items-center justify-between px-[360px] py-4">
       <div className="flex items-center gap-10">
-        <h1 className="font-semibold text-2xl text-[#0D0E43]">Ecommerce</h1>
+        <button
+          onClick={() => router.push("/")}
+          className="font-semibold text-2xl text-[#0D0E43]"
+        >
+          Ecommerce
+        </button>
         <div className="flex items-center gap-4">
           <select
             className="text-[#FB2E86]"
@@ -33,7 +38,7 @@ export default function MiniNavbar({ onSearch }: any) {
             onChange={handleSelectChange}
           >
             <option value="">Нүүр</option>
-            <option value="one">one</option>
+            <option value="Grid">Grid</option>
           </select>
           <p>Ангилал</p>
         </div>

@@ -11,7 +11,7 @@ const api = `http://localhost:8000/product/getOne`;
 export default function detail() {
   const search = useSearchParams();
   const productId = search.get("productId");
-  const { intoBasket } = useContext(CartContexForProduct);
+  const { productData, setProductData } = useContext(CartContexForProduct);
 
   const { data, error } = useSWR(`${api}/${productId}`, async (url) => {
     const res = await axios.get(url);
@@ -21,12 +21,25 @@ export default function detail() {
   if (error) return <div>Error fetching data</div>;
   if (!data) return <div>Loading...</div>;
 
-  const addToBasket = () => {
-    const specificProduct = {
-      ...data
+
+  const intoBasket = (comingId: string) => {
+    const repeatedProductIndex = productData.findIndex(
+      (el: any) => el._id === comingId
+    );
+    
+    if (repeatedProductIndex !== -1) {
+      setProductData(
+        productData.map((el: any, index: number) =>
+          index === repeatedProductIndex ? { ...el, count: el.count + 1 } : el
+        )
+      );
+    } else {
+      setProductData([...productData, { _id: comingId, count: 1 }]);
     }
-    intoBasket(specificProduct)
   };
+  
+  console.log(data._id);
+  
 
 
   return (
@@ -50,7 +63,7 @@ export default function detail() {
         </p>
         <p className="text-[#9295AA] text-lg w-[591px]">{data.description}</p>
         <div className="flex items-center gap-2">
-          <button onClick={addToBasket} className="w-[100px] h-[35px] bg-[#FB2E86] rounded-sm font-bold text-white text-sm">
+          <button onClick={() => intoBasket(data?._id)} className="w-[100px] h-[35px] bg-[#FB2E86] rounded-sm font-bold text-white text-sm">
             Сагслах
           </button>
           <button className="flex justify-center items-center w-[44px] h-[35px] bg-[#F6F5FF] rounded-sm">

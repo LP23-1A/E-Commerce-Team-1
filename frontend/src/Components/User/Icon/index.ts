@@ -15,3 +15,4 @@ export * from "./GoldenStar";
 export * from "./Minus";
 export * from "./PlusIcon";
 export * from "./StarIcon"
+export * from "./X"
