@@ -49,7 +49,7 @@ export default function HeadingBar() {
           </div>
         </div>
       </a>
-      <button className="flex flex-row items-center gap-2">
+      <button onClick={() => router.push('/User/SavedProducts')} className="flex flex-row items-center gap-2">
         <h5
           className="text-base font-weight font-semibold"
           style={{ color: "#F1F1F1" }}
