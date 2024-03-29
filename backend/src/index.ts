@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bp from "body-parser";
 import { savedProduct } from "./router/savedProducts";
+import { DashboardSum } from "./router/dashboard";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use("/user", user);
 app.use("/product", product);
 app.use("/order", order);
 app.use("/savedProduct", savedProduct);
+app.use("/dashboard", DashboardSum);
 
 app.get("/", (_, res) => {
   res.status(200).send({
