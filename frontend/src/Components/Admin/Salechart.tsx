@@ -41,7 +41,6 @@ export default function Chart() {
     <div className="bg-[#fff] rounded-xl">
       <div className="flex items-center justify-between p-6">
         <h1>Борлуулалт</h1>
-        <img className="w-[12px] h-[12px]" alt="" />
       </div>
       <div>
         {ChartData ? (
@@ -56,10 +55,10 @@ export default function Chart() {
                   hoverBackgroundColor: "#EC2F73",
                   hoverBorderColor: "#EC2F73",
                   data: ChartData.datas,
-                  borderRadius: 20,
+                  borderRadius: 40,
                   borderWidth: 4,
                   borderSkipped: false,
-                  barPercentage: 0.1,
+                  barPercentage: 0.3,
                 },
               ],
             }}

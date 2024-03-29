@@ -7,6 +7,7 @@ import Sidebar from "@/Components/Admin/Sidebar";
 import UserBlackIcon from "@/Components/Admin/Icon/UserBlackIcon";
 import { OrderIcon } from "@/Components/Admin/Icon";
 import Chart from "@/Components/Admin/Salechart";
+import Chartver from "@/Components/Admin/ChartTwo";
 
 const API = "http://localhost:8000/dashboard/sum";
 
@@ -52,8 +53,12 @@ const dashboard = () => {
         </div>
       </div>
       <div className="flex gap-[24px]">
-        <Product /> 
+        <div className="w-[50%]">
+        <Product /></div> 
+        <div className="w-[50%] gap-[30px] flex flex-col">
         <Chart/>
+        <Chartver/>
+        </div>
       </div>
     </div>
     </div>
