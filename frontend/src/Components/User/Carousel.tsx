@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Page1 from "./Promotions/Page1";
 import Page2 from "./Promotions/Page2";
 import Page3 from "./Promotions/Page3";
-import MiniNavbar from "./UserMiniNavbar";
 
 export default function Carousel() {
   const [currentPage, setCurrentPage] = useState(1);

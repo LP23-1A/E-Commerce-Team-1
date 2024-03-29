@@ -25,7 +25,12 @@ export default function MiniNavbar({ onSearch }: any) {
   return (
     <div className="flex items-center justify-between px-[360px] py-4">
       <div className="flex items-center gap-10">
-        <h1 className="font-semibold text-2xl text-[#0D0E43]">Ecommerce</h1>
+        <button
+          onClick={() => router.push("/")}
+          className="font-semibold text-2xl text-[#0D0E43]"
+        >
+          Ecommerce
+        </button>
         <div className="flex items-center gap-4">
           <select
             className="text-[#FB2E86]"
