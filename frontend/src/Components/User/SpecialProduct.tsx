@@ -1,10 +1,26 @@
 import useSWR from "swr";
 import { FetchAllProducts } from "./Api/FetchAllProducts";
 import { ProductInterface } from "./Interface/ProductInterface";
+import IsLoading from "./Isloading";
 
 export default function SpecialProduct() {
   const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
-  console.log(data);
+
+  isLoading ? <IsLoading /> : null;
+  if (error) console.error(error);
+
+  // const array = [1, 2, 3, 2, 4, 5, 4, 5];
+  // const duplicates = array.filter((item, index) => array.indexOf(item) !== index);
+  // console.log(duplicates, "dasw");                              
+  // 1-0 !== 0 = same
+  // 2-1 !== 1 = same 
+  // 3-2 !== 2 = same
+  // 2-3 !== 1 true 
+  // 4-4 !== 4 = same
+  // 5-5 !== 5 = same
+  // 4-6 !== 4 = true 
+  // 5-7 !== 5 = true
+
 
   return (
     <div className="w-full flex justify-center items-center">

@@ -38,10 +38,7 @@ export default function detail() {
     }
   };
   
-  console.log(data._id);
   
-
-
   return (
     <div className="flex pl-[360px] p-4 gap-16">
       <div className="flex flex-col gap-4">
