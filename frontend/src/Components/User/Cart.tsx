@@ -1,12 +1,11 @@
 "use client";
 import { CartContexForProduct } from "@/Components/User/CartContext";
 import { useContext, useEffect, useState } from "react";
-import { XIcon } from "./Icon";
 import { FetchAllProducts } from "./Api/FetchAllProducts";
+import { ContextTypeProduct } from "./Interface/ContextType";
 import useSWR from "swr";
 import CartHeading from "./CartHeading";
 import AsideCompletion from "./AsideCompletion";
-import { ContextTypeProduct } from "./Interface/ContextType";
 import ProductCartContent from "./ProductCartContent";
 
 export default function CartProduct() {

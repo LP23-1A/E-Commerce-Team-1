@@ -9,19 +9,6 @@ export default function SpecialProduct() {
   isLoading ? <IsLoading /> : null;
   if (error) console.error(error);
 
-  // const array = [1, 2, 3, 2, 4, 5, 4, 5];
-  // const duplicates = array.filter((item, index) => array.indexOf(item) !== index);
-  // console.log(duplicates, "dasw");                              
-  // 1-0 !== 0 = same
-  // 2-1 !== 1 = same 
-  // 3-2 !== 2 = same
-  // 2-3 !== 1 true 
-  // 4-4 !== 4 = same
-  // 5-5 !== 5 = same
-  // 4-6 !== 4 = true 
-  // 5-7 !== 5 = true
-
-
   return (
     <div className="w-full flex justify-center items-center">
       <div className="w-8/12 p-[50px]">
