@@ -12,8 +12,7 @@ export const createOrder = async (req: Request, res: Response) => {
         })
         res.status(200).send(product)
     } catch (error) {
-        console.log(error);
-
+        console.error(error);
     }
 }
 
@@ -22,7 +21,7 @@ export const getOrder = async (req: Request, res: Response) => {
         const getallProduct = await OrderModel.find().populate('userId').populate('details');
         res.status(200).send(getallProduct)
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
@@ -34,17 +33,15 @@ export const getOrderById = async (req: Request, res: Response) => {
         console.log(getOrderById)
         res.status(200).send(getOrderById)
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
 export const deleteOrder = async (req: Request, res: Response) => {
     try {
         const { ProductId } = req.params;
-        const deleteProduct = await OrderModel.findByIdAndDelete(ProductId);
-
-        console.log('deleted', deleteProduct);
-
+        await OrderModel.findByIdAndDelete(ProductId);        
+        return true
     } catch (error) {
         console.log(error);
     }
