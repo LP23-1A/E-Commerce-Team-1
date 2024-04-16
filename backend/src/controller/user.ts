@@ -7,7 +7,6 @@ export const SignUp = async (req: any, res: any) => {
     const { ...userData } = req.body;
 
     const response = await userModal.create({ ...userData });
-
     const token = jwt.sign({ userId: response._id }, "Test");
 
     res.status(200).send({

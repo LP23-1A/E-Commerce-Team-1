@@ -22,8 +22,8 @@ const UserSchema = new mongose.Schema({
   khoroo: String,
   skillInSales: String,
   typeOfProduct: String,
-  createdAt: Date,
-  updatedAt: Date,
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
 const userModal = mongose.model("users", UserSchema);
