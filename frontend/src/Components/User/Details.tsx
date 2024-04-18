@@ -50,9 +50,14 @@ export default function Details() {
           >
             <div className="flex w-8/12 flex-row">
               <div className="flex flex-col gap-[11px]">
-                <img className="w-[151px] h-[155px]" src={el?.images} alt="" />
-                <img className="w-[151px] h-[155px]" src={el?.images} alt="" />
-                <img className="w-[151px] h-[155px]" src={el?.images} alt="" />
+                {[...Array(4)].map((_, index) => (
+                  <img
+                    key={index}
+                    className="w-[151px] h-[155px]"
+                    src={el?.images}
+                    alt=""
+                  />
+                ))}
               </div>
               <div>
                 <img className="w-[375px] h-[487px]" src={el?.images} alt="" />
@@ -65,21 +70,11 @@ export default function Details() {
                   {el?.productName}
                 </h3>
                 <div className="flex flex-row gap-[10px]">
-                  <div className="text-xl">
-                    <StarIcon />
-                  </div>
-                  <div className="text-xl">
-                    <StarIcon />
-                  </div>
-                  <div className="text-xl">
-                    <StarIcon />
-                  </div>
-                  <div className="text-xl">
-                    <StarIcon />
-                  </div>
-                  <div className="text-xl">
-                    <StarIcon />
-                  </div>
+                  {[...Array(5)].map((_, index) => (
+                    <div key={index} className="text-xl">
+                      <StarIcon />
+                    </div>
+                  ))}
                 </div>
                 <h5
                   className="non-italic font-normal text-3xl"

@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const CartContexForProduct = createContext({
   productData: [],

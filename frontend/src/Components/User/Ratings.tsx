@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { AtomIcon, GoldenStar, StarIcon } from "./Icon";
+import { useState } from "react";
+import { GoldenStar, StarIcon } from "./Icon";
 import CommentSection from "./Comment";
 import "./Promotions/ButtonStyle.css";
 import toast, { Toaster } from "react-hot-toast";

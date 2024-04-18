@@ -14,8 +14,8 @@ export default function Carousel() {
     setCurrentPage(currentPage - 1);
   };
 
-  const switchToNextPage = () => {
-    setCurrentPage(currentPage === 3 ? 1 : currentPage + 1);
+  const switchToNextPage = () => {    
+      setCurrentPage(currentPage === 3 ? 1 : currentPage + 1);    
   };
 
   // useEffect(() => {

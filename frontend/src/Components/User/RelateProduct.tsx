@@ -4,7 +4,6 @@ import useSWR from "swr";
 import { FetchAllProducts } from "./Api/FetchAllProducts";
 import { Bucket, SearchPlus, Like } from "./Icon/index";
 import { useRouter } from "next/navigation";
- 
 interface Product {
   _id: string;
   images: string;

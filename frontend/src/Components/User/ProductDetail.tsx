@@ -21,7 +21,6 @@ export default function detail() {
   if (error) return <div>Error fetching data</div>;
   if (!data) return <div>Loading...</div>;
 
-
   const intoBasket = (comingId: string) => {
     const repeatedProductIndex = productData.findIndex(
       (el: any) => el._id === comingId
@@ -37,7 +36,6 @@ export default function detail() {
       setProductData([...productData, { _id: comingId, count: 1 }]);
     }
   };
-  
   
   return (
     <div className="flex pl-[360px] p-4 gap-16">

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
-import AdditionalInfo from "./AdditionalInfo";
 import { twoCategory } from "./utils/TwoCategory";
+import AdditionalInfo from "./AdditionalInfo";
 import Ratings from "./Ratings";
 
 export default function ExtraInfo() {
@@ -21,7 +21,7 @@ export default function ExtraInfo() {
   return (
     <div
       className="w-full flex justify-center items-center"
-      style={{ background: "#F9F8FE", padding:'20px'}}
+      style={{ background: "#F9F8FE", padding: "20px" }}
     >
       <div className="w-8/12 h-fit">
         <div className="flex flex-col gap-[30px]">
@@ -30,20 +30,26 @@ export default function ExtraInfo() {
               <button
                 onClick={i === 0 ? handleAdditionalInfo : handleIsEvaluation}
                 key={i}
-                className={`font-extrabold text-2xl non-italic hover:bg-blue-400 ${i === 0 ? (isAdditional ? 'text-blue-600' : '') : (isEvaluation ? 'text-blue-600' : '')}`}
-                style={{ 
+                className={`font-extrabold text-2xl non-italic hover:bg-blue-400 ${
+                  i === 0
+                    ? isAdditional
+                      ? "text-blue-600"
+                      : ""
+                    : isEvaluation
+                    ? "text-blue-600"
+                    : ""
+                }`}
+                style={{
                   color: "#151875",
-                  textDecoration: 'none',
+                  textDecoration: "none",
                 }}
               >
                 {el}
               </button>
             ))}
           </div>
-
           {isAdditional && <AdditionalInfo />}
-
-          {isEvaluation && <Ratings/>}
+          {isEvaluation && <Ratings />}
         </div>
       </div>
     </div>

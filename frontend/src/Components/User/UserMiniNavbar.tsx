@@ -4,9 +4,8 @@ import { Search } from "./Icon/index";
 import { useRouter } from "next/navigation";
 
 export default function MiniNavbar() {
-  const router = useRouter();
-
   const [selectedValue, setSelectedValue] = useState("");
+  const router = useRouter();
 
   const handleSelectChange = (event: { target: { value: any } }) => {
     const selectedOption = event.target.value;

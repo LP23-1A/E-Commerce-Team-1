@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FetchAllProducts } from "./Api/FetchAllProducts";
 import { Bucket, SearchPlus, Like } from "./Icon/index";
 import { useRouter } from "next/navigation";
