@@ -15,7 +15,6 @@ interface UserData {
 export const UserContext = createContext({});
 
 export const UserContextProvider = ({ children }: any) => {
-
   const userDataRef = useRef<UserData>({
     userName: "",
     email: "",
@@ -26,12 +25,10 @@ export const UserContextProvider = ({ children }: any) => {
     skillInSales: "",
     typeOfProduct: "",
   });
-  // console.log(userDataRef.current, "from context");
 
   return (
     <UserContext.Provider value={{ userDataRef }}>
       {children}
     </UserContext.Provider>
   );
-
 };

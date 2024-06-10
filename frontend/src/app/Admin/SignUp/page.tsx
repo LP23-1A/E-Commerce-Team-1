@@ -19,7 +19,9 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [buttonActive, setButtonActive] = useState(false);
+
   const router = useRouter();
+
   const { userDataRef }: any = useContext(UserContext);
   const controlUserForm = (field: string, value: string | number) => {
     userDataRef.current = { ...userDataRef.current, [field]: value };

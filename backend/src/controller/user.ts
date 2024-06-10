@@ -16,7 +16,7 @@ export const SignUp = async (req: any, res: any) => {
     });
     console.log(response, "response");
   } catch (error) {
-    console.log("error at creating user", error);
+    console.log("eraror at creating user", error);
     res.status(500).send({
       success: false,
       error,

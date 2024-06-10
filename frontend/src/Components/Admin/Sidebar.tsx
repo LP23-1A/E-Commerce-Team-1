@@ -36,7 +36,7 @@ export default function Sidebar() {
 
   const handlerClick = (index: number) => {
     setSelectedState(index);
-  };  
+  };
 
   return (
     <div className="flex flex-col gap-[16px] pt-[24px] w-[15%]">

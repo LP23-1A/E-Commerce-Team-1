@@ -50,7 +50,7 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
         toast.success("Successfully registered");
         setTimeout(() => {
           router.push(`/DashBoard/${response.data.createdUser._id}`);
-          router.push('/Admin/Order')
+          router.push("/Admin/Order");
         }, 2000);
       }
     } catch (error) {
@@ -63,7 +63,6 @@ export default function ThirdStepOfSignUp({ prevStep }: any) {
     const isActive: any = haveSkill !== "" && productType !== "";
     setButtonActive(isActive);
   }, [haveSkill, productType]);
-
 
   useEffect(() => {
     const handleKeyPress = (event: any) => {
