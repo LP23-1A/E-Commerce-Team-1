@@ -2,6 +2,7 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { authenticateInputs } from "./Functions/ValidInputs";
+import { LoginButtonStyle } from "./styles/ClassNames";
 
 export default function FormsLogin() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -95,7 +96,7 @@ export default function FormsLogin() {
               passwordRef.current?.value
             );
           }}
-          className="text-center text-base font-normal border-solid rounded w-[432px] h-[52px] text-white hover:scale-110 duration-300"
+          className={`${LoginButtonStyle}`}
           style={{ background: isFormFilled ? "#FB2E86" : "grey" }}
         >
           Log In

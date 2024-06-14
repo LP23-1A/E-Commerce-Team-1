@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { userModal } from "../model/user";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -73,17 +74,6 @@ export const deleteUser = async (req: any, res: any) => {
     });
   } catch (error) {
     console.log("error at deleting user", error);
-    res.status(500).send({
-      success: false,
-      error,
-    });
-  }
-};
-
-export const signIn = async (req: any, res: any) => {
-  try {
-  } catch (error) {
-    console.log("error at signing in", error);
     res.status(500).send({
       success: false,
       error,

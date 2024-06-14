@@ -13,8 +13,7 @@ export default function UserLogin() {
       <Path />
       <div className="w-full flex flex-col justify-center items-center">
       <FormsLogin />
-      </div>
-      
+      </div>      
       <Footer />
     </div>
   );

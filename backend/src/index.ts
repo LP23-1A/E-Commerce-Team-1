@@ -1,13 +1,14 @@
-import { connectDataBase } from "./utils/Database";
-import { order } from "./router/order";
-import { product } from "./router/Product";
-import { user } from "../src/router/user";
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bp from "body-parser";
+import { connectDataBase } from "./utils/Database";
+import { order } from "./router/order";
+import { product } from "./router/Product";
+import { user } from "../src/router/user";
 import { savedProduct } from "./router/savedProducts";
 import { DashboardSum } from "./router/dashboard";
+import { OTP } from "./router/otpRoutes"; 
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use("/product", product);
 app.use("/order", order);
 app.use("/savedProduct", savedProduct);
 app.use("/dashboard", DashboardSum);
+app.use("/OTP", OTP)
 
 app.get("/", (_, res) => {
   res.status(200).send({
