@@ -42,5 +42,5 @@ OTPSchema.pre("save", async function (next) {
     next()
 })
 
-const OtpModel = mongoose.model("Product", OTPSchema);
+const OtpModel = mongoose.model("OTPSchema", OTPSchema);
 export { OtpModel };

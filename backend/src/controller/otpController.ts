@@ -1,40 +1,54 @@
 import { Request, Response } from "express";
 import otpGenerator from "otp-generator";
+import nodemailer from "nodemailer";
 import { OtpModel } from "../model/otpModel";
 
 export const sendOTP = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
-    
-    let otp = otpGenerator.generate(6, {
-      upperCaseAlphabets: false,
-      lowerCaseAlphabets: false,
-      specialChars: false,
-    });
 
-    let result = await OtpModel.findOne({ otp: otp });
-    while (result) {
-      otp = otpGenerator.generate(6, {
-        upperCaseAlphabets: false,
-        lowerCaseAlphabets: false,
-        specialChars: false,
-      });
-      result = await OtpModel.findOne({ otp: otp });
+    if (!email) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is required" });
     }
 
-    const otpPayload = { email, otp };
-    await OtpModel.create(otpPayload);
-
-    res.status(200).json({
-      success: true,
-      message: "OTP sent successfully",
-      otp,
+    const otp = otpGenerator.generate(6, {
+      specialChars: false,
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
     });
-  } catch (error: unknown | any) {
-    console.error("failed to send otp password", error);
-    res.status(500).json({
+
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure:true,
+      auth: {
+        user: "isvhbaatar5@gmail.com",
+        pass: "Google94849622",
+      },
+    });
+
+    const mailOptions = {
+      from: "isvhbaatar5@gmail.com",
+      to: email,
+      subject: "Your One Time Passcode",
+      text: `Your one time passcode is: ${otp}`,
+    };
+    
+
+    await transporter.sendMail(mailOptions);
+
+    return res.status(200).json({
+      success: true,
+      message: "One time passcode has been sent successfully",
+    });
+  } catch (error) {
+    console.error("Error occurred while sending OTP:", error);
+    return res.status(500).json({
       success: false,
-      error: error.message,
+      message: "Failed to send OTP. Please try again later.",
     });
   }
 };

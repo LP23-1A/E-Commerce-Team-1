@@ -41,7 +41,7 @@ export default function MiniNavbar() {
         <input
           type="search"
           placeholder="Product search..."
-          className="border border-inherit border-[2px] h-[40px] p-2"
+          className="border-inherit border-[2px] h-[40px] p-2"
         />
         <div className="flex items-center justify-center w-[52px] h-[40px] bg-[#FB2E86]">
           <Search />

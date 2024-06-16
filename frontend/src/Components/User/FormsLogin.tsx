@@ -11,6 +11,10 @@ export default function FormsLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const currenTime = Date.now()
+
+  console.log('currentTime:', currenTime)
+
   const inputEmail = (event: ChangeEvent<HTMLInputElement>) => {
     const valueEmail = event.target.value;
     return valueEmail;
