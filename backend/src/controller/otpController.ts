@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import otpGenerator from "otp-generator";
 import nodemailer from "nodemailer";
-import { OtpModel } from "../model/otpModel";
 
 export const sendOTP = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
+
+    console.log(email, "this is email")
 
     if (!email) {
       return res
@@ -21,22 +22,21 @@ export const sendOTP = async (req: Request, res: Response) => {
 
     const transporter = nodemailer.createTransport({
       service: "Gmail",
-      host: "smtp.gmail.com",
+      host: 'smtp.gmail.com',
       port: 465,
-      secure:true,
+      secure: true,
       auth: {
-        user: "isvhbaatar5@gmail.com",
-        pass: "Google94849622",
+        user: "uulaaka73@gmail.com", 
+        pass: "utrhxcutldbgdjuk",   
       },
     });
 
     const mailOptions = {
-      from: "isvhbaatar5@gmail.com",
+      from: "uulaaka73@gmail.com",
       to: email,
       subject: "Your One Time Passcode",
       text: `Your one time passcode is: ${otp}`,
     };
-    
 
     await transporter.sendMail(mailOptions);
 

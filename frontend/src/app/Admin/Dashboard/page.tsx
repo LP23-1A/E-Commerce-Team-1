@@ -16,8 +16,8 @@ const dashboard = () => {
     const [data, setData]: any = useState([]);
     const amount = useRef(0);
     const dashboardHandler = async () => {
-      let res = await axios.get(API);
-      amount.current = res.data.data.incomeData[0].amountPaid;
+      let res:any = await axios.get(API);
+      amount.current = res.data.data.incomeData[0]?.amountPaid ?? "";
       setData(res.data.data); 
     };
   

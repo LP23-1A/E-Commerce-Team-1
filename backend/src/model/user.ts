@@ -24,6 +24,10 @@ const UserSchema = new mongose.Schema({
   typeOfProduct: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  otp: {
+    type: String,
+    required: false,
+  },
 });
 
 const userModal = mongose.model("users", UserSchema);
