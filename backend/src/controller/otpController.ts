@@ -6,7 +6,7 @@ export const sendOTP = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
 
-    console.log(email, "this is email")
+    console.log(email, "this is email");
 
     if (!email) {
       return res
@@ -22,12 +22,12 @@ export const sendOTP = async (req: Request, res: Response) => {
 
     const transporter = nodemailer.createTransport({
       service: "Gmail",
-      host: 'smtp.gmail.com',
+      host: "smtp.gmail.com",
       port: 465,
       secure: true,
       auth: {
-        user: "uulaaka73@gmail.com", 
-        pass: "utrhxcutldbgdjuk",   
+        user: "uulaaka73@gmail.com",
+        pass: "utrhxcutldbgdjuk",
       },
     });
 
