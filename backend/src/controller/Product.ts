@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ProductModel } from "../model/product";
+import { ProductModel } from "../model/Product";
 
 interface ProductData {
   productName: string;
