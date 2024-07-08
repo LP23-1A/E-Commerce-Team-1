@@ -16,7 +16,7 @@ const ProductSchema = new mongoose.Schema({
   viewsCount: Number,
   category: String,
   subCategory: String,
-  counter:Number,
+  counter: Number,
   createdAt: {
     type: Date,
     default: () => Date.now(),
