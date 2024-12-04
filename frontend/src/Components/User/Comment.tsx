@@ -5,7 +5,7 @@ export default function CommentSection({ afterComment }: any) {
   const data = afterComment.map(JSON.parse);
   const [stars, setStars] = useState(0);
 
-  useEffect(() => {    
+  useEffect(() => {
     let totalStars = 0;
     data.forEach((element: any) => {
       totalStars += element.rating;

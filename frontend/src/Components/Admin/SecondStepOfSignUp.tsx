@@ -15,7 +15,7 @@ export default function SecondStepOfSignUp({ nextStep, prevStep }: any) {
   const controlUserForm = (field: string, value: string | number) => {
     userDataRef.current = { ...userDataRef.current, [field]: value };
   };
-  
+
   console.log(userDataRef);
 
   useEffect(() => {

@@ -15,5 +15,5 @@ repos:
         name: No Comment Code
         entry: bash -c '! grep -qE "^\s*(#|//)" "$@" || (echo "Comments detected!" && exit 1)'
         language: system
-        files: .*\.(py|js|jsx|ts)$  # Update this to match your file extensions
+        files: .*\.(py|js|jsx|ts)$
         pass_filenames: true

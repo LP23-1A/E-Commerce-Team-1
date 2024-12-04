@@ -18,9 +18,9 @@ const dashboard = () => {
     const dashboardHandler = async () => {
       let res:any = await axios.get(API);
       amount.current = res.data.data.incomeData[0]?.amountPaid ?? "";
-      setData(res.data.data); 
+      setData(res.data.data);
     };
-  
+
     useEffect(() => {
       dashboardHandler();
     }, []);
@@ -57,7 +57,7 @@ const dashboard = () => {
       </div>
       <div className="flex gap-[24px]">
         <div className="w-[50%]">
-        <Product /></div> 
+        <Product /></div>
         <div className="w-[50%] gap-[30px] flex flex-col">
         <Chart/>
         <Chartver/>

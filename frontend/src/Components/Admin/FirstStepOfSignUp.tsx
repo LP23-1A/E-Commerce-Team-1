@@ -10,7 +10,7 @@ export default function FirstStepOfSignUp({ nextStep }: any) {
   const { userDataRef }: any = useContext(UserContext);
   const controlUserForm = (field: string, value: string | number) => {
     userDataRef.current = { ...userDataRef.current, [field]: value };
-  };  
+  };
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {

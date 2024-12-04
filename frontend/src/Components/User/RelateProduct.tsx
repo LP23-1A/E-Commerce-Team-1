@@ -10,25 +10,25 @@ interface Product {
   productName: string;
   price: number | null;
 }
- 
+
 export default function Relate() {
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
   const [shuffledData, setShuffledData] = useState<Product[]>([]);
- 
+
   useEffect(() => {
     if (data) {
       const shuffled = [...data].sort(() => Math.random() - 0.5);
       setShuffledData(shuffled);
     }
   }, [data]);
- 
+
   if (error) return <div>failed to load</div>;
   if (isLoading) return <div>loading...</div>;
- 
+
   const selectedData = shuffledData.slice(0, 4);
- 
+
   return (
     <div className="flex flex-col gap-4 px-[360px] py-8">
       <h1 className="text-[#101750] font-bold text-2xl">

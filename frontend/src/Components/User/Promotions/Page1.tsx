@@ -8,8 +8,8 @@ import ControlButton1 from "./ControlButton1";
 
 
 export default function Page1({ nextPage, previousPage }: any) {
-  const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);  
-  
+  const { data, isLoading, error } = useSWR("/product/get", FetchAllProducts);
+
   const router = useRouter();
 
   if (isLoading) return <IsLoading />;
@@ -60,7 +60,7 @@ export default function Page1({ nextPage, previousPage }: any) {
                   className="w-4/12 w-[350px] h-[350px]"
                   src={element.images}
                   alt=""
-                />                
+                />
               </div>
             </div>
             <ControlButton1 nextPage={nextPage} previousPage={previousPage} />

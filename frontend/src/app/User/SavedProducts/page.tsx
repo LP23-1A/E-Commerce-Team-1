@@ -21,7 +21,7 @@ export default function SavedProducts(){
           } catch (error) {
             console.error("Error fetching data:", error);
           }
-    }   
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,7 +42,7 @@ export default function SavedProducts(){
             <MiniNavbar />
             <Path />
         <div className="flex flex-col gap-[34px] items-center justify-center p-[96px]">
-            
+
             <div className="flex flex-col items-start">
                 <p className="text-[#151875] text-[22px] font-bold">Хадгалсан бүтээгдэхүүн </p>
                 <p className="text-[#8A8FB9] text-[12px]">{order.length} бүтээгдэхүүн</p>
@@ -56,7 +56,7 @@ export default function SavedProducts(){
                 return (
                     <div key={el._id} className="flex gap-[16px] w-[1200px] h-[270px]">
                         <div className="bg-[#EBF4F3] min-w-[270px] h-[270px] flex items-center justify-center">
-                            <img className="w-[170px] h-[170px]" src={el.products?.images} alt="" />    
+                            <img className="w-[170px] h-[170px]" src={el.products?.images} alt="" />
                         </div>
                         <div className="flex flex-col justify-between items-start p-[16px]">
                             <div className="flex flex-col gap-[16px]">
@@ -72,7 +72,7 @@ export default function SavedProducts(){
                     </div>
                 )
             })}
-            
+
         </div>
         <Footer />
         </div>

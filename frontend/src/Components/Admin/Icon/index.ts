@@ -28,4 +28,3 @@ export * from "./OrderIcon";
 export * from "./IncomeIcon";
 export * from "./ProductIcon";
 export * from "./SettingsIcon";
-

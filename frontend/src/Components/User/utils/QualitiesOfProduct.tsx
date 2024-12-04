@@ -7,4 +7,3 @@ export const qualitiesOfProducts = [
     "Bamboo",
     "Every Day",
   ];
-  

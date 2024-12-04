@@ -6,8 +6,8 @@ import SpecialProduct from "@/Components/User/SpecialProduct";
 
 export default function Home() {
   return (
-    <div>    
-      <NavbarClient/>  
+    <div>
+      <NavbarClient/>
       <Carousel />
       <SpecialProduct/>
       <Footer/>

@@ -14,8 +14,8 @@ export default function Carousel() {
     setCurrentPage(currentPage - 1);
   };
 
-  const switchToNextPage = () => {    
-      setCurrentPage(currentPage === 3 ? 1 : currentPage + 1);    
+  const switchToNextPage = () => {
+      setCurrentPage(currentPage === 3 ? 1 : currentPage + 1);
   };
 
   // useEffect(() => {
@@ -44,7 +44,7 @@ export default function Carousel() {
       <div
         className="w-full h-[764px] flex items-center justify-center"
         style={{ backgroundColor: "#F2F0FF" }}
-      >        
+      >
         {renderPage()}
       </div>
     </div>

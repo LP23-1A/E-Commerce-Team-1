@@ -86,7 +86,7 @@ export default function OrderDetails({params,}: {params: { orderId: string };
                     const day = String(date.getDate()).padStart(2, '0');
                     return `${year}-${month}-${day}`;
                 }
-                
+
                 const inputDate = el.createdAt;
                 const formattedDate = formatDate(inputDate);
 
@@ -135,7 +135,7 @@ export default function OrderDetails({params,}: {params: { orderId: string };
                         }
                         const formattedAmount = formatCurrency(el.price);
                         const finalPrice = el.price*el.quantity;
-                        const formattedPrice = formatCurrency(finalPrice);                        
+                        const formattedPrice = formatCurrency(finalPrice);
 
                         return(
                             <div key={el._id} className="flex flex-col gap-[20px]">

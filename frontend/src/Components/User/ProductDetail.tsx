@@ -16,7 +16,7 @@ export default function detail() {
   const { data, error } = useSWR(`${api}/${productId}`, async (url) => {
     const res = await axios.get(url);
     return res.data;
-  });  
+  });
 
   if (error) return <div>Error fetching data</div>;
   if (!data) return <div>Loading...</div>;
@@ -25,7 +25,7 @@ export default function detail() {
     const repeatedProductIndex = productData.findIndex(
       (el: any) => el._id === comingId
     );
-    
+
     if (repeatedProductIndex !== -1) {
       setProductData(
         productData.map((el: any, index: number) =>
@@ -36,7 +36,7 @@ export default function detail() {
       setProductData([...productData, { _id: comingId, count: 1 }]);
     }
   };
-  
+
   return (
     <div className="flex pl-[360px] p-4 gap-16">
       <div className="flex flex-col gap-4">

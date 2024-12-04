@@ -24,7 +24,7 @@ export default function Order() {
     setSelectedState(name);
   };
 
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +38,7 @@ export default function Order() {
 
     fetchData();
   }, []);
-  
+
   useEffect(() => {
     if (selectedState) {
       const filteredData = order.filter((el) => el.status === selectedState);

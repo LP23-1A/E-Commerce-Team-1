@@ -47,7 +47,7 @@ export default function SpecialProduct() {
         <div className="flex flex-row gap-[20px] w-[full] justify-center items-center mt-[50px]">
           {[...Array(4)].map((_, index) => (
              <button key={index} className="w-[91px] h-[4px] rounded-3xl bg-pink-200 hover:bg-pink-500 hover:scale-125 transition-transform duration-300"></button>
-          ))}                                    
+          ))}
         </div>
       </div>
     </div>

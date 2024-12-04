@@ -24,7 +24,7 @@ export default function Inco() {
       let ress = await axios.get(API2);
       amount.current = ress.data.data.incomeData[0].amountPaid;
     };
-  
+
     useEffect(() => {
       dashboardHandler();
     }, []);

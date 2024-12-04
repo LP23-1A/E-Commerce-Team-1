@@ -8,7 +8,7 @@ export default function Datefilter({ setFiltereOrderData, order }: any) {
   const now = new Date();
   const today: number = now.getDate();
   const sevenDaysAgo = today - 7;
-  const [buttonActive, setButtonActive] = useState(today);  
+  const [buttonActive, setButtonActive] = useState(today);
 
   const handleActiveButton = (dates: number) => {
     setButtonActive(dates);
@@ -74,7 +74,7 @@ export default function Datefilter({ setFiltereOrderData, order }: any) {
         <select
           onChange={(event) => filterByMonths(event.target.value)}>
           <option value="">Сараар</option>
-          {OrderFilters.map((el, i) => {            
+          {OrderFilters.map((el, i) => {
             return <option
               value={el.value}
               key={i}>{el.month}
@@ -86,4 +86,3 @@ export default function Datefilter({ setFiltereOrderData, order }: any) {
     </div>
   );
 }
-

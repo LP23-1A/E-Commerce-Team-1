@@ -8,7 +8,7 @@ import { product } from "./router/Product";
 import { user } from "../src/router/user";
 import { savedProduct } from "./router/savedProducts";
 import { DashboardSum } from "./router/dashboard";
-import { OTP } from "./router/otpRoutes"; 
+import { OTP } from "./router/otpRoutes";
 
 dotenv.config();
 

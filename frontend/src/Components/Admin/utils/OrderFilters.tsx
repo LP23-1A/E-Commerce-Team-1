@@ -48,4 +48,3 @@ export const OrderFilters = [
         value: '12'
     },
 ];
-
