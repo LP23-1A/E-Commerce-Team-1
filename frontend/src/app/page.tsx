@@ -1,8 +1,10 @@
-"use client";
-import Carousel from "@/Components/User/Carousel";
-import Footer from "@/Components/User/Footer";
-import NavbarClient from "@/Components/User/NavbarClient";
-import SpecialProduct from "@/Components/User/SpecialProduct";
+"use client"
+import SignUp from "./SignUp/page";
+import Navbar from "@/Components/Navbar";
+import Sidebar from "../Components/Sidebar";
+import Product from "@/app/Product/page";
+import OrderDetails from "./OrderDetails/page";
+import Order from "./Order/page";
 
 export default function Home() {
   return (
