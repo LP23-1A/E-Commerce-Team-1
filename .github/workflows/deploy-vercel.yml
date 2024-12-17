@@ -1,4 +1,4 @@
-name: Delpoy to Vercel
+name: Deploy to Vercel
 
 on:
   push:
@@ -12,13 +12,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependency
+      - name: Install dependencies
         run: npm install
-        working-directory: ./frontend
 
-      - name: Build front
+      - name: Build front-end
         run: npm run build
-        working-directory: ./frontend
 
       - name: Deploying to Vercel
         uses: amondnet/vercel-action@v20
