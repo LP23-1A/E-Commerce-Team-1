@@ -1,13 +1,14 @@
 "use client";
-import Sidebar from "@/Components/Sidebar";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Status from "@/Components/Status";
-import Datefilter from "@/Components/DateFilter";
-import TitleOrders from "@/Components/TitlesOrder";
-import { statesOfOrder } from "@/Components/utils/StatesOfOrder";
+
 import { Toaster, toast } from "react-hot-toast";
+import Sidebar from "@/Components/Admin/Sidebar";
+import Datefilter from "@/Components/Admin/DateFilter";
+import TitleOrders from "@/Components/Admin/TitlesOrder";
+import Status from "@/Components/Admin/Status";
 
 export default function Order() {
   interface Order {

@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import OrderIcon from "../../Components/Icon/OrderIcon";
-import SaveIcon from "../../Components/Icon/Save";
-import UserIcon from "../../Components/Icon/User";
-import UserBlackIcon from "../../Components/Icon/UserBlackIcon";
+// import OrderIcon from "../../Components/Icon/OrderIcon";
+// import SaveIcon from "../../Components/Icon/Save";
+// import UserIcon from "../../Components/Icon/User";
+// import UserBlackIcon from "../../Components/Icon/UserBlackIcon";
 import axios from "axios";
-import Sidebar from "@/Components/Sidebar";
+// import Sidebar from "@/Components/Sidebar";
 
 const API = "http://localhost:8002/order/get";
 
@@ -27,7 +27,7 @@ export default function Inco() {
   
   return (
     <div className="flex">
-      <Sidebar/>
+      {/* <Sidebar/> */}
       <div className="bg-[#ECEDF0] pl-[121px] pr-[200px] w-[100vw] h-[100vh] pt-[1.5rem] gap-[8px] flex flex-col">
       <div className="grid grid-cols-1 divide-y border-[1px] border-[#F7F7F8] rounded-[12px] bg-[#FFFFFF]">
         <div className="flex justify-between p-[32px] ">
@@ -35,7 +35,7 @@ export default function Inco() {
             Орлого
           </h1>
           <button className="flex items-center text-[14px] text-[#121316] font-semibold gap-[4px] rounded-[8px] border-[1px] bg-[#1C20240A] px-[12px] py-[8px]">
-            <SaveIcon />
+            {/* <SaveIcon /> */}
             Хуулга татах
           </button>
         </div>

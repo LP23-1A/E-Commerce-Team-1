@@ -3,12 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 import { UserContext } from "@/Components/UserContext";
-import PineConeSVG from "@/Components/SVG/PineCone";
-import ButtonGoogle from "@/Components/ButtonGoogle";
-import ButtonMicrosoft from "@/Components/ButtonMicrosoft";
-import ButtonApple from "@/Components/ButtonApple";
-import AlreSignedUp from "@/Components/Alre-SignedUp";
-import GoogleSignIn from "@/Components/GoogleSignIn";
+
 
 const USEREMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const USERNAME_REGEX = /^[A-Z].{2,}$/;
@@ -77,7 +72,7 @@ export default function SignUp() {
   return (
     <>
       <div className="flex w-full flex-row justify-between">
-        <PineConeSVG />
+        {/* <PineConeSVG /> */}
         <div className="flex justify-center w-full items-center pr-[250px]">
           <div className="w-[440px] rounded-xl mt-[160px] p-[40px] h-[fit-content] border border-solid border-gray-300 border-1">
             <p className="flex font-bold text-3xl justify-center w-[360px] h-[60px] pb-5 ">
@@ -123,17 +118,17 @@ export default function SignUp() {
             </button>
             <Toaster position="top-center" />
             <div className="border border-solid border-grey-300 w-[360px] mt-6"></div>
-            <ButtonGoogle />
+            {/* <ButtonGoogle />
             <ButtonMicrosoft />
-            <ButtonApple />
+            <ButtonApple /> */}
             <div className="border border-solid border-grey-300 w-[360px] mt-10"></div>
-            <AlreSignedUp />
+            {/* <AlreSignedUp /> */}
             <p className="absolute mt-[100px] ml-[100px] text-slate-400">
               © 2023 Pinecone
             </p>
           </div>
         </div>
-        <GoogleSignIn />
+        {/* <GoogleSignIn /> */}
       </div>
     </>
   );

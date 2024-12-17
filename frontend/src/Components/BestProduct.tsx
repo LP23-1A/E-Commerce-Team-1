@@ -1,5 +1,5 @@
-import Bullet from "./Icon/BulletIcon";
-import SettingsIcon from "./Icon/SettingsIcon";
+// import Bullet from "./Icon/BulletIcon";
+// import SettingsIcon from "./Icon/SettingsIcon";
 
 const data = [
   {
@@ -25,7 +25,7 @@ export default function Product() {
     <div className="px-[24px] py-[16px] bg-[#FFFFFF] w-[100%] rounded-[12px] flex flex-col gap-[12px]">
       <div className="flex justify-between items-center">
         <h1 className="font-semibold text-[18px]">Шилдэг бүтээгдэхүүн</h1>
-        <Bullet />
+        {/* <Bullet /> */}
       </div>
       <div>
         <div className="bg-[#ECEDF0] flex justify-between px-[24px] py-[16px]">
@@ -43,7 +43,7 @@ export default function Product() {
                   tooo
                 </p>
                 <div className=" flex items-center gap-[12px] px-[8px] py-[12px]">
-                  <SettingsIcon />
+                  {/* <SettingsIcon /> */}
                   <div>
                     <p className="text-[#121316] font-semibold text-[14px]">
                       WOMEN'S HORSEBIT MULE

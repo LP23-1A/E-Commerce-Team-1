@@ -15,7 +15,3 @@ export default function UserBlackIcon() {
       </svg>
     );
   }
-<<<<<<< HEAD:frontend/src/Components/Icon/UserBlackIcon.tsx
-  
-=======
->>>>>>> main:frontend/src/Components/Admin/Icon/UserBlackIcon.tsx

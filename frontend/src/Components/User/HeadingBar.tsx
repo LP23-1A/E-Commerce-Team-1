@@ -7,6 +7,10 @@ import { CartContexForProduct } from "./CartContext";
 
 export default function HeadingBar() {
   const { productData } = useContext(CartContexForProduct);
+  if (typeof window !== "undefined") {
+    // Now you can safely use `window` here
+    console.log(window.innerWidth);
+  }
   const [currentUrl, setCurrentUrl] = useState(window.location.href);
   const router = useRouter();
 
