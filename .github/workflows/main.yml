@@ -1,4 +1,4 @@
-name: Test WorkFlow
+name: This is Awesome
 
 on: [push]
 
