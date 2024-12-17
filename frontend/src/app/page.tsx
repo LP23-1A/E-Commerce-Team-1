@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import SignUp from "./SignUp/page";
 import Navbar from "@/Components/Navbar";
 import Sidebar from "../Components/Sidebar";
@@ -9,7 +9,10 @@ import Order from "./Order/page";
 export default function Home() {
   return (
     <div>
-      <Order />
+      <NavbarClient/>
+      <Carousel />
+      <SpecialProduct/>
+      <Footer/>
     </div>
   );
 }

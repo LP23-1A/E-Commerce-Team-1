@@ -1,0 +1,81 @@
+.hoverRotate {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.3 ease-in-out;
+  transform: rotate(45deg);
+}
+
+.hoverRotate:hover {
+  transform: rotate(480deg);
+  transition-duration: 0.5s;
+  perspective: 1000px;
+}
+
+.hoverRotate:active {
+  transform: scale(0.95) rotate(45deg);
+}
+
+.btn-flip {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
+
+.btn-flip > div {
+  position: absolute;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.btn-flip > .back {
+  transform: rotateX(180deg);
+  opacity: 0;
+}
+
+.btn-flip:hover > .front {
+  transform: rotateX(180deg);
+  opacity: 0;
+}
+
+.btn-flip:hover > .back {
+  transform: rotateX(0deg);
+  opacity: 1;
+}
+
+.flip-horizontol {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+}
+
+.flip-horizontol > div {
+  position: absolute;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.flip-horizontol > .back {
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+
+.flip-horizontol:hover > .front {
+  transform: rotateY(180deg);
+  opacity: 0;
+}
+
+.flip-horizontol:hover > .back {
+  transform: rotateY(0deg);
+  opacity: 1;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: #000;
+}
+.off {
+  color: #ccc;
+}

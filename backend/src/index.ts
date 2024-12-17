@@ -1,4 +1,4 @@
-import { connectDataBase } from "./utils/Database";
+import { connectDataBase } from "./utils/database";
 import { order } from "./router/order";
 import { product } from "./router/Product";
 import { user } from "../src/router/user";
@@ -6,7 +6,6 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bp from "body-parser";
-import { Income } from "./router/income";
 
 dotenv.config();
 
@@ -23,7 +22,6 @@ app.use(cors());
 app.use('/user', user)
 app.use("/product", product)
 app.use('/order',order);
-app.use("/Income", Income);
 
 app.get("/", (_, res) => {
   res.status(200).send({

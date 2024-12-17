@@ -6,6 +6,7 @@ const ProductSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
   },
   price: Number,
+  productCode: String,
   quantity: Number,
   thumbnails: String,
   images: String,
@@ -13,6 +14,9 @@ const ProductSchema = new mongoose.Schema({
   salePercent: Number,
   description: String,
   viewsCount: Number,
+  category: String,
+  subCategory: String,
+  counter: Number,
   createdAt: {
     type: Date,
     default: () => Date.now(),
