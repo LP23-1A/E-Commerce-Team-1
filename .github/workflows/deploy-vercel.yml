@@ -14,9 +14,11 @@ jobs:
 
       - name: Install dependency
         run: npm install
+        working-directory: ./frontend
 
       - name: Build front
         run: npm run build
+        working-directory: ./frontend
 
       - name: Deploying to Vercel
         uses: amondnet/vercel-action@v20
